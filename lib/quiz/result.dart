@@ -18,16 +18,19 @@ class Result extends StatelessWidget {
     String resultText;
     final score = num.parse(resultScore.toStringAsFixed(2));
 
-    if (score <= 10.00) {
+    if (score <= 5.00) {
       resultText =
-      'You tried it and scored $score points! \n Want to try again?';
-    } else if (score > 15.00 && score <= 25.00) {
+      'Try your best next time! \n But have a good day!';
+    }
+    // else if (score > 15.00 && score <= 25.00) {
+    //   resultText =
+    //   'You did it and scored $score points! \n Want to try again?';
+    // }
+    else if (score > 5.00 && score <= 2000.00) {
       resultText =
-      'You did it and scored $score points! \n Want to try again?';
-    } else if (score > 25.00 && score <= 40.00) {
-      resultText =
-      'You got it and scored $score points! \n Want to try again?';
-    } else {
+      'You answered right! \n Have a good day!';
+    }
+    else {
       resultText =
       'You nailed it and scored $score points! \n Want to try again?';
     }
@@ -62,7 +65,7 @@ class Result extends StatelessWidget {
                       intensity: 0.7,
                     ),
                     child: Text(
-                      'Try again',
+                      'Close',
                       style: boldTextStyle(
                           size: 16, textColor: CustomColors.sdPrimaryColor, letterSpacing: 2),
                     ),

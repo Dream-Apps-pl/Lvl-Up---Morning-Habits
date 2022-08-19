@@ -1,5 +1,3 @@
-import 'package:wakeup/constants/theme_data.dart';
-// import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -80,6 +78,8 @@ class AlarmListScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       addAlarm(context, _manager);
+
+
                     },
                   ),
                 ],
@@ -96,21 +96,24 @@ class AlarmListScreen extends StatelessWidget {
     );
   }
 
+
+
   void addAlarm(context, _manager) {
     TimeOfDay tod = TimeOfDay.fromDateTime(DateTime.now());
+
     final newAlarm = ObservableAlarm.dayList(
         alarms.alarms.length,
         'New Alarm',
         tod.hour,
         tod.minute,
-        0.7,
+        0.9,
         false,
         true,
         List.filled(7, false),
         ObservableList<String>.of([]), <String>[]);
+
         alarms.alarms.add(newAlarm);
-        Navigator.push(context, MaterialPageRoute(builder: (context) => EditAlarm(alarm: newAlarm, manager: _manager,),
-      ),
-    );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => EditAlarm(alarm: newAlarm, manager: _manager,),),);
+
   }
 }

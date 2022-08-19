@@ -20,49 +20,192 @@ class _StartQuizState extends State<StartQuiz> {
   static const _data = [
     {
       'questionText':
-      'Flutter is an _____ mobile aplication development framework developed by Google.',
+      'Who was the first woman to win a Nobel Prize (in 1903)?',
       'answers': [
-        {'text': 'Open-source', 'score': 9.73},
-        {'text': 'Shareware', 'score': 4.61},
-        {'text': 'Both', 'score': 1.95},
-        {'text': 'None of the above', 'score': 0.00},
+        {'text': 'Simone de Beauvoir', 'score': 0.00},
+        {'text': 'Marie Curie', 'score': 10.00},
+        {'text': 'Margaret Thatcher', 'score': 0.00},
+        {'text': 'Marilyn vos Savant', 'score': 0.00},
       ]
     },
     {
       'questionText':
-      'Flutter apps are written in the _____ language and make use of many advanced features of this language.',
+      'What is the rarest M&M color?',
       'answers': [
-        {'text': 'Java', 'score': 2.3},
-        {'text': 'HTML', 'score': 0.32},
-        {'text': 'JavaScript', 'score': 3.00},
-        {'text': 'Dart', 'score': 9.98},
+        {'text': 'Red', 'score': 0.00},
+        {'text': 'Yellow', 'score': 0.00},
+        {'text': 'Brown', 'score': 10.00},
+        {'text': 'Green', 'score': 0.00},
       ]
     },
     {
-      'questionText': 'Which of the following widgets is used for layouts?',
+      'questionText':
+      'Which country consumes the most chocolate per capita?',
       'answers': [
-        {'text': 'Text', 'score': 0.64},
-        {'text': 'Column', 'score': 10.00},
-        {'text': 'Inkwell', 'score': 3.28},
-        {'text': 'Expanded', 'score': 1.02}
+        {'text': 'United States', 'score': 0.00},
+        {'text': 'France', 'score': 0.00},
+        {'text': 'Belgium', 'score': 0.00},
+        {'text': 'Switzerland', 'score': 10.00}
       ]
     },
     {
-      'questionText': 'When was Flutter first described?',
+      'questionText':
+      'What was the first toy to be advertised on television?',
       'answers': [
-        {'text': '2012', 'score': 0.12},
-        {'text': '2013', 'score': 2.13},
-        {'text': '2017', 'score': 6.42},
-        {'text': '2015', 'score': 9.99}
+        {'text': 'Lego', 'score': 0.00},
+        {'text': 'Monopoly', 'score': 0.00},
+        {'text': 'Star wars figurine', 'score': 0.00},
+        {'text': 'Mr Potato Head', 'score': 10.00}
       ]
     },
     {
-      'questionText': 'When was Flutter released?',
+      'questionText':
+      'What is the loudest animal on Earth?',
       'answers': [
-        {'text': '2016', 'score': 5.53},
-        {'text': '2017', 'score': 10.00},
-        {'text': '2013', 'score': 2.47},
-        {'text': '2019', 'score': 2.35}
+        {'text': 'Tiger Pistol Shrimp', 'score': 0.00},
+        {'text': 'Howler Monkeys', 'score': 0.00},
+        {'text': 'Sperm Whale', 'score': 10.00},
+        {'text': 'Elephant', 'score': 0.00}
+      ]
+    },
+    {
+      'questionText':
+      'In a website browser address bar, what does “www” stand for?',
+      'answers': [
+        {'text': 'Web wise web', 'score': 0.00},
+        {'text': 'World Wide Web', 'score': 10.00},
+        {'text': 'Website wide web', 'score': 0.00},
+        {'text': 'World web worker', 'score': 0.00}
+      ]
+    },
+    {
+      'questionText':
+      'What percentage of a pandas diet is bamboo?',
+      'answers': [
+        {'text': '25%', 'score': 0.00},
+        {'text': '49%', 'score': 0.00},
+        {'text': '75%', 'score': 0.00},
+        {'text': '99%', 'score': 10.00}
+      ]
+    },
+    {
+      'questionText':
+      'What TV series showed the first interracial kiss on American network television?',
+      'answers': [
+        {'text': 'The office', 'score': 0.00},
+        {'text': 'Saturday Night Live', 'score': 0.00},
+        {'text': 'Seinfeld', 'score': 0.00},
+        {'text': 'Star Trek', 'score': 10.00}
+      ]
+    },
+    {
+      'questionText':
+      'How many legs does a spider have?',
+      'answers': [
+        {'text': '6', 'score': 0.00},
+        {'text': '8', 'score': 10.00},
+        {'text': '10', 'score': 0.00},
+        {'text': '4', 'score': 0.00}
+      ]
+    },
+    {
+      'questionText':
+      'Coconut water can be used as what in the case of medical emergencies?',
+      'answers': [
+        {'text': 'Blood plasma', 'score': 10.00},
+        {'text': 'Disinfectant', 'score': 0.00},
+        {'text': 'Rehydration', 'score': 0.00},
+        {'text': 'Pain killer', 'score': 0.00}
+      ]
+    },
+    {
+      'questionText':
+      'What is the most consumed manufactured drink in the world?',
+      'answers': [
+        {'text': 'Tea', 'score': 10.00},
+        {'text': 'Soft drinks', 'score': 0.00},
+        {'text': 'Alcohol', 'score': 0.00},
+        {'text': 'Milk', 'score': 0.00}
+      ]
+    },
+    {
+      'questionText':
+      'What animal has the longest lifespan?',
+      'answers': [
+        {'text': 'Greenland shark', 'score': 10.00},
+        {'text': 'Galapagos Giant Tortoise', 'score': 0.00},
+        {'text': 'American lobster', 'score': 0.00},
+        {'text': 'Bowhead whale', 'score': 0.00}
+      ]
+    },
+    {
+      'questionText':
+      'In which city was Anne Frank’s hiding place?',
+      'answers': [
+        {'text': 'Paris', 'score': 0.00},
+        {'text': 'Amsterdam', 'score': 10.00},
+        {'text': 'Berlin', 'score': 0.00},
+        {'text': 'Brussels', 'score': 0.00}
+      ]
+    },
+    {
+      'questionText':
+      'Which country produces the most coffee in the world?',
+      'answers': [
+        {'text': 'Indonesia', 'score': 0.00},
+        {'text': 'Colombia', 'score': 0.00},
+        {'text': 'Brazil', 'score': 10.00},
+        {'text': 'Vietnam', 'score': 0.00}
+      ]
+    },
+    {
+      'questionText':
+      'Who was the first female artist in history to have four consecutive singles from one album reach the top-5 in the Billboard Hot 100?',
+      'answers': [
+        {'text': 'Ariana Grande', 'score': 0.00},
+        {'text': 'Whitney Houston', 'score': 0.00},
+        {'text': 'Taylor Swift', 'score': 0.00},
+        {'text': 'Cindy Lauper', 'score': 10.00}
+      ]
+    },
+    {
+      'questionText':
+      'What was the name of Paris Hilton and Nicole Richie\'s reality show?',
+      'answers': [
+        {'text': 'The Simple Life', 'score': 10.00},
+        {'text': 'Rich Girls', 'score': 0.00},
+        {'text': 'Paris and Nicole: The Ultimate BFFs', 'score': 0.00},
+        {'text': 'Farm work', 'score': 0.00}
+      ]
+    },
+    {
+      'questionText':
+      'Which country invented ice cream?',
+      'answers': [
+        {'text': 'France', 'score': 0.00},
+        {'text': 'Italy', 'score': 0.00},
+        {'text': 'Canada', 'score': 0.00},
+        {'text': 'China', 'score': 10.00}
+      ]
+    },
+    {
+      'questionText':
+      'What was the name of the MP3 player that Microsoft released to rival the iPod?',
+      'answers': [
+        {'text': 'Zune', 'score': 10.00},
+        {'text': 'Win-Player', 'score': 0.00},
+        {'text': 'The M', 'score': 0.00},
+        {'text': 'Mpod', 'score': 0.00}
+      ]
+    },
+    {
+      'questionText':
+      'NextQuestion',
+      'answers': [
+        {'text': 'one', 'score': 0.00},
+        {'text': 'two', 'score': 0.00},
+        {'text': 'tree', 'score': 10.00},
+        {'text': 'four', 'score': 0.00}
       ]
     }
   ];
@@ -104,7 +247,7 @@ class _StartQuizState extends State<StartQuiz> {
           // ),
           body: Align(
               alignment: Alignment.center,
-              child: (_indexQuestion <= 4 && _indexQuestion >= 0)
+              child: (_indexQuestion <= 18 && _indexQuestion >= 0)
                   ? Quiz(
                   answerQuestion: _answerQuestion,
                   indexQuestion: _indexQuestion,

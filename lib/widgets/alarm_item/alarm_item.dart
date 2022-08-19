@@ -77,17 +77,47 @@ class AlarmItem extends StatelessWidget {
                   ),
                 ),
                 Flexible(
-                  flex: 1,
-                  child: NeumorphicSwitch(
-                    value: alarm.active!,
-                    onChanged: (value) {
-                      alarm.active = !alarm.active!;
-                    },
-                    style: NeumorphicSwitchStyle(
-                      activeTrackColor: Colors.green,
-                      inactiveTrackColor: CustomColors.sdShadowDarkColor,
+                  flex: 4,
+                  child: Text(
+                    "<--Delete-->",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style:
+                    TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: CustomColors.sdPrimaryColor,
+                      fontSize: 20,
                     ),
                   ),
+                  // NeumorphicButton(
+                  //   padding: EdgeInsets.all(10),
+                  //   style: NeumorphicStyle(
+                  //     boxShape: NeumorphicBoxShape.circle(),
+                  //     shape: NeumorphicShape.flat,
+                  //     depth: 3,
+                  //     intensity: 0.7,
+                  //   ),
+                  //   child:
+                  //   // Icon(
+                  //   //   Icons.arrow_left,
+                  //   //   color: CustomColors.sdPrimaryColor,
+                  //   //   size: 25,
+                  //   // ),
+                  //   // onPressed: () {
+                  //   //
+                  //   // },
+                  //
+                  // ),
+                  // NeumorphicSwitch(
+                  //   value: alarm.active!,
+                  //   onChanged: (value) {
+                  //     alarm.active = !alarm.active!;
+                  //   },
+                  //   style: NeumorphicSwitchStyle(
+                  //     activeTrackColor: Colors.green,
+                  //     inactiveTrackColor: CustomColors.sdShadowDarkColor,
+                  //   ),
+                  // ),
                 )
               ],
             ),

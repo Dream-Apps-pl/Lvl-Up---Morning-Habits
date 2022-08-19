@@ -31,6 +31,7 @@ class MyAppState extends State<AlarmScreen> {
 
   MyAppState({Key? key, required this.alarm}) : super();
 
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(
@@ -85,14 +86,12 @@ class MyAppState extends State<AlarmScreen> {
             ),
           ),
           RoundedButton("Start Today", fontSize: 55, onTap: () async {
-            mediaHandler.stopMusic();
+            //mediaHandler.stopMusic();
             Wakelock.disable();
-
             AlarmStatus().isAlarm = false;
             AlarmStatus().alarmId = -1;
             // Navigator.of(context).pop();
-            Navigator.push(
-              context, MaterialPageRoute(builder: (context) => StartQuiz()),);
+            Navigator.push(context, MaterialPageRoute(builder: (context) => StartQuiz()),);
             //await dismissCurrentAlarm();
           }),
           // SizedBox(
@@ -130,7 +129,7 @@ class MyAppState extends State<AlarmScreen> {
   }
 
   Future<void> dismissCurrentAlarm() async {
-    mediaHandler.stopMusic();
+    //mediaHandler.stopMusic();
     Wakelock.disable();
 
     AlarmStatus().isAlarm = false;

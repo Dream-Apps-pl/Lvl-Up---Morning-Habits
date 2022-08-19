@@ -24,6 +24,7 @@ class EditAlarm extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+
         print('onWillPop $alarm');
         await manager!.saveAlarm(alarm!);
         await AlarmScheduler().scheduleAlarm(alarm!);
@@ -52,7 +53,7 @@ class EditAlarm extends StatelessWidget {
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: <Widget>[
-                      EditAlarmHead(alarm: this.alarm!),
+                      //EditAlarmHead(alarm: this.alarm!),
                       Divider(),
                       EditAlarmTime(alarm: this.alarm!), //Time edite
                       //Divider(),
@@ -64,7 +65,9 @@ class EditAlarm extends StatelessWidget {
                       ),
                       //EditAlarmMusic(alarm: this.alarm!),
                       Divider(),
-                      Row(children: [
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
                         //Expanded(child: EditAlarmSlider(alarm: this.alarm!)),
                         SimpleButton("Done", onPressed: () async {
                           await manager!.saveAlarm(alarm!);
