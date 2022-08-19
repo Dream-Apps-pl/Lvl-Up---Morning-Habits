@@ -32,7 +32,7 @@ class _ClockScreenState extends State<ClockScreen> {
             flex: 1,
             fit: FlexFit.tight,
             child: NeumorphicText(
-              "Wake Up",
+              "Clock",
               style: NeumorphicStyle(
                 depth: 3,
                 intensity: 14,

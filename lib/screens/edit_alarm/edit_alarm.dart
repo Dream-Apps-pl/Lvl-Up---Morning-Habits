@@ -54,7 +54,7 @@ class EditAlarm extends StatelessWidget {
                     children: <Widget>[
                       EditAlarmHead(alarm: this.alarm!),
                       Divider(),
-                      EditAlarmTime(alarm: this.alarm!),
+                      EditAlarmTime(alarm: this.alarm!), //Time edite
                       //Divider(),
                       //text("repeat", fontSize: CustomFontSize.textSizeSmall),
                       //EditAlarmDays(alarm: this.alarm!),

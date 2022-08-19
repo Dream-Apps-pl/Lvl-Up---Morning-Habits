@@ -11,10 +11,14 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 
+import '../../quiz/start_quiz.dart';
+
 // import '../main.dart';
 List<MenuInfo> menuItems = [
-  MenuInfo(MenuType.clock, title: 'Clock', icon: Icons.timelapse),
   MenuInfo(MenuType.alarm, title: 'Alarm', icon: Icons.alarm),
+  MenuInfo(MenuType.clock, title: 'Clock', icon: Icons.timelapse),
+  MenuInfo(MenuType.quiz, title: 'Quiz', icon: Icons.quiz),
+
 ];
 
 class MainScreen extends StatefulWidget {
@@ -36,7 +40,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]); // fullscreen
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []); // fullscreen
     return Scaffold(
       // backgroundColor: CustomColors.pageBackgroundColor,
       body: Column(
@@ -44,10 +48,12 @@ class _MainScreenState extends State<MainScreen> {
           Expanded(
             child: Consumer<MenuInfo>(
               builder: (BuildContext context, MenuInfo value, Widget? child) {
-                if (value.menuType == MenuType.clock)
-                  return ClockScreen();
-                else if (value.menuType == MenuType.alarm)
+                if (value.menuType == MenuType.alarm)
                   return AlarmListScreen(alarms: widget.alarms);
+                else if (value.menuType == MenuType.clock)
+                return ClockScreen();
+                else if (value.menuType == MenuType.quiz)
+                  return StartQuiz();
                 else
                   return Container(
                     child: RichText(

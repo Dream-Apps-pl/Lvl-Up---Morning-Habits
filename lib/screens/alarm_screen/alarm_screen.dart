@@ -1,4 +1,5 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:wakeup/constants/theme_data.dart';
 import 'package:wakeup/services/alarm_scheduler.dart';
 import 'package:wakeup/utils/widget_helper.dart';
@@ -11,17 +12,29 @@ import 'package:wakeup/widgets/rounded_button.dart';
 import 'package:wakelock/wakelock.dart';
 
 import '../../main.dart';
+import '../../quiz/start_quiz.dart';
 import '../main/clock_screen.dart';
 
-class AlarmScreen extends StatelessWidget {
-  final ObservableAlarm? alarm;
+final assetsAudioPlayer = AssetsAudioPlayer();
 
+class AlarmScreen extends StatefulWidget {
+  final ObservableAlarm? alarm;
   const AlarmScreen({Key? key, required this.alarm}) : super(key: key);
 
+  @override
+  MyAppState createState() => MyAppState(alarm: alarm);
+
+}
+
+class MyAppState extends State<AlarmScreen> {
+  final ObservableAlarm? alarm;
+
+  MyAppState({Key? key, required this.alarm}) : super();
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]); // fullscreen
+    SystemChrome.setEnabledSystemUIMode(
+        SystemUiMode.manual, overlays: []); // fullscreen
     final now = DateTime.now();
     final format = DateFormat('Hm');
     final snoozeTimes = [5, 10, 15, 20];
@@ -71,34 +84,17 @@ class AlarmScreen extends StatelessWidget {
               ),
             ),
           ),
-          MaterialButton(
-            onPressed: () async {
+          RoundedButton("Start Today", fontSize: 55, onTap: () async {
+            mediaHandler.stopMusic();
+            Wakelock.disable();
 
-              mediaHandler.stopMusic();
-              Wakelock.disable();
-              AlarmStatus().isAlarm = false;
-              AlarmStatus().alarmId = -1;
-              Navigator.pushNamed(context, '/clock');
-
-            },
-            color: const Color(0xffffffff),
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24.0),
-            ),
-            padding: const EdgeInsets.all(16),
-            textColor: const Color(0xff3a57e8),
-            height: 5,
-            minWidth: MediaQuery.of(context).size.width * 0.5,
-            child: const Text(
-              "Start Quiz!",
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                fontStyle: FontStyle.normal,
-              ),
-            ),
-          ),
+            AlarmStatus().isAlarm = false;
+            AlarmStatus().alarmId = -1;
+            // Navigator.of(context).pop();
+            Navigator.push(
+              context, MaterialPageRoute(builder: (context) => StartQuiz()),);
+            //await dismissCurrentAlarm();
+          }),
           // SizedBox(
           //   height: 0,
           // ),
@@ -124,9 +120,10 @@ class AlarmScreen extends StatelessWidget {
           SizedBox(
             height: 45,
           ),
-          RoundedButton("Dismiss", fontSize: 45, onTap: () async {
-            await dismissCurrentAlarm();
-          }),
+          // RoundedButton("Stop Music", fontSize: 45, onTap: () async {
+          //   mediaHandler.stopMusic();
+          //   //await dismissCurrentAlarm();
+          // }),
         ],
       ),
     );
@@ -141,17 +138,6 @@ class AlarmScreen extends StatelessWidget {
     SystemNavigator.pop();
   }
 
-  void goToQuiz() async {
-    mediaHandler.stopMusic();
-    Wakelock.disable();
-
-    AlarmStatus().isAlarm = false;
-    AlarmStatus().alarmId = -1;
-    //SystemNavigator.pop();
-    //Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()),);
-    //Navigator.pushNamed(context, '/clock');
-  }
-
   Future<void> rescheduleAlarm(int minutes) async {
     // Re-schedule alarm
     var checkedDay = DateTime.now();
@@ -161,4 +147,137 @@ class AlarmScreen extends StatelessWidget {
         .newShot(targetDateTime.add(Duration(minutes: minutes)), alarm!.id!);
     dismissCurrentAlarm();
   }
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
+
+    super.initState();
+
+    openPlayer();
+  }
+
+  var _currentAssetPosition = -1;
+
+  late AssetsAudioPlayer _assetsAudioPlayer;
+
+
+  void openPlayer() async {
+
+    int x = DateTime.now().weekday - 1;
+    //await _assetsAudioPlayer.playlistPlayAtIndex();
+
+    await _assetsAudioPlayer.open(
+        Playlist(audios: audios, startIndex: x),
+        showNotification: true,
+        autoStart: true,
+        loopMode: LoopMode.single
+    );
+
+  }
+
+  void _playPause() {
+    _assetsAudioPlayer.playOrPause();
+  }
+
+  @override
+  void dispose() {
+    _assetsAudioPlayer.stop();
+    super.dispose();
+  }
+
+  Audio find(List<Audio> source, String fromPath) {
+    return source.firstWhere((element) => element.path == fromPath);
+  }
+
+
+  //final List<StreamSubscription> _subscriptions = [];
+  final audios = <Audio>[
+
+    Audio(
+      'assets/audios/1.mp3',
+      //playSpeed: 2.0,
+      metas: Metas(
+        id: 'Monday',
+        title: 'Monday',
+        artist: 'Wake Up Alarm',
+        album: 'Wake Up',
+        image: const MetasImage.network(
+            'https://static.radio.fr/images/broadcasts/cb/ef/2075/c300.png'),
+      ),
+    ),
+    Audio(
+      'assets/audios/2.mp3',
+      //playSpeed: 2.0,
+      metas: Metas(
+        id: 'Tuesday',
+        title: 'Tuesday',
+        artist: 'Wake Up Alarm',
+        album: 'Wake Up',
+        image: const MetasImage.network(
+            'https://static.radio.fr/images/broadcasts/cb/ef/2075/c300.png'),
+      ),
+    ),
+    Audio(
+      'assets/audios/3.mp3',
+      metas: Metas(
+        id: 'Wednesday',
+        title: 'Wednesday',
+        artist: 'Wake Up Alarm',
+        album: 'Wake Up',
+        image: const MetasImage.asset('assets/images/country.jpg'),
+      ),
+    ),
+    Audio(
+      'assets/audios/4.mp3',
+      metas: Metas(
+        id: 'Thursday',
+        title: 'Thursday',
+        artist: 'Wake Up Alarm',
+        album: 'Wake Up',
+        image: const MetasImage.network(
+            'https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/12/attachment_68585523.jpg'),
+      ),
+    ),
+    Audio(
+      'assets/audios/5.mp3',
+      metas: Metas(
+        id: 'Friday',
+        title: 'Friday',
+        artist: 'Wake Up Alarm',
+        album: 'Wake Up',
+        image: const MetasImage.network(
+            'https://beyoudancestudio.ch/wp-content/uploads/2019/01/apprendre-danser.hiphop-1.jpg'),
+      ),
+    ),
+    Audio(
+      'assets/audios/6.mp3',
+      metas: Metas(
+        id: 'Saturday',
+        title: 'Saturday',
+        artist: 'Wake Up Alarm',
+        album: 'Wake Up',
+        image: const MetasImage.network(
+            'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
+      ),
+    ),
+    Audio(
+      'assets/audios/7.mp3',
+      metas: Metas(
+        id: 'Sunday',
+        title: 'Sunday',
+        artist: 'Wake Up Alarm',
+        album: 'Wake Up',
+        image: const MetasImage.network(
+            'https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/12/attachment_68585523.jpg'),
+      ),
+    ),
+  ];
+
+
+
+
 }

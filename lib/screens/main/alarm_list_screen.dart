@@ -26,7 +26,7 @@ class AlarmListScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           NeumorphicText(
-            "Alarm",
+            "Wake Up",
             style: NeumorphicStyle(
               depth: 3,
               intensity: 14,
@@ -108,9 +108,8 @@ class AlarmListScreen extends StatelessWidget {
         true,
         List.filled(7, false),
         ObservableList<String>.of([]), <String>[]);
-    alarms.alarms.add(newAlarm);
-    Navigator.push(context,
-      MaterialPageRoute(builder: (context) => EditAlarm(alarm: newAlarm, manager: _manager,),
+        alarms.alarms.add(newAlarm);
+        Navigator.push(context, MaterialPageRoute(builder: (context) => EditAlarm(alarm: newAlarm, manager: _manager,),
       ),
     );
   }

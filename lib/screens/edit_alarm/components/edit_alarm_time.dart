@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:wakeup/constants/theme_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -7,6 +9,16 @@ class EditAlarmTime extends StatelessWidget {
   final ObservableAlarm alarm;
 
   const EditAlarmTime({Key? key, required this.alarm}) : super(key: key);
+
+  void showTPicker() async {
+    final time = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay(hour: alarm.hour!, minute: alarm.minute!));
+    if (time != null) {
+      alarm.hour = time.hour;
+      alarm.minute = time.minute;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
