@@ -17,7 +17,7 @@ import '../../quiz/start_quiz.dart';
 List<MenuInfo> menuItems = [
   MenuInfo(MenuType.alarm, title: 'Alarm', icon: Icons.alarm),
   MenuInfo(MenuType.clock, title: 'Clock', icon: Icons.timelapse),
-  //MenuInfo(MenuType.quiz, title: 'Quiz', icon: Icons.quiz),
+  MenuInfo(MenuType.quiz, title: 'Quiz', icon: Icons.quiz),
 
 ];
 
@@ -52,8 +52,8 @@ class _MainScreenState extends State<MainScreen> {
                   return AlarmListScreen(alarms: widget.alarms);
                 else if (value.menuType == MenuType.clock)
                 return ClockScreen();
-                // else if (value.menuType == MenuType.quiz)
-                //   return StartQuiz();
+                else if (value.menuType == MenuType.quiz)
+                  return StartQuiz();
                 else
                   return Container(
                     child: RichText(

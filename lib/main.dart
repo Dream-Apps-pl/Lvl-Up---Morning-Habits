@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:wakeup/quiz/start_quiz.dart';
 import 'package:wakeup/screens/main/alarm_list_screen.dart';
@@ -45,18 +44,28 @@ ScheduleNotifications notifications = ScheduleNotifications(
     appIcon: 'notification_logo');
 
 void main() async {
-
-  runApp(
-      Phoenix(
-        child: MyApp(),
-      ));
-
-  WidgetsFlutterBinding.ensureInitialized();
-
-  //Open Audio notification action
   AssetsAudioPlayer.setupNotificationsOpenAction((notification) {
     return true;
   });
+
+  runApp(Phoenix(
+          child: MyApp(),
+        ),
+    );
+  //     MaterialApp(
+  //     debugShowCheckedModeBanner: false,
+  //     initialRoute: 'home',
+  //     routes: {
+  //       'home': (_) => MainScreen(alarms: list,),
+  //       'clock': (_) => ClockScreen(),
+  //       'alarm': (_) => AlarmListScreen(alarms: list,),
+  //       'quiz': (_) => StartQuiz(),
+  //     }
+  // ));
+
+
+
+  WidgetsFlutterBinding.ensureInitialized();
 
 
   final alarms = await new JsonFileStorage().readList();
@@ -93,95 +102,11 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
 
-  @override
-  Widget build(BuildContext context) {
-    return NeumorphicApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Wake Up',
-      themeMode: ThemeMode.light,
-      theme: NeumorphicThemeData(
-          defaultTextColor: Color(0xFF303E57),
-          accentColor: Color(0xFF7B79FC),
-          variantColor: CustomColors.sdAppBackgroundColor,
-          baseColor: CustomColors.sdAppBackgroundColor, // Color(0xFFF8F9FC),
-          depth: 8,
-          intensity: 0.5,
-          lightSource: LightSource.topLeft),
-      home: Observer(builder: (context) {
-        AlarmStatus status = AlarmStatus();
-        print('status.isAlarm ${status.isAlarm}');
-        print('list.alarms.length ${list.alarms.length}');
-        if (status.isAlarm) {
-          final id = status.alarmId;
-          final alarm = list.alarms.firstWhere((alarm) => alarm.id == id,
-              orElse: () => ObservableAlarm());
-
-          mediaHandler.playMusic(alarm);
-          Wakelock.enable();
-
-          return Material(
-              child: NeumorphicBackground(child: AlarmScreen(alarm: alarm)));
-        }
-        return ChangeNotifierProvider<MenuInfo>(
-          create: (context) => MenuInfo(MenuType.alarm, icon: Icons.timelapse), //Default open menu
-          child: Material(
-            child: NeumorphicBackground(
-              child: MainScreen(alarms: list),
-            ),
-          ),
-        );
-      }),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
-
-    super.initState();
-
-    // openPlayer();
-  }
-
-  var _currentAssetPosition = -1;
-
   late AssetsAudioPlayer _assetsAudioPlayer;
+  final List<StreamSubscription> _subscriptions = [];
+  bool playB = false;
 
-
-  void openPlayer() async {
-
-    int x = DateTime.now().weekday - 1;
-    //await _assetsAudioPlayer.playlistPlayAtIndex();
-
-    await _assetsAudioPlayer.open(
-        Playlist(audios: audios, startIndex: x),
-        showNotification: true,
-        autoStart: true,
-        loopMode: LoopMode.single
-    );
-
-  }
-
-  void _playPause() {
-    _assetsAudioPlayer.playOrPause();
-  }
-
-  @override
-  void dispose() {
-    _assetsAudioPlayer.stop();
-    super.dispose();
-  }
-
-  Audio find(List<Audio> source, String fromPath) {
-    return source.firstWhere((element) => element.path == fromPath);
-  }
-
-
-
-  //final List<StreamSubscription> _subscriptions = [];
   final audios = <Audio>[
-
     Audio(
       'assets/audios/1.mp3',
       //playSpeed: 2.0,
@@ -249,6 +174,18 @@ class MyAppState extends State<MyApp> {
             'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
       ),
     ),
+    // Audio.network(
+    //   'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Music_for_Video/springtide/Sounds_strange_weird_but_unmistakably_romantic_Vol1/springtide_-_03_-_We_Are_Heading_to_the_East.mp3',
+    //   metas: Metas(
+    //     id: 'Online',
+    //     title: 'Online',
+    //     artist: 'Florent Champigny',
+    //     album: 'OnlineAlbum',
+    //     // image: MetasImage.network('https://www.google.com')
+    //     image: MetasImage.network(
+    //         'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
+    //   ),
+    // ),
     Audio(
       'assets/audios/7.mp3',
       metas: Metas(
@@ -264,6 +201,107 @@ class MyAppState extends State<MyApp> {
 
 
 
+
+  @override
+  void initState() {
+    super.initState();
+    _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
+    //_subscriptions.add(_assetsAudioPlayer.playlistFinished.listen((data) {
+    //  print('finished : $data');
+    //}));
+    //openPlayer();
+    _subscriptions.add(_assetsAudioPlayer.playlistAudioFinished.listen((data) {
+      print('playlistAudioFinished : $data');
+    }));
+    _subscriptions.add(_assetsAudioPlayer.audioSessionId.listen((sessionId) {
+      print('audioSessionId : $sessionId');
+    }));
+
+    //openPlayer();
+
+    // if (playB) {
+    //   openPlayer();
+    //   playB = false;
+    // }
+  }
+
+
+
+  var _currentAssetPosition = -1;
+
+
+  openPlayer() async {
+
+    int x = DateTime.now().weekday - 1;
+    //await _assetsAudioPlayer.playlistPlayAtIndex();
+
+    await _assetsAudioPlayer.open(
+        Playlist(audios: audios, startIndex: x),
+        showNotification: true,
+        autoStart: true,
+        loopMode: LoopMode.single
+    );
+  }
+
+  void playPause() {
+    _assetsAudioPlayer.playOrPause();
+  }
+
+  @override
+  void dispose() {
+    _assetsAudioPlayer.dispose();
+    print('Dispose player');
+    super.dispose();
+  }
+
+  Audio find(List<Audio> source, String fromPath) {
+    return source.firstWhere((element) => element.path == fromPath);
+  }
+
+
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Wake Up',
+      themeMode: ThemeMode.light,
+      theme: NeumorphicThemeData(
+          defaultTextColor: Color(0xFF303E57),
+          accentColor: Color(0xFF7B79FC),
+          variantColor: CustomColors.sdAppBackgroundColor,
+          baseColor: CustomColors.sdAppBackgroundColor, // Color(0xFFF8F9FC),
+          depth: 8,
+          intensity: 0.5,
+          lightSource: LightSource.topLeft),
+      home: Observer(builder: (context) {
+        AlarmStatus status = AlarmStatus();
+        print('status.isAlarm ${status.isAlarm}');
+        print('list.alarms.length ${list.alarms.length}');
+        if (status.isAlarm) {
+          final id = status.alarmId;
+          final alarm = list.alarms.firstWhere((alarm) => alarm.id == id,
+              orElse: () => ObservableAlarm());
+
+          mediaHandler.playMusic(alarm);
+          Wakelock.enable();
+
+          return Material(
+              child: NeumorphicBackground(child: AlarmScreen(alarm: alarm)));
+        }
+        return ChangeNotifierProvider<MenuInfo>(
+          create: (context) => MenuInfo(MenuType.alarm, icon: Icons.timelapse), //Default open menu
+          child: Material(
+            child: NeumorphicBackground(
+              child: MainScreen(alarms: list),
+            ),
+          ),
+        );
+      }),
+    );
+  }
 
 
 }

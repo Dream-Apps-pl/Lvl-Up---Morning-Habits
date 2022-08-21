@@ -19,6 +19,7 @@ class EditAlarmTime extends StatelessWidget {
     // This is your function
     final time = await showTimePicker(
               context: context,
+              initialEntryMode: TimePickerEntryMode.input,
               initialTime: TimeOfDay(hour: alarm.hour!, minute: alarm.minute!));
           if (time != null) {
             alarm.hour = time.hour;

@@ -77,9 +77,9 @@ class AlarmItem extends StatelessWidget {
                   ),
                 ),
                 Flexible(
-                  flex: 4,
+                  flex: 8,
                   child: Text(
-                    "<--Delete-->",
+                    "<- Move to Delete ->",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style:

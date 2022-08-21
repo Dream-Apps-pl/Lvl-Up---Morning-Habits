@@ -13,7 +13,10 @@ import 'package:wakelock/wakelock.dart';
 
 import '../../main.dart';
 import '../../quiz/start_quiz.dart';
+import '../../widgets/alarm_item/alarm_item.dart';
 import '../main/clock_screen.dart';
+import '../main/alarm_list_screen.dart';
+
 
 final assetsAudioPlayer = AssetsAudioPlayer();
 
@@ -87,6 +90,7 @@ class MyAppState extends State<AlarmScreen> {
           ),
           RoundedButton("Start Today", fontSize: 55, onTap: () async {
             //mediaHandler.stopMusic();
+
             Wakelock.disable();
             AlarmStatus().isAlarm = false;
             AlarmStatus().alarmId = -1;
