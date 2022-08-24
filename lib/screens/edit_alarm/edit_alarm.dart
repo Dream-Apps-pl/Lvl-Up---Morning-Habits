@@ -14,6 +14,9 @@ import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
+import '../../main.dart';
+import '../../stores/alarm_status/alarm_status.dart';
+
 class EditAlarm extends StatelessWidget {
   final ObservableAlarm? alarm;
   final AlarmListManager? manager;
@@ -25,7 +28,7 @@ class EditAlarm extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
 
-        print('onWillPop $alarm');
+        print('edit_alarm: onWillPop $alarm');
         await manager!.saveAlarm(alarm!);
         await AlarmScheduler().scheduleAlarm(alarm!);
         return true;
@@ -71,7 +74,16 @@ class EditAlarm extends StatelessWidget {
                         //Expanded(child: EditAlarmSlider(alarm: this.alarm!)),
                         SimpleButton("Done", onPressed: () async {
                           await manager!.saveAlarm(alarm!);
+
+                          AlarmStatus status = AlarmStatus();
+                          print('edit_alarm: status.isAlarm ${status.isAlarm}');
+                          print('edit_alarm: list.alarms.length ${list.alarms.length}');
+
                           await AlarmScheduler().scheduleAlarm(alarm!);
+
+                          print('edit_alarm2: status.isAlarm ${status.isAlarm}');
+                          print('edit_alarm2: list.alarms.length ${list.alarms.length}');
+
                           Navigator.pop(context);
                         })
                       ])

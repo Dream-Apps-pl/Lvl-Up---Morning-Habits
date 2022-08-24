@@ -29,14 +29,14 @@ class EditAlarmMusic extends StatelessWidget {
         actionText: "Add Stream",
         onSubmit: (text) {
           // Add audio link to sound path list
-          print("text: $text");
-          print("text ext: ${text.split(".").last}");
+          print("edit_alarm_music: text: $text");
+          print("edit_alarm_music: text ext: ${text.split(".").last}");
           if (text.trim().isNotEmpty &&
               text.contains(".") &&
               text.startsWith("http") &&
               (audioFormats.contains(text.split(".").last) ||
                   livestreamFormats.contains(text.split(".").last))) {
-            print("text added $text");
+            print("edit_alarm_music: text added $text");
             alarm!
                 .addSong(SongInfo(title: text, filePath: text, isOnline: true));
             alarm!.loadTracks();

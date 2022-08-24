@@ -117,7 +117,7 @@ class MediaHandler {
     //   await _currentPlayer.play();
     // }
 
-    print("progressiveVolume: ${alarm.progressiveVolume!}");
+    print("media_handler: progressiveVolume: ${alarm.progressiveVolume!}");
     // Initialize player volume
     if (alarm.progressiveVolume!)
       await increaseVolumeProgressively(alarm.volume!);
@@ -146,15 +146,15 @@ class MediaHandler {
   /// low to highest pitch.
   /// @param volume - The initial volume
   Future<void> increaseVolumeProgressively(double volume) async {
-    print("volume aaa: $volume");
+    print("media_handler: volume aaa: $volume");
     volumeTimer = Timer.periodic(Duration(seconds: 2), (timer) async {
       volume += 0.1;
-      print("volume: $volume");
+      print("media_handler: volume: $volume");
       if (volume == 1) {
         // Max volume reached
         timer.cancel();
       } else {
-        //   print("volume: $volume");
+           print("media_handler: volume: $volume");
         // Increase the volume
         await _currentPlayer.setVolume(volume);
       }

@@ -1,5 +1,8 @@
-import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:audio_service/audio_service.dart';
+import 'package:audio_session/audio_session.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:wakeup/constants/theme_data.dart';
 import 'package:wakeup/services/alarm_scheduler.dart';
 import 'package:wakeup/utils/widget_helper.dart';
@@ -11,6 +14,7 @@ import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
 import 'package:wakeup/widgets/rounded_button.dart';
 import 'package:wakelock/wakelock.dart';
 
+import '../../common.dart';
 import '../../main.dart';
 import '../../quiz/start_quiz.dart';
 import '../../widgets/alarm_item/alarm_item.dart';
@@ -18,21 +22,92 @@ import '../main/clock_screen.dart';
 import '../main/alarm_list_screen.dart';
 
 
-final assetsAudioPlayer = AssetsAudioPlayer();
-
 class AlarmScreen extends StatefulWidget {
   final ObservableAlarm? alarm;
   const AlarmScreen({Key? key, required this.alarm}) : super(key: key);
 
   @override
-  MyAppState createState() => MyAppState(alarm: alarm);
+  AlarmScreenState createState() => AlarmScreenState(alarm: alarm);
 
 }
 
-class MyAppState extends State<AlarmScreen> {
+class AlarmScreenState extends State<AlarmScreen> {
   final ObservableAlarm? alarm;
 
-  MyAppState({Key? key, required this.alarm}) : super();
+  final MyAppState mainState = new MyAppState();
+
+  AlarmScreenState({Key? key, required this.alarm}) : super();
+
+
+  static int nextMediaId = 0;
+  late AudioPlayer player;
+  final playlist = ConcatenatingAudioSource(children: [
+    AudioSource.uri(
+      Uri.parse("asset:///assets/audios/1.mp3"),
+      tag: MediaItem(
+        id: '${nextMediaId++}',
+        album: "Wake Up Alarm",
+        title: "Monday",
+        artUri: Uri.parse("https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+      ),
+    ),
+    AudioSource.uri(
+      Uri.parse("asset:///assets/audios/2.mp3"),
+      tag: MediaItem(
+        id: '${nextMediaId++}',
+        album: "Wake Up Alarm",
+        title: "Tuesday",
+        artUri: Uri.parse("https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+      ),
+    ),
+    AudioSource.uri(
+      Uri.parse("asset:///assets/audios/3.mp3"),
+      tag: MediaItem(
+        id: '${nextMediaId++}',
+        album: "Wake Up Alarm",
+        title: "Wednesday",
+        artUri: Uri.parse( "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+      ),
+    ),
+    AudioSource.uri(
+      Uri.parse("asset:///assets/audios/4.mp3"),
+      tag: MediaItem(
+        id: '${nextMediaId++}',
+        album: "Wake Up Alarm",
+        title: "Thursday",
+        artUri: Uri.parse( "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+      ),
+    ),
+    AudioSource.uri(
+      Uri.parse("asset:///assets/audios/5.mp3"),
+      tag: MediaItem(
+        id: '${nextMediaId++}',
+        album: "Wake Up Alarm",
+        title: "Friday",
+        artUri: Uri.parse( "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+      ),
+    ),
+    AudioSource.uri(
+      Uri.parse("asset:///assets/audios/6.mp3"),
+      tag: MediaItem(
+        id: '${nextMediaId++}',
+        album: "Wake Up Alarm",
+        title: "Saturday",
+        artUri: Uri.parse( "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+      ),
+    ),
+    AudioSource.uri(
+      Uri.parse("asset:///assets/audios/7.mp3"),
+      tag: MediaItem(
+        id: '${nextMediaId++}',
+        album: "Wake Up Alarm",
+        title: "Sunday",
+        artUri: Uri.parse( "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+      ),
+    ),
+  ]);
+  int _addedCount = 0;
+
 
 
   @override
@@ -94,10 +169,43 @@ class MyAppState extends State<AlarmScreen> {
             Wakelock.disable();
             AlarmStatus().isAlarm = false;
             AlarmStatus().alarmId = -1;
-            // Navigator.of(context).pop();
-            Navigator.push(context, MaterialPageRoute(builder: (context) => StartQuiz()),);
+
+            AlarmStatus status = AlarmStatus();
+            print('alarm_screen: status.isAlarm ${status.isAlarm}');
+            print('alarm_screen: list.alarms.length ${list.alarms.length}');
+            Navigator.of(context).pop();
+            //Navigator.push(context, MaterialPageRoute(builder: (context) => StartQuiz()),);
+
             //await dismissCurrentAlarm();
           }),
+          NeumorphicButton(
+            padding: EdgeInsets.all(18),
+            style: NeumorphicStyle(
+              boxShape: NeumorphicBoxShape.circle(),
+              shape: NeumorphicShape.flat,
+              depth: 2,
+              intensity: 0.7,
+            ),
+            child: Icon(
+              player.playing ? Icons.pause : Icons.play_arrow,
+            ),
+            onPressed: () {
+
+              setState(() {
+                // If the video is playing, pause it.
+                if (player.playing) {
+                  player.pause();
+                  print('alarm_screen: PAUSE');
+                } else {
+                  player.play();
+                  print('alarm_screen: PLAY');
+                }
+              });
+
+              //menuInfo.updateMenu();
+            },
+          ),
+
           // SizedBox(
           //   height: 0,
           // ),
@@ -156,129 +264,77 @@ class MyAppState extends State<AlarmScreen> {
   @override
   void initState() {
     super.initState();
-    _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
 
-    super.initState();
+    player = AudioPlayer();
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.black,));
+    init();
 
-    openPlayer();
-  }
-
-  var _currentAssetPosition = -1;
-
-  late AssetsAudioPlayer _assetsAudioPlayer;
-
-
-  void openPlayer() async {
-
-    int x = DateTime.now().weekday - 1;
-    //await _assetsAudioPlayer.playlistPlayAtIndex();
-
-    await _assetsAudioPlayer.open(
-        Playlist(audios: audios, startIndex: x),
-        showNotification: true,
-        autoStart: true,
-        loopMode: LoopMode.single
-    );
+    try {
+      play();
+    } catch (e, stackTrace) {
+      print('alarm_screen: $stackTrace');
+    }
 
   }
 
-  void _playPause() {
-    _assetsAudioPlayer.playOrPause();
+  void init() async {
+    final session = await AudioSession.instance;
+    await session.configure(const AudioSessionConfiguration.music());
+    // Listen to errors during playback.
+    player.playbackEventStream.listen((event) {}, onError: (Object e, StackTrace stackTrace) {
+      print('main_screen: A stream error occurred: $e');});
+
+    try {
+      int x = DateTime.now().weekday - 1; //song of a week
+      await player.setAudioSource(playlist, initialIndex: x, initialPosition: Duration.zero);
+      await player.setLoopMode(LoopMode.one);
+      await player.setShuffleModeEnabled(false);
+
+      //await play();
+      // await _player.play();
+
+    } catch (e, stackTrace) {
+      // Catch load errors: 404, invalid url ...
+      print("main_screen: Error loading playlist: $e");
+      print('main_screen: $stackTrace');
+    }
+  }
+
+  // Request audio play
+  void play() async {
+    if (mounted) {
+      await player.play();
+    }
+
+  }
+
+  // Request audio pause
+  void pause() async {
+    if (mounted) {
+      await player.pause();
+    }
   }
 
   @override
-  void dispose() {
-    _assetsAudioPlayer.stop();
+  void dispose() async {
+    if (mounted) {
+      await player.dispose();
+    }
+    print('main_screen: Dispose Audio Player');
     super.dispose();
   }
 
-  Audio find(List<Audio> source, String fromPath) {
-    return source.firstWhere((element) => element.path == fromPath);
-  }
+  Stream<PositionData> get _positionDataStream =>
+      Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
+          player.positionStream,
+          player.bufferedPositionStream,
+          player.durationStream,
+              (position, bufferedPosition, duration) => PositionData(
+              position, bufferedPosition, duration ?? Duration.zero));
 
 
-  //final List<StreamSubscription> _subscriptions = [];
-  final audios = <Audio>[
 
-    Audio(
-      'assets/audios/1.mp3',
-      //playSpeed: 2.0,
-      metas: Metas(
-        id: 'Monday',
-        title: 'Monday',
-        artist: 'Wake Up Alarm',
-        album: 'Wake Up',
-        image: const MetasImage.network(
-            'https://static.radio.fr/images/broadcasts/cb/ef/2075/c300.png'),
-      ),
-    ),
-    Audio(
-      'assets/audios/2.mp3',
-      //playSpeed: 2.0,
-      metas: Metas(
-        id: 'Tuesday',
-        title: 'Tuesday',
-        artist: 'Wake Up Alarm',
-        album: 'Wake Up',
-        image: const MetasImage.network(
-            'https://static.radio.fr/images/broadcasts/cb/ef/2075/c300.png'),
-      ),
-    ),
-    Audio(
-      'assets/audios/3.mp3',
-      metas: Metas(
-        id: 'Wednesday',
-        title: 'Wednesday',
-        artist: 'Wake Up Alarm',
-        album: 'Wake Up',
-        image: const MetasImage.asset('assets/images/country.jpg'),
-      ),
-    ),
-    Audio(
-      'assets/audios/4.mp3',
-      metas: Metas(
-        id: 'Thursday',
-        title: 'Thursday',
-        artist: 'Wake Up Alarm',
-        album: 'Wake Up',
-        image: const MetasImage.network(
-            'https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/12/attachment_68585523.jpg'),
-      ),
-    ),
-    Audio(
-      'assets/audios/5.mp3',
-      metas: Metas(
-        id: 'Friday',
-        title: 'Friday',
-        artist: 'Wake Up Alarm',
-        album: 'Wake Up',
-        image: const MetasImage.network(
-            'https://beyoudancestudio.ch/wp-content/uploads/2019/01/apprendre-danser.hiphop-1.jpg'),
-      ),
-    ),
-    Audio(
-      'assets/audios/6.mp3',
-      metas: Metas(
-        id: 'Saturday',
-        title: 'Saturday',
-        artist: 'Wake Up Alarm',
-        album: 'Wake Up',
-        image: const MetasImage.network(
-            'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
-      ),
-    ),
-    Audio(
-      'assets/audios/7.mp3',
-      metas: Metas(
-        id: 'Sunday',
-        title: 'Sunday',
-        artist: 'Wake Up Alarm',
-        album: 'Wake Up',
-        image: const MetasImage.network(
-            'https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/12/attachment_68585523.jpg'),
-      ),
-    ),
-  ];
+
 
 
 

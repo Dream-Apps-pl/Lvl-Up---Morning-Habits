@@ -32,7 +32,7 @@ class _StartQuizState extends State<StartQuiz> {
     var formatter = new DateFormat('yyyy-MM-dd');
     // String formattedTime = DateFormat('kk:mm:a').format(now);
     String formattedDate = formatter.format(now);
-    print('Today Date = $formattedDate'); //check
+    print('start_quiz: Today Date = $formattedDate'); //check
 
     var result = _data.where((elem) =>
     elem['test_date']
@@ -46,7 +46,7 @@ class _StartQuizState extends State<StartQuiz> {
             .contains(formattedDate //.toLowerCase()
         ))
         .toList();
-    print('Today Question text = $result');  //check
+    print('start_quiz: Today Question text = $result');  //check
 
     _dataToday = result; //Question
 
@@ -419,7 +419,7 @@ class _StartQuizState extends State<StartQuiz> {
     // String formattedTime = DateFormat('kk:mm:a').format(now);
     String formattedDate = formatter.format(now);
     // print(formattedTime);
-    print(formattedDate);
+    print('start_quiz: $formattedDate');
   }
 
   setResults(String query) {
@@ -435,7 +435,7 @@ class _StartQuizState extends State<StartQuiz> {
             .contains(query //.toLowerCase()
         ))
         .toList();
-    print(result);
+    print('start_quiz: $result');
   }
 
 

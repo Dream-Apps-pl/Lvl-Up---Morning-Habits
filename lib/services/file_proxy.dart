@@ -21,6 +21,9 @@ class JsonFileStorage {
     if (_file!.existsSync()) {
       String content = await _file!.readAsString();
       List<dynamic> parsedList = jsonDecode(content) as List;
+
+      print("file_proxy: alarms.json file: $parsedList");
+
       return parsedList.map((map) => ObservableAlarm.fromJson(map)).toList();
     }
     return [];

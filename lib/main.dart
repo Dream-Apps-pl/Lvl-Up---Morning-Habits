@@ -1,9 +1,11 @@
 import 'dart:async';
-
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:audio_session/audio_session.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:wakeup/quiz/start_quiz.dart';
 import 'package:wakeup/screens/main/alarm_list_screen.dart';
 import 'package:wakeup/screens/main/clock_screen.dart';
@@ -12,6 +14,7 @@ import 'package:wakeup/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
+import 'common.dart';
 import 'constants/theme_data.dart';
 import 'enums.dart';
 import 'models/menu_info.dart';
@@ -31,7 +34,6 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 class Strings {
   static const String appTitle = 'Wake Up Alarm';
 }
-final assetsAudioPlayer = AssetsAudioPlayer();
 
 AlarmList list = AlarmList();
 MediaHandler mediaHandler = MediaHandler();
@@ -43,11 +45,12 @@ ScheduleNotifications notifications = ScheduleNotifications(
     'Alerts on scheduled alarm events',
     appIcon: 'notification_logo');
 
-void main() async {
-  AssetsAudioPlayer.setupNotificationsOpenAction((notification) {
-    return true;
-  });
-
+Future<void> main() async {
+  await JustAudioBackground.init(
+    androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
+    androidNotificationChannelName: 'Audio playback',
+    androidNotificationOngoing: true,
+  );
   runApp(Phoenix(
           child: MyApp(),
         ),
@@ -86,7 +89,7 @@ void main() async {
   AlarmPollingWorker().createPollingWorker();
 
   final externalPath = await getExternalStorageDirectory();
-  print(externalPath!.path);
+  print('main_screen: ${externalPath!.path}');
   if (!externalPath.existsSync()) externalPath.create(recursive: true);
 }
 
@@ -95,6 +98,7 @@ void restartApp() {
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   MyAppState createState() => MyAppState();
@@ -102,164 +106,12 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
 
-  late AssetsAudioPlayer _assetsAudioPlayer;
-  final List<StreamSubscription> _subscriptions = [];
-  bool playB = false;
-
-  final audios = <Audio>[
-    Audio(
-      'assets/audios/1.mp3',
-      //playSpeed: 2.0,
-      metas: Metas(
-        id: 'Monday',
-        title: 'Monday',
-        artist: 'Wake Up Alarm',
-        album: 'Wake Up',
-        image: const MetasImage.network(
-            'https://static.radio.fr/images/broadcasts/cb/ef/2075/c300.png'),
-      ),
-    ),
-    Audio(
-      'assets/audios/2.mp3',
-      //playSpeed: 2.0,
-      metas: Metas(
-        id: 'Tuesday',
-        title: 'Tuesday',
-        artist: 'Wake Up Alarm',
-        album: 'Wake Up',
-        image: const MetasImage.network(
-            'https://static.radio.fr/images/broadcasts/cb/ef/2075/c300.png'),
-      ),
-    ),
-    Audio(
-      'assets/audios/3.mp3',
-      metas: Metas(
-        id: 'Wednesday',
-        title: 'Wednesday',
-        artist: 'Wake Up Alarm',
-        album: 'Wake Up',
-        image: const MetasImage.asset('assets/images/country.jpg'),
-      ),
-    ),
-    Audio(
-      'assets/audios/4.mp3',
-      metas: Metas(
-        id: 'Thursday',
-        title: 'Thursday',
-        artist: 'Wake Up Alarm',
-        album: 'Wake Up',
-        image: const MetasImage.network(
-            'https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/12/attachment_68585523.jpg'),
-      ),
-    ),
-    Audio(
-      'assets/audios/5.mp3',
-      metas: Metas(
-        id: 'Friday',
-        title: 'Friday',
-        artist: 'Wake Up Alarm',
-        album: 'Wake Up',
-        image: const MetasImage.network(
-            'https://beyoudancestudio.ch/wp-content/uploads/2019/01/apprendre-danser.hiphop-1.jpg'),
-      ),
-    ),
-    Audio(
-      'assets/audios/6.mp3',
-      metas: Metas(
-        id: 'Saturday',
-        title: 'Saturday',
-        artist: 'Wake Up Alarm',
-        album: 'Wake Up',
-        image: const MetasImage.network(
-            'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
-      ),
-    ),
-    // Audio.network(
-    //   'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Music_for_Video/springtide/Sounds_strange_weird_but_unmistakably_romantic_Vol1/springtide_-_03_-_We_Are_Heading_to_the_East.mp3',
-    //   metas: Metas(
-    //     id: 'Online',
-    //     title: 'Online',
-    //     artist: 'Florent Champigny',
-    //     album: 'OnlineAlbum',
-    //     // image: MetasImage.network('https://www.google.com')
-    //     image: MetasImage.network(
-    //         'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
-    //   ),
-    // ),
-    Audio(
-      'assets/audios/7.mp3',
-      metas: Metas(
-        id: 'Sunday',
-        title: 'Sunday',
-        artist: 'Wake Up Alarm',
-        album: 'Wake Up',
-        image: const MetasImage.network(
-            'https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/12/attachment_68585523.jpg'),
-      ),
-    ),
-  ];
-
-
-
 
   @override
   void initState() {
     super.initState();
-    _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
-    //_subscriptions.add(_assetsAudioPlayer.playlistFinished.listen((data) {
-    //  print('finished : $data');
-    //}));
-    //openPlayer();
-    _subscriptions.add(_assetsAudioPlayer.playlistAudioFinished.listen((data) {
-      print('playlistAudioFinished : $data');
-    }));
-    _subscriptions.add(_assetsAudioPlayer.audioSessionId.listen((sessionId) {
-      print('audioSessionId : $sessionId');
-    }));
 
-    //openPlayer();
-
-    // if (playB) {
-    //   openPlayer();
-    //   playB = false;
-    // }
   }
-
-
-
-  var _currentAssetPosition = -1;
-
-
-  openPlayer() async {
-
-    int x = DateTime.now().weekday - 1;
-    //await _assetsAudioPlayer.playlistPlayAtIndex();
-
-    await _assetsAudioPlayer.open(
-        Playlist(audios: audios, startIndex: x),
-        showNotification: true,
-        autoStart: true,
-        loopMode: LoopMode.single
-    );
-  }
-
-  void playPause() {
-    _assetsAudioPlayer.playOrPause();
-  }
-
-  @override
-  void dispose() {
-    _assetsAudioPlayer.dispose();
-    print('Dispose player');
-    super.dispose();
-  }
-
-  Audio find(List<Audio> source, String fromPath) {
-    return source.firstWhere((element) => element.path == fromPath);
-  }
-
-
-
 
 
   @override
@@ -278,8 +130,8 @@ class MyAppState extends State<MyApp> {
           lightSource: LightSource.topLeft),
       home: Observer(builder: (context) {
         AlarmStatus status = AlarmStatus();
-        print('status.isAlarm ${status.isAlarm}');
-        print('list.alarms.length ${list.alarms.length}');
+        print('main_screen: status.isAlarm ${status.isAlarm}');
+        print('main_screen: list.alarms.length ${list.alarms.length}');
         if (status.isAlarm) {
           final id = status.alarmId;
           final alarm = list.alarms.firstWhere((alarm) => alarm.id == id,
@@ -302,6 +154,39 @@ class MyAppState extends State<MyApp> {
       }),
     );
   }
+
+
+
+// Audio find(List<Audio> source, String fromPath) {
+//   return source.firstWhere((element) => element.path == fromPath);
+// }
+//
+// final audios = <Audio>[
+//   Audio(
+//     'assets/audios/1.mp3',
+//     //playSpeed: 2.0,
+//     metas: Metas(
+//       id: 'Monday',
+//       title: 'Monday',
+//       artist: 'Wake Up Alarm',
+//       album: 'Wake Up',
+//       image: const MetasImage.network(
+//           'https://static.radio.fr/images/broadcasts/cb/ef/2075/c300.png'),
+//     ),
+//   ),
+// Audio.network(
+//   'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/Music_for_Video/springtide/Sounds_strange_weird_but_unmistakably_romantic_Vol1/springtide_-_03_-_We_Are_Heading_to_the_East.mp3',
+//   metas: Metas(
+//     id: 'Online',
+//     title: 'Online',
+//     artist: 'Florent Champigny',
+//     album: 'OnlineAlbum',
+//     // image: MetasImage.network('https://www.google.com')
+//     image: MetasImage.network(
+//         'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
+//   ),
+// ),
+// ];
 
 
 }

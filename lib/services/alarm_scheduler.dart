@@ -13,7 +13,7 @@ import '../main.dart';
 
 class AlarmScheduler {
   clearAlarm(ObservableAlarm alarm) {
-    print("clearAlarm: ${alarm.id}");
+    print("alarm_scheduler: clearAlarm: ${alarm.id}");
     for (var i = 0; i < 7; i++) {
       AndroidAlarmManager.cancel(alarm.id! * 7 + i);
     }
@@ -28,16 +28,21 @@ class AlarmScheduler {
     final days = alarm.days;
 
     final scheduleId = alarm.id! * 7;
-    print("scheduleId: $scheduleId");
-    print("days.length: ${days.length}");
+
+    print("alarm_scheduler: scheduleId: $scheduleId");
+    print("alarm_scheduler: days.length: ${days.length}");
+
     bool repeatAlarm = false;
     for (var i = 0; i < days.length; i++) {
       await AndroidAlarmManager.cancel(scheduleId + i);
-      print("alarm.active: ${alarm.active}");
-      print("days[$i]: ${days[i]}");
+
+      print("alarm_scheduler: alarm.active: ${alarm.active}");
+      print("alarm_scheduler: days[$i]: ${days[i]}");
+
       if (alarm.active! && days[i]) {
         // Repeat alarm
-        print("Alarm active for day $i");
+        print("alarm_scheduler: Alarm active for day $i");
+
         repeatAlarm = true;
         final targetDateTime = nextWeekday(i + 1, alarm.hour!, alarm.minute!);
         await newShot(targetDateTime, scheduleId + i);
@@ -52,7 +57,7 @@ class AlarmScheduler {
           targetDateTime =
               targetDateTime.add(Duration(days: 1)); // Prepare for next day
 
-        print("targetDateTime ${targetDateTime.toString()}");
+        print("alarm_scheduler: targetDateTime ${targetDateTime.toString()}");
         await newShot(targetDateTime, scheduleId + i);
       }
     }
@@ -96,7 +101,7 @@ class AlarmScheduler {
   /// Creates a flag file that the main isolate can find on life cycle change
   /// For now just abusing the FileProxy class for testing
   static void createAlarmFlag(int id) async {
-    print('Creating a new alarm flag for ID $id');
+    print('alarm_scheduler: Creating a new alarm flag for ID $id');
     final dir = await getApplicationDocumentsDirectory();
     JsonFileStorage.toFile(File(dir.path + "/$id.alarm")).writeList([]);
 
@@ -115,8 +120,8 @@ class AlarmScheduler {
 
     await notifications.init(onSelectNotification: (String? payload) async {
       // if (payload == null || payload.trim().isEmpty) return null;
-      print('notification payload $payload');
-      throw Exception('New Notification');
+      print('alarm_scheduler: notification payload $payload');
+      throw Exception('alarm_scheduler: New Notification');
       // return;
     });
 

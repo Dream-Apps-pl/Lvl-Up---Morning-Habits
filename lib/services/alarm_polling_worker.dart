@@ -20,7 +20,7 @@ class AlarmPollingWorker {
     if (running) {
       //TODO Might be intended to run it again with 60 more iterations?
       // Probably have to figure out a way to address that.
-      print('Worker is already running, not creating another one!');
+      print('alarm_polling_worker: Worker is already running, not creating another one!');
       return;
     }
 
@@ -61,7 +61,7 @@ class AlarmPollingWorker {
   }
 
   void cleanUpAlarmFiles() async {
-    print('Cleaning up generated .alarm files!');
+    print('alarm_polling_worker: Cleaning up generated .alarm files!');
     final dir = await getApplicationDocumentsDirectory();
     dir
         .list()

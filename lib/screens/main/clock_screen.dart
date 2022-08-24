@@ -245,7 +245,7 @@ class DigitalClockWidgetState extends State<DigitalClockWidget> {
 
   @override
   Widget build(BuildContext context) {
-    //print('=====>digital clock updated');
+    print('clock_screen: =====>digital clock updated');
     return Text(
       formattedTime,
       style: TextStyle(

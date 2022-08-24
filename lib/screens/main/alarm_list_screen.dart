@@ -9,6 +9,9 @@ import 'package:wakeup/services/alarm_scheduler.dart';
 import 'package:wakeup/stores/alarm_list/alarm_list.dart';
 import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
 
+import '../../main.dart';
+import '../../stores/alarm_status/alarm_status.dart';
+
 class AlarmListScreen extends StatelessWidget {
   final AlarmList alarms;
 
@@ -103,7 +106,7 @@ class AlarmListScreen extends StatelessWidget {
 
     final newAlarm = ObservableAlarm.dayList(
         alarms.alarms.length,
-        'New Alarm',
+        'Alarm',
         tod.hour,
         tod.minute,
         0.9,
@@ -113,6 +116,11 @@ class AlarmListScreen extends StatelessWidget {
         ObservableList<String>.of([]), <String>[]);
 
         alarms.alarms.add(newAlarm);
+
+      AlarmStatus status = AlarmStatus();
+      print('alarm_list_screen: status.isAlarm ${status.isAlarm}');
+      print('alarm_list_screen: list.alarms.length ${list.alarms.length}');
+
         Navigator.push(context, MaterialPageRoute(builder: (context) => EditAlarm(alarm: newAlarm, manager: _manager,),),);
 
   }

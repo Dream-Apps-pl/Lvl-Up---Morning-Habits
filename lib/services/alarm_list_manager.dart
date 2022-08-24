@@ -10,8 +10,8 @@ class AlarmListManager {
 
   saveAlarm(ObservableAlarm alarm) async {
     await alarm.updateMusicPaths();
-    final index =
-        _alarms.alarms.indexWhere((findAlarm) => alarm.id == findAlarm.id);
+    final index = _alarms.alarms.indexWhere((findAlarm) => alarm.id == findAlarm.id);
+
     _alarms.alarms[index] = alarm;
     await _storage.writeList(_alarms.alarms);
   }

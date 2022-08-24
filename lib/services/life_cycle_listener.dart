@@ -19,7 +19,7 @@ class LifeCycleListener extends WidgetsBindingObserver {
         createAlarmPollingIsolate();
         break;
       default:
-        print("Updated lifecycle state: $state");
+        print("life_cycle_listener: Updated lifecycle state: $state");
     }
   }
 
@@ -29,7 +29,7 @@ class LifeCycleListener extends WidgetsBindingObserver {
   }
 
   void createAlarmPollingIsolate() {
-    print('Creating a new worker to check for alarm files!');
+    print('life_cycle_listener: Creating a new worker to check for alarm files!');
     AlarmPollingWorker().createPollingWorker();
   }
 }

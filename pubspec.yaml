@@ -24,6 +24,12 @@ environment:
 
 dependencies:
 
+  audio_session: ^0.1.10
+  audio_service: 0.18.7
+  rxdart: ^0.27.5
+  just_audio: ^0.9.28
+  just_audio_background: ^0.0.1-beta.7
+
   flutter_phoenix: ^1.0.0
   assets_audio_player: ^3.0.5
   hexcolor: ^2.0.7
@@ -48,7 +54,6 @@ dependencies:
   flutter_ringtone_player: ^3.2.0
 
   file_picker: ^5.0.1
-  just_audio: ^0.9.28
   vibration: ^1.7.5
   flutter:
     sdk: flutter
@@ -64,6 +69,10 @@ dev_dependencies:
   json_serializable: ^6.3.1
   flutter_test:
     sdk: flutter
+
+  # integration_test: ^1.0.1
+  test: ^1.21.0
+  flutter_lints: ^2.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
