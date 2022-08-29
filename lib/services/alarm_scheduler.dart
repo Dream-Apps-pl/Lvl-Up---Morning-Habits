@@ -108,13 +108,18 @@ class AlarmScheduler {
     final alarms = await new JsonFileStorage().readList();
     var alarm = alarms.firstWhere((element) => element.id == id);
 
+
     if (alarm.active! && Platform.isAndroid) {
+
+
       restartApp();
-      Timer(Duration(seconds: 5), () {
+      Timer(Duration(seconds: 2), () {
         Bringtoforeground.bringAppToForeground();
       });
       return;
     }
+
+
     final hours = alarm.hour.toString().padLeft(2, '0');
     final minutes = alarm.minute.toString().padLeft(2, '0');
 

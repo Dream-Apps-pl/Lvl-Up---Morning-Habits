@@ -1,6 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:wakeup/constants/theme_data.dart';
@@ -17,96 +18,16 @@ import 'package:wakelock/wakelock.dart';
 import '../../common.dart';
 import '../../main.dart';
 import '../../quiz/start_quiz.dart';
+import '../../services/media_handler.dart';
 import '../../widgets/alarm_item/alarm_item.dart';
 import '../main/clock_screen.dart';
 import '../main/alarm_list_screen.dart';
 
 
-class AlarmScreen extends StatefulWidget {
+class AlarmScreen extends StatelessWidget {
   final ObservableAlarm? alarm;
-  const AlarmScreen({Key? key, required this.alarm}) : super(key: key);
-
-  @override
-  AlarmScreenState createState() => AlarmScreenState(alarm: alarm);
-
-}
-
-class AlarmScreenState extends State<AlarmScreen> {
-  final ObservableAlarm? alarm;
-
-  final MyAppState mainState = new MyAppState();
-
-  AlarmScreenState({Key? key, required this.alarm}) : super();
-
-
-  static int nextMediaId = 0;
-  late AudioPlayer player;
-  final playlist = ConcatenatingAudioSource(children: [
-    AudioSource.uri(
-      Uri.parse("asset:///assets/audios/1.mp3"),
-      tag: MediaItem(
-        id: '${nextMediaId++}',
-        album: "Wake Up Alarm",
-        title: "Monday",
-        artUri: Uri.parse("https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
-      ),
-    ),
-    AudioSource.uri(
-      Uri.parse("asset:///assets/audios/2.mp3"),
-      tag: MediaItem(
-        id: '${nextMediaId++}',
-        album: "Wake Up Alarm",
-        title: "Tuesday",
-        artUri: Uri.parse("https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
-      ),
-    ),
-    AudioSource.uri(
-      Uri.parse("asset:///assets/audios/3.mp3"),
-      tag: MediaItem(
-        id: '${nextMediaId++}',
-        album: "Wake Up Alarm",
-        title: "Wednesday",
-        artUri: Uri.parse( "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
-      ),
-    ),
-    AudioSource.uri(
-      Uri.parse("asset:///assets/audios/4.mp3"),
-      tag: MediaItem(
-        id: '${nextMediaId++}',
-        album: "Wake Up Alarm",
-        title: "Thursday",
-        artUri: Uri.parse( "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
-      ),
-    ),
-    AudioSource.uri(
-      Uri.parse("asset:///assets/audios/5.mp3"),
-      tag: MediaItem(
-        id: '${nextMediaId++}',
-        album: "Wake Up Alarm",
-        title: "Friday",
-        artUri: Uri.parse( "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
-      ),
-    ),
-    AudioSource.uri(
-      Uri.parse("asset:///assets/audios/6.mp3"),
-      tag: MediaItem(
-        id: '${nextMediaId++}',
-        album: "Wake Up Alarm",
-        title: "Saturday",
-        artUri: Uri.parse( "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
-      ),
-    ),
-    AudioSource.uri(
-      Uri.parse("asset:///assets/audios/7.mp3"),
-      tag: MediaItem(
-        id: '${nextMediaId++}',
-        album: "Wake Up Alarm",
-        title: "Sunday",
-        artUri: Uri.parse( "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
-      ),
-    ),
-  ]);
-  int _addedCount = 0;
+  final MediaHandler mediaHandler;
+  const AlarmScreen({Key? key, required this.alarm, required this.mediaHandler}) : super(key: key);
 
 
 
@@ -117,8 +38,10 @@ class AlarmScreenState extends State<AlarmScreen> {
     final now = DateTime.now();
     final format = DateFormat('Hm');
     final snoozeTimes = [5, 10, 15, 20];
+    bool playing = true;
 
-    return Container(
+    return Scaffold(
+      body: Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
@@ -129,7 +52,7 @@ class AlarmScreenState extends State<AlarmScreen> {
               decoration: ShapeDecoration(
                   shape: CircleBorder(
                       side: BorderSide(
-                          color: CustomColors.sdPrimaryBgLightColor,
+                          color: CustomColors.sdSecondaryColorYellow,
                           style: BorderStyle.solid,
                           width: 50))),
               child: Column(
@@ -138,7 +61,7 @@ class AlarmScreenState extends State<AlarmScreen> {
                 children: <Widget>[
                   Icon(
                     Icons.alarm,
-                    color: CustomColors.sdPrimaryColor,
+                    color: CustomColors.sdAppWhite,
                     size: 32,
                   ),
                   Text(
@@ -146,7 +69,7 @@ class AlarmScreenState extends State<AlarmScreen> {
                     style: TextStyle(
                         fontSize: 52,
                         fontWeight: FontWeight.w900,
-                        color: CustomColors.sdPrimaryColor),
+                        color:  CustomColors.sdAppWhite),
                   ),
                   Container(
                     width: 250,
@@ -156,54 +79,54 @@ class AlarmScreenState extends State<AlarmScreen> {
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          color: CustomColors.sdPrimaryColor, fontSize: 16),
+                          color: CustomColors.sdAppWhite, fontSize: 16),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          RoundedButton("Start Today", fontSize: 55, onTap: () async {
-            //mediaHandler.stopMusic();
-
-            Wakelock.disable();
-            AlarmStatus().isAlarm = false;
-            AlarmStatus().alarmId = -1;
-
-            AlarmStatus status = AlarmStatus();
-            print('alarm_screen: status.isAlarm ${status.isAlarm}');
-            print('alarm_screen: list.alarms.length ${list.alarms.length}');
-            Navigator.of(context).pop();
-            //Navigator.push(context, MaterialPageRoute(builder: (context) => StartQuiz()),);
-
-            //await dismissCurrentAlarm();
-          }),
-          NeumorphicButton(
-            padding: EdgeInsets.all(18),
-            style: NeumorphicStyle(
-              boxShape: NeumorphicBoxShape.circle(),
-              shape: NeumorphicShape.flat,
-              depth: 2,
-              intensity: 0.7,
-            ),
-            child: Icon(
-              player.playing ? Icons.pause : Icons.play_arrow,
-            ),
+          ElevatedButton(
             onPressed: () {
 
-              setState(() {
-                // If the video is playing, pause it.
-                if (player.playing) {
-                  player.pause();
-                  print('alarm_screen: PAUSE');
-                } else {
-                  player.play();
-                  print('alarm_screen: PLAY');
-                }
-              });
+              Wakelock.disable();
+              AlarmStatus().isAlarm = false;
+              AlarmStatus().alarmId = -1;
 
-              //menuInfo.updateMenu();
+              AlarmStatus status = AlarmStatus();
+              print('alarm_screen: status.isAlarm ${status.isAlarm}');
+              print('alarm_screen: list.alarms.length ${list.alarms.length}');
+              //Navigator.of(context).pop();
+              Navigator.push(context, MaterialPageRoute(builder: (context) => StartQuiz(mediaHandler: mediaHandler,)),);
+
             },
+            child:
+            Text('Start Today', style: TextStyle(fontSize: 25, color: CustomColors.sdTextPrimaryColor)),
+            style: ElevatedButton.styleFrom(
+              primary: CustomColors.sdAppWhite,
+              shape: CircleBorder(),
+              padding: EdgeInsets.all(70),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              if (playing) {
+                mediaHandler.stopMusic();
+                playing = false;
+              } else {
+                mediaHandler.playMusic(alarm!);
+                playing = true;
+              }
+            },
+            child: Icon(Icons.play_arrow, size: 30, color: Colors.black),
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all(CircleBorder()),
+              padding: MaterialStateProperty.all(EdgeInsets.all(16)),
+              backgroundColor: MaterialStateProperty.all(Colors.white), // <-- Button color
+              overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
+                if (states.contains(MaterialState.pressed)) return CustomColors.sdSecondaryColorYellow; // <-- Splash color
+              }),
+            ),
           ),
 
           // SizedBox(
@@ -237,8 +160,11 @@ class AlarmScreenState extends State<AlarmScreen> {
           // }),
         ],
       ),
+    ),
     );
   }
+
+
 
   Future<void> dismissCurrentAlarm() async {
     //mediaHandler.stopMusic();
@@ -248,6 +174,7 @@ class AlarmScreenState extends State<AlarmScreen> {
     AlarmStatus().alarmId = -1;
     SystemNavigator.pop();
   }
+
 
   Future<void> rescheduleAlarm(int minutes) async {
     // Re-schedule alarm
@@ -261,76 +188,14 @@ class AlarmScreenState extends State<AlarmScreen> {
 
 
 
-  @override
-  void initState() {
-    super.initState();
-
-    player = AudioPlayer();
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.black,));
-    init();
-
-    try {
-      play();
-    } catch (e, stackTrace) {
-      print('alarm_screen: $stackTrace');
-    }
-
-  }
-
-  void init() async {
-    final session = await AudioSession.instance;
-    await session.configure(const AudioSessionConfiguration.music());
-    // Listen to errors during playback.
-    player.playbackEventStream.listen((event) {}, onError: (Object e, StackTrace stackTrace) {
-      print('main_screen: A stream error occurred: $e');});
-
-    try {
-      int x = DateTime.now().weekday - 1; //song of a week
-      await player.setAudioSource(playlist, initialIndex: x, initialPosition: Duration.zero);
-      await player.setLoopMode(LoopMode.one);
-      await player.setShuffleModeEnabled(false);
-
-      //await play();
-      // await _player.play();
-
-    } catch (e, stackTrace) {
-      // Catch load errors: 404, invalid url ...
-      print("main_screen: Error loading playlist: $e");
-      print('main_screen: $stackTrace');
-    }
-  }
-
-  // Request audio play
-  void play() async {
-    if (mounted) {
-      await player.play();
-    }
-
-  }
-
-  // Request audio pause
-  void pause() async {
-    if (mounted) {
-      await player.pause();
-    }
-  }
-
-  @override
-  void dispose() async {
-    if (mounted) {
-      await player.dispose();
-    }
-    print('main_screen: Dispose Audio Player');
-    super.dispose();
-  }
-
-  Stream<PositionData> get _positionDataStream =>
-      Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
-          player.positionStream,
-          player.bufferedPositionStream,
-          player.durationStream,
-              (position, bufferedPosition, duration) => PositionData(
-              position, bufferedPosition, duration ?? Duration.zero));
+  // @override
+  // void initState() {
+  //   super.initState();
+  //
+  //   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.black,));
+  //
+  //
+  // }
 
 
 
@@ -340,3 +205,95 @@ class AlarmScreenState extends State<AlarmScreen> {
 
 
 }
+
+
+
+
+//
+// class MediaState {
+//   final MediaItem? mediaItem;
+//   final Duration position;
+//
+//   MediaState(this.mediaItem, this.position);
+// }
+//
+//
+//
+// /// An [AudioHandler] for playing a single item.
+// class AudioPlayerHandler extends BaseAudioHandler with SeekHandler {
+//   static final _item = MediaItem(
+//     id: 'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3',
+//     album: "Science Friday",
+//     title: "A Salute To Head-Scratching Science",
+//     artist: "Science Friday and WNYC Studios",
+//     duration: const Duration(milliseconds: 5739820),
+//     artUri: Uri.parse(
+//         'https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg'),
+//   );
+//
+//   final _player = AudioPlayer();
+//
+//   /// Initialise our audio handler.
+//   AudioPlayerHandler() {
+//     // So that our clients (the Flutter UI and the system notification) know
+//     // what state to display, here we set up our audio handler to broadcast all
+//     // playback state changes as they happen via playbackState...
+//     _player.playbackEventStream.map(_transformEvent).pipe(playbackState);
+//     // ... and also the current media item via mediaItem.
+//     mediaItem.add(_item);
+//
+//     // Load the player.
+//     _player.setAudioSource(AudioSource.uri(Uri.parse(_item.id)));
+//   }
+//
+//   // In this simple example, we handle only 4 actions: play, pause, seek and
+//   // stop. Any button press from the Flutter UI, notification, lock screen or
+//   // headset will be routed through to these 4 methods so that you can handle
+//   // your audio playback logic in one place.
+//
+//   @override
+//   Future<void> play() => _player.play();
+//
+//   @override
+//   Future<void> pause() => _player.pause();
+//
+//   @override
+//   Future<void> seek(Duration position) => _player.seek(position);
+//
+//   @override
+//   Future<void> stop() => _player.stop();
+//
+//   /// Transform a just_audio event into an audio_service state.
+//   ///
+//   /// This method is used from the constructor. Every event received from the
+//   /// just_audio player will be transformed into an audio_service state so that
+//   /// it can be broadcast to audio_service clients.
+//   PlaybackState _transformEvent(PlaybackEvent event) {
+//     return PlaybackState(
+//       controls: [
+//         MediaControl.rewind,
+//         if (_player.playing) MediaControl.pause else MediaControl.play,
+//         MediaControl.stop,
+//         MediaControl.fastForward,
+//       ],
+//       systemActions: const {
+//         MediaAction.seek,
+//         MediaAction.seekForward,
+//         MediaAction.seekBackward,
+//       },
+//       androidCompactActionIndices: const [0, 1, 3],
+//       processingState: const {
+//         ProcessingState.idle: AudioProcessingState.idle,
+//         ProcessingState.loading: AudioProcessingState.loading,
+//         ProcessingState.buffering: AudioProcessingState.buffering,
+//         ProcessingState.ready: AudioProcessingState.ready,
+//         ProcessingState.completed: AudioProcessingState.completed,
+//       }[_player.processingState]!,
+//       playing: _player.playing,
+//       updatePosition: _player.position,
+//       bufferedPosition: _player.bufferedPosition,
+//       speed: _player.speed,
+//       queueIndex: event.currentIndex,
+//     );
+//   }
+// }

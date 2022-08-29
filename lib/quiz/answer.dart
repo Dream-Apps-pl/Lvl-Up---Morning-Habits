@@ -15,23 +15,36 @@ class Answer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NeumorphicButton(
-      //padding with: left, top, right, bottom
-      padding: EdgeInsets.all(20),
-      margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
-      style: NeumorphicStyle(
-        shape: NeumorphicShape.flat,
-        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-        depth: 3,
-        intensity: 0.7,
-      ),
+    return ElevatedButton(
+      onPressed: selectHandler,
       child: Text(
         answerText,
         style: boldTextStyle(
-            size: 16, textColor: CustomColors.sdPrimaryColor, letterSpacing: 2),
+            size: 16, textColor: CustomColors.sdTextPrimaryColor, letterSpacing: 2),
       ),
-      onPressed: selectHandler,
+
+      style: ElevatedButton.styleFrom(primary: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
+        ),
+      ),
     );
+      // NeumorphicButton(
+      // //padding with: left, top, right, bottom
+      // padding: EdgeInsets.all(20),
+      // margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
+      // style: NeumorphicStyle(
+      //   shape: NeumorphicShape.flat,
+      //   boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+      //   depth: 3,
+      //   intensity: 0.7,
+      // ),
+      // child: Text(
+      //   answerText,
+      //   style: boldTextStyle(
+      //       size: 16, textColor: CustomColors.sdTextPrimaryColor, letterSpacing: 2),
+      // ),
+      // onPressed: selectHandler,
+    // );
 
     //   SimpleButton(
     //     answerText,

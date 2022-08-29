@@ -11,6 +11,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 
+import '../../main.dart';
 import '../../quiz/start_quiz.dart';
 
 // import '../main.dart';
@@ -53,7 +54,7 @@ class _MainScreenState extends State<MainScreen> {
                 else if (value.menuType == MenuType.clock)
                 return ClockScreen();
                 else if (value.menuType == MenuType.quiz)
-                  return StartQuiz();
+                  return StartQuiz(mediaHandler: mediaHandler,);
                 else
                   return Container(
                     child: RichText(

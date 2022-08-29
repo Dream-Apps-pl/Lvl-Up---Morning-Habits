@@ -11,6 +11,7 @@ import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
 
 import '../../main.dart';
 import '../../stores/alarm_status/alarm_status.dart';
+import 'home_screen.dart';
 
 class AlarmListScreen extends StatelessWidget {
   final AlarmList alarms;
@@ -80,8 +81,11 @@ class AlarmListScreen extends StatelessWidget {
                       style: NeumorphicStyle(color: Colors.white70),
                     ),
                     onPressed: () {
-                      addAlarm(context, _manager);
 
+                      // HomeScreen().setState(() {
+                      //   HomeScreen().visibleButton = false;
+                      // });
+                      addAlarm(context, _manager);
 
                     },
                   ),

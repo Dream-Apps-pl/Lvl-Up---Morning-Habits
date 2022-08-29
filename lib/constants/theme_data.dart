@@ -19,6 +19,8 @@ class CustomColors {
   static Color sdTextPrimaryColor = Color(0xFF000000);
   static Color sdTextSecondaryColor = Color(0xFF4D4C4C);
 
+  static Color sdAppWhite = Color(0xFFFFFFFF);
+
   static Color sdPrimaryColor = Color(0xFF393F74);
   static Color sdPrimaryColorLight = Color(0xFF6679CC);
   static Color sdPrimaryBgLightColor = Color(0xFFE2D4F5);

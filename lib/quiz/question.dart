@@ -20,7 +20,7 @@ class Question extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 20,
-                  color: CustomColors.primaryTextColor, //color: HexColor("#6B443D"),
+                  color: CustomColors.sdAppWhite, //color: HexColor("#6B443D"),
                 ))));
   }
 }

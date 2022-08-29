@@ -24,8 +24,7 @@ class MusicListItem extends StatelessWidget {
             return IconButton(
                 icon: value == musicInfo.filePath
                     ? Icon(Icons.pause)
-                    : Icon(
-                        Icons.play_arrow,
+                    : Icon(Icons.play_arrow,
                       ),
                 onPressed: () async {
                   // toggle player

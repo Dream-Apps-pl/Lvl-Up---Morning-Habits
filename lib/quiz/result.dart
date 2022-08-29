@@ -1,8 +1,13 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:bringtoforeground/bringtoforeground.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import '../constants/theme_data.dart';
+import '../main.dart';
 import '../screens/main/clock_screen.dart';
 import '../utils/widget_helper.dart';
 import './question.dart';
@@ -20,7 +25,7 @@ class Result extends StatelessWidget {
 
     if (score <= 5.00) {
       resultText =
-      'Try your best next time! \n But have a good day!';
+      'Next time, you should \n cheat, we wan\'t tell \n \n Have a great day!';
     }
     // else if (score > 15.00 && score <= 25.00) {
     //   resultText =
@@ -28,7 +33,7 @@ class Result extends StatelessWidget {
     // }
     else if (score > 5.00 && score <= 2000.00) {
       resultText =
-      'You answered right! \n Have a good day!';
+      'You\'r smarter than \n you look. \n \n Have a great day!';
     }
     else {
       resultText =
@@ -54,28 +59,31 @@ class Result extends StatelessWidget {
                         resultPhrase,
                       ),
                     )),
-                NeumorphicButton(
-                    //padding with: left, top, right, bottom
-                    padding: EdgeInsets.all(20),
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                    style: NeumorphicStyle(
-                      shape: NeumorphicShape.flat,
-                      boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                      depth: 3,
-                      intensity: 0.7,
-                    ),
-                    child: Text(
-                      'Close',
-                      style: boldTextStyle(
-                          size: 16, textColor: CustomColors.sdPrimaryColor, letterSpacing: 2),
-                    ),
-                    onPressed: () async {
-                      //resetHandler,
-                      //SystemNavigator.pop();
-                      //Navigator.push(context, MaterialPageRoute(builder: (context) => ClockScreen()),);
-                      Phoenix.rebirth(context);
+        ElevatedButton(
+          onPressed: () async {
+            //resetHandler,
+            //SystemNavigator.pop();
+            //Navigator.push(context, MaterialPageRoute(builder: (context) => ClockScreen()),);
+            //Phoenix.rebirth(context);
+            SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+            exit(0);
+            // restartApp();
+            // Timer(Duration(seconds: 1), () {
+            //   Bringtoforeground.bringAppToForeground();
+            // });
 
-                    })
+          },
+          child: Text(
+            'Close',
+            style: boldTextStyle(
+                size: 16, textColor: CustomColors.sdTextPrimaryColor, letterSpacing: 2),
+          ),
+
+          style: ElevatedButton.styleFrom(primary: Colors.white,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
     // ElevatedButton(
     //   style: ButtonStyle(
     //       backgroundColor:
