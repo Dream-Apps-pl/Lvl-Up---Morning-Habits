@@ -2,7 +2,7 @@ import 'package:wakeup/constants/theme_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+// import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class EditAlarmHead extends StatelessWidget {
   final ObservableAlarm alarm;
@@ -31,18 +31,18 @@ class EditAlarmHead extends StatelessWidget {
             ],
           ),
         ),
-        Observer(
-          builder: (context) => NeumorphicSwitch(
-            value: alarm.active!,
-            onChanged: (value) {
-              alarm.active = !alarm.active!;
-            },
-            style: NeumorphicSwitchStyle(
-              activeTrackColor: Colors.green,
-              inactiveTrackColor: CustomColors.sdShadowDarkColor,
-            ),
-          ),
-        )
+        // Observer(
+          // builder: (context) => NeumorphicSwitch(
+          //   value: alarm.active!,
+          //   onChanged: (value) {
+          //     alarm.active = !alarm.active!;
+          //   },
+          //   style: NeumorphicSwitchStyle(
+          //     activeTrackColor: Colors.green,
+          //     inactiveTrackColor: CustomColors.sdShadowDarkColor,
+          //   ),
+          // ),
+        // )
       ],
     );
   }

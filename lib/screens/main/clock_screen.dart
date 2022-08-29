@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:wakeup/constants/theme_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+// import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
 
 import '../../widgets/clockview.dart';
@@ -28,22 +28,22 @@ class _ClockScreenState extends State<ClockScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Flexible(
-            flex: 1,
-            fit: FlexFit.tight,
-            child: NeumorphicText(
-              "Clock",
-              style: NeumorphicStyle(
-                depth: 3,
-                intensity: 14,
-              ),
-              textStyle: NeumorphicTextStyle(
-                  fontSize: 52, //customize size here
-                  fontWeight: FontWeight.w900
-                  // AND others usual text style properties (fontFamily, fontWeight, ...)
-                  ),
-            ),
-          ),
+          // Flexible(
+          //   flex: 1,
+          //   fit: FlexFit.tight,
+          //   child: NeumorphicText(
+          //     "Clock",
+          //     style: NeumorphicStyle(
+          //       depth: 3,
+          //       intensity: 14,
+          //     ),
+          //     textStyle: NeumorphicTextStyle(
+          //         fontSize: 52, //customize size here
+          //         fontWeight: FontWeight.w900
+          //         // AND others usual text style properties (fontFamily, fontWeight, ...)
+          //         ),
+          //   ),
+          // ),
           // Text(
           //           'Wake Up',
           //           style: TextStyle(
@@ -196,18 +196,18 @@ class _ClockScreenState extends State<ClockScreen> {
     );
   }
 
-  Widget _createDot(BuildContext context) {
-    return Neumorphic(
-      style: NeumorphicStyle(
-          depth: -10,
-          boxShape: NeumorphicBoxShape.circle(),
-          color: CustomColors.sdShadowColor),
-      child: SizedBox(
-        height: 10,
-        width: 10,
-      ),
-    );
-  }
+  // Widget _createDot(BuildContext context) {
+  //   return Neumorphic(
+  //     style: NeumorphicStyle(
+  //         depth: -10,
+  //         boxShape: NeumorphicBoxShape.circle(),
+  //         color: CustomColors.sdShadowColor),
+  //     child: SizedBox(
+  //       height: 10,
+  //       width: 10,
+  //     ),
+  //   );
+  // }
 }
 
 class DigitalClockWidget extends StatefulWidget {

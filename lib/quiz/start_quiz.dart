@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:just_audio/just_audio.dart';
@@ -157,10 +156,22 @@ class StartQuizState extends State<StartQuiz> {
             ElevatedButton(
               onPressed: () {
                 if (playing) {
-                  mediaHandler.stopMusic();
+                  setState(() {
+                    try {
+                      mediaHandler.stopMusic();
+                    } catch (a) {
+                      print("start_quiz playing: Error code: $a");
+                    }
+                  });
                   playing = false;
                 } else {
-                  mediaHandler.play();
+                  setState(() {
+                    try {
+                      mediaHandler.play();
+                    } catch (a) {
+                      print("start_quiz playing2: Error code: $a");
+                    }
+                  });
                   playing = true;
                 }
               },

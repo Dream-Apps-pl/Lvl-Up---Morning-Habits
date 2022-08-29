@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+// import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:mobx/mobx.dart';
 import 'package:wakeup/widgets/alarm_item/alarm_item.dart';
 import 'package:wakeup/screens/edit_alarm/edit_alarm.dart';
@@ -11,7 +11,6 @@ import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
 
 import '../../main.dart';
 import '../../stores/alarm_status/alarm_status.dart';
-import 'home_screen.dart';
 
 class AlarmListScreen extends StatelessWidget {
   final AlarmList alarms;
@@ -27,18 +26,18 @@ class AlarmListScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          NeumorphicText(
-            "Wake Up",
-            style: NeumorphicStyle(
-              depth: 3,
-              intensity: 14,
-            ),
-            textStyle: NeumorphicTextStyle(
-                fontSize: 42, //customize size here
-                fontWeight: FontWeight.w900
-                // AND others usual text style properties (fontFamily, fontWeight, ...)
-                ),
-          ),
+          // NeumorphicText(
+          //   "Wake Up",
+          //   style: NeumorphicStyle(
+          //     depth: 3,
+          //     intensity: 14,
+          //   ),
+          //   textStyle: NeumorphicTextStyle(
+          //       fontSize: 42, //customize size here
+          //       fontWeight: FontWeight.w900
+          //       // AND others usual text style properties (fontFamily, fontWeight, ...)
+          //       ),
+          // ),
           SizedBox(
             height: 20,
           ),
@@ -68,27 +67,27 @@ class AlarmListScreen extends StatelessWidget {
                       separatorBuilder: (context, index) => const Divider(),
                     ),
                   ),
-                  NeumorphicButton(
-                    margin: EdgeInsets.only(top: 50),
-                    style: NeumorphicStyle(
-                      boxShape: NeumorphicBoxShape.circle(),
-                      depth: 2,
-                      intensity: 0.7,
-                    ),
-                    child: NeumorphicIcon(
-                      Icons.add_circle,
-                      size: 80,
-                      style: NeumorphicStyle(color: Colors.white70),
-                    ),
-                    onPressed: () {
-
-                      // HomeScreen().setState(() {
-                      //   HomeScreen().visibleButton = false;
-                      // });
-                      addAlarm(context, _manager);
-
-                    },
-                  ),
+                  // NeumorphicButton(
+                  //   margin: EdgeInsets.only(top: 50),
+                  //   style: NeumorphicStyle(
+                  //     boxShape: NeumorphicBoxShape.circle(),
+                  //     depth: 2,
+                  //     intensity: 0.7,
+                  //   ),
+                  //   child: NeumorphicIcon(
+                  //     Icons.add_circle,
+                  //     size: 80,
+                  //     style: NeumorphicStyle(color: Colors.white70),
+                  //   ),
+                  //   onPressed: () {
+                  //
+                  //     // HomeScreen().setState(() {
+                  //     //   HomeScreen().visibleButton = false;
+                  //     // });
+                  //     addAlarm(context, _manager);
+                  //
+                  //   },
+                  // ),
                 ],
               ),
             ),

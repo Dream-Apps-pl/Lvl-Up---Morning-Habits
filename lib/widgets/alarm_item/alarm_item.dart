@@ -5,7 +5,7 @@ import 'package:wakeup/screens/edit_alarm/edit_alarm.dart';
 import 'package:wakeup/services/alarm_list_manager.dart';
 import 'package:wakeup/stores/alarm_list/alarm_list.dart';
 import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+// import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 const dates = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 
@@ -25,105 +25,105 @@ class AlarmItem extends StatelessWidget {
           MaterialPageRoute(
               builder: (context) =>
                   EditAlarm(alarm: this.alarm, manager: manager!))),
-      child: Observer(
-        builder: (context) => Neumorphic(
-          style: NeumorphicStyle(
-            shape: NeumorphicShape.concave,
-            // boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-            depth: alarm.active! ? 2 : 0,
-            intensity: alarm.active! ? 0.9 : 0.1,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Flexible(
-                  flex: 6,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.label_outline,
-                            color: alarm.active!
-                                ? CustomColors.sdPrimaryColor
-                                : CustomColors.sdShadowDarkColor,
-                            size: 24,
-                          ),
-                          SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              alarm.name!,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style:
-                                  TextStyle(color: CustomColors.sdPrimaryColor),
-                            ),
-                          )
-                        ],
-                      ),
-                      Text(
-                        '${alarm.hour.toString().padLeft(2, '0')}:${alarm.minute.toString().padLeft(2, '0')}',
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: CustomColors.sdPrimaryColor),
-                      ),
-                      //Days of active alarm:
-                      //DateRow(alarm: alarm)
-                    ],
-                  ),
-                ),
-                Flexible(
-                  flex: 8,
-                  child: Text(
-                    "<- Move to Delete ->",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style:
-                    TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: CustomColors.sdPrimaryColor,
-                      fontSize: 20,
-                    ),
-                  ),
-                  // NeumorphicButton(
-                  //   padding: EdgeInsets.all(10),
-                  //   style: NeumorphicStyle(
-                  //     boxShape: NeumorphicBoxShape.circle(),
-                  //     shape: NeumorphicShape.flat,
-                  //     depth: 3,
-                  //     intensity: 0.7,
-                  //   ),
-                  //   child:
-                  //   // Icon(
-                  //   //   Icons.arrow_left,
-                  //   //   color: CustomColors.sdPrimaryColor,
-                  //   //   size: 25,
-                  //   // ),
-                  //   // onPressed: () {
-                  //   //
-                  //   // },
-                  //
-                  // ),
-                  // NeumorphicSwitch(
-                  //   value: alarm.active!,
-                  //   onChanged: (value) {
-                  //     alarm.active = !alarm.active!;
-                  //   },
-                  //   style: NeumorphicSwitchStyle(
-                  //     activeTrackColor: Colors.green,
-                  //     inactiveTrackColor: CustomColors.sdShadowDarkColor,
-                  //   ),
-                  // ),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
+      // child: Observer(
+      //   builder: (context) => Neumorphic(
+      //     style: NeumorphicStyle(
+      //       shape: NeumorphicShape.concave,
+      //       // boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+      //       depth: alarm.active! ? 2 : 0,
+      //       intensity: alarm.active! ? 0.9 : 0.1,
+      //     ),
+      //     child: Padding(
+      //       padding: const EdgeInsets.all(10),
+      //       child: Row(
+      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //         children: <Widget>[
+      //           Flexible(
+      //             flex: 6,
+      //             child: Column(
+      //               crossAxisAlignment: CrossAxisAlignment.start,
+      //               children: <Widget>[
+      //                 Row(
+      //                   children: <Widget>[
+      //                     Icon(
+      //                       Icons.label_outline,
+      //                       color: alarm.active!
+      //                           ? CustomColors.sdPrimaryColor
+      //                           : CustomColors.sdShadowDarkColor,
+      //                       size: 24,
+      //                     ),
+      //                     SizedBox(width: 8),
+      //                     Expanded(
+      //                       child: Text(
+      //                         alarm.name!,
+      //                         maxLines: 1,
+      //                         overflow: TextOverflow.ellipsis,
+      //                         style:
+      //                             TextStyle(color: CustomColors.sdPrimaryColor),
+      //                       ),
+      //                     )
+      //                   ],
+      //                 ),
+      //                 Text(
+      //                   '${alarm.hour.toString().padLeft(2, '0')}:${alarm.minute.toString().padLeft(2, '0')}',
+      //                   style: TextStyle(
+      //                       fontSize: 30,
+      //                       fontWeight: FontWeight.bold,
+      //                       color: CustomColors.sdPrimaryColor),
+      //                 ),
+      //                 //Days of active alarm:
+      //                 //DateRow(alarm: alarm)
+      //               ],
+      //             ),
+      //           ),
+      //           Flexible(
+      //             flex: 8,
+      //             child: Text(
+      //               "<- Move to Delete ->",
+      //               maxLines: 1,
+      //               overflow: TextOverflow.ellipsis,
+      //               style:
+      //               TextStyle(
+      //                 fontWeight: FontWeight.bold,
+      //                 color: CustomColors.sdPrimaryColor,
+      //                 fontSize: 20,
+      //               ),
+      //             ),
+      //             // NeumorphicButton(
+      //             //   padding: EdgeInsets.all(10),
+      //             //   style: NeumorphicStyle(
+      //             //     boxShape: NeumorphicBoxShape.circle(),
+      //             //     shape: NeumorphicShape.flat,
+      //             //     depth: 3,
+      //             //     intensity: 0.7,
+      //             //   ),
+      //             //   child:
+      //             //   // Icon(
+      //             //   //   Icons.arrow_left,
+      //             //   //   color: CustomColors.sdPrimaryColor,
+      //             //   //   size: 25,
+      //             //   // ),
+      //             //   // onPressed: () {
+      //             //   //
+      //             //   // },
+      //             //
+      //             // ),
+      //             // NeumorphicSwitch(
+      //             //   value: alarm.active!,
+      //             //   onChanged: (value) {
+      //             //     alarm.active = !alarm.active!;
+      //             //   },
+      //             //   style: NeumorphicSwitchStyle(
+      //             //     activeTrackColor: Colors.green,
+      //             //     inactiveTrackColor: CustomColors.sdShadowDarkColor,
+      //             //   ),
+      //             // ),
+      //           )
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

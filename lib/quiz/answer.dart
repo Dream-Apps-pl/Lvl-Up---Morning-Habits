@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:hexcolor/hexcolor.dart';
-
 import '../constants/theme_data.dart';
 import '../utils/widget_helper.dart';
-import '../widgets/simple_button.dart';
 
 class Answer extends StatelessWidget {
   final VoidCallback selectHandler;

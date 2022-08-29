@@ -3,12 +3,10 @@ import 'package:wakeup/enums.dart';
 import 'package:wakeup/models/menu_info.dart';
 import 'package:wakeup/screens/main/alarm_list_screen.dart';
 import 'package:wakeup/stores/alarm_list/alarm_list.dart';
-// import 'package:wakeup/views/alarm_page.dart';
 import 'package:wakeup/screens/main/clock_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
 import '../../main.dart';
@@ -89,51 +87,51 @@ class _MainScreenState extends State<MainScreen> {
       builder: (BuildContext context, MenuInfo value, Widget? child) {
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: FlatButton(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(32),
-                    topLeft: Radius.circular(32))),
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
-            color: currentMenuInfo.menuType == value.menuType
-                ? NeumorphicTheme.isUsingDark(context)
-                    ? Colors.black87
-                    : Colors.white70
-                : Colors.transparent,
-            onPressed: () {
-              var menuInfo = Provider.of<MenuInfo>(context, listen: false);
-              menuInfo.updateMenu(currentMenuInfo);
-            },
-            child: Column(
-              children: <Widget>[
-                NeumorphicButton(
-                  padding: EdgeInsets.all(18),
-                  style: NeumorphicStyle(
-                    boxShape: NeumorphicBoxShape.circle(),
-                    shape: NeumorphicShape.flat,
-                    depth: 2,
-                    intensity: 0.7,
-                  ),
-                  child: Icon(
-                    currentMenuInfo.icon,
-                    color: CustomColors.sdPrimaryColor,
-                  ),
-                  onPressed: () {
-                    //...
-                    var menuInfo =
-                        Provider.of<MenuInfo>(context, listen: false);
-                    menuInfo.updateMenu(currentMenuInfo);
-                  },
-                ),
-                SizedBox(height: 16),
-                Text(
-                  currentMenuInfo.title,
-                  style: TextStyle(
-                      color: CustomColors.primaryTextColor, fontSize: 14),
-                ),
-              ],
-            ),
-          ),
+          // child: FlatButton(
+          //   shape: RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.only(
+          //           topRight: Radius.circular(32),
+          //           topLeft: Radius.circular(32))),
+          //   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+          //   color: currentMenuInfo.menuType == value.menuType
+          //       ? NeumorphicTheme.isUsingDark(context)
+          //           ? Colors.black87
+          //           : Colors.white70
+          //       : Colors.transparent,
+          //   onPressed: () {
+          //     var menuInfo = Provider.of<MenuInfo>(context, listen: false);
+          //     menuInfo.updateMenu(currentMenuInfo);
+          //   },
+          //   child: Column(
+          //     children: <Widget>[
+          //       NeumorphicButton(
+          //         padding: EdgeInsets.all(18),
+          //         style: NeumorphicStyle(
+          //           boxShape: NeumorphicBoxShape.circle(),
+          //           shape: NeumorphicShape.flat,
+          //           depth: 2,
+          //           intensity: 0.7,
+          //         ),
+          //         child: Icon(
+          //           currentMenuInfo.icon,
+          //           color: CustomColors.sdPrimaryColor,
+          //         ),
+          //         onPressed: () {
+          //           //...
+          //           var menuInfo =
+          //               Provider.of<MenuInfo>(context, listen: false);
+          //           menuInfo.updateMenu(currentMenuInfo);
+          //         },
+          //       ),
+          //       SizedBox(height: 16),
+          //       Text(
+          //         currentMenuInfo.title,
+          //         style: TextStyle(
+          //             color: CustomColors.primaryTextColor, fontSize: 14),
+          //       ),
+          //     ],
+          //   ),
+          // ),
         );
       },
     );

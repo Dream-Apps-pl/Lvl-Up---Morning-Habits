@@ -2,7 +2,7 @@ import 'package:wakeup/utils/widget_helper.dart';
 import 'package:wakeup/widgets/dialog_container/dialog_container.dart';
 import 'package:wakeup/widgets/simple_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+// import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class SingleInputDialog extends StatelessWidget {
   final String title;
@@ -42,28 +42,28 @@ class SingleInputDialog extends StatelessWidget {
           SizedBox(
             height: 16,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
-            child: Text(
-              labelText,
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                color: NeumorphicTheme.defaultTextColor(context),
-              ),
-            ),
-          ),
-          Neumorphic(
-            margin: EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
-            style: NeumorphicStyle(
-                depth: 2, boxShape: NeumorphicBoxShape.stadium(), intensity: 4),
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 18),
-            child: TextField(
-              onChanged: (text) {
-                inputText = text;
-              },
-              decoration: InputDecoration.collapsed(hintText: hintText),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+          //   child: Text(
+          //     labelText,
+          //     style: TextStyle(
+          //       fontWeight: FontWeight.w700,
+          //       color: NeumorphicTheme.defaultTextColor(context),
+          //     ),
+          //   ),
+          // ),
+          // Neumorphic(
+          //   margin: EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
+          //   style: NeumorphicStyle(
+          //       depth: 2, boxShape: NeumorphicBoxShape.stadium(), intensity: 4),
+          //   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 18),
+          //   child: TextField(
+          //     onChanged: (text) {
+          //       inputText = text;
+          //     },
+          //     decoration: InputDecoration.collapsed(hintText: hintText),
+          //   ),
+          // ),
           SizedBox(
             height: 30,
           ),

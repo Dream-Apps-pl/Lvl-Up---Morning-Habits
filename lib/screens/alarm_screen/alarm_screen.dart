@@ -1,27 +1,15 @@
-import 'package:audio_service/audio_service.dart';
-import 'package:audio_session/audio_session.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:wakeup/constants/theme_data.dart';
 import 'package:wakeup/services/alarm_scheduler.dart';
-import 'package:wakeup/utils/widget_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:wakeup/stores/alarm_status/alarm_status.dart';
 import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
-import 'package:wakeup/widgets/rounded_button.dart';
 import 'package:wakelock/wakelock.dart';
 
-import '../../common.dart';
 import '../../main.dart';
 import '../../quiz/start_quiz.dart';
 import '../../services/media_handler.dart';
-import '../../widgets/alarm_item/alarm_item.dart';
-import '../main/clock_screen.dart';
-import '../main/alarm_list_screen.dart';
 
 
 class AlarmScreen extends StatelessWidget {

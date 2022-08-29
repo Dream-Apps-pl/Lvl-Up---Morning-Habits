@@ -1,17 +1,9 @@
-import 'dart:async';
 import 'dart:io';
-
-import 'package:bringtoforeground/bringtoforeground.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import '../constants/theme_data.dart';
-import '../main.dart';
-import '../screens/main/clock_screen.dart';
 import '../utils/widget_helper.dart';
 import './question.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class Result extends StatelessWidget {
   final double resultScore;

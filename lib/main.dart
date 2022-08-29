@@ -1,25 +1,10 @@
 import 'dart:async';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
-import 'package:audio_service/audio_service.dart';
-import 'package:audio_session/audio_session.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:wakeup/quiz/start_quiz.dart';
-import 'package:wakeup/screens/main/alarm_list_screen.dart';
-import 'package:wakeup/screens/main/clock_screen.dart';
 import 'package:wakeup/screens/main/home_screen.dart';
 import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
-import 'package:wakeup/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:provider/provider.dart';
-import 'common.dart';
-import 'constants/theme_data.dart';
-import 'enums.dart';
-import 'models/menu_info.dart';
 import 'screens/alarm_screen/alarm_screen.dart';
 import 'services/alarm_polling_worker.dart';
 import 'services/file_proxy.dart';
@@ -31,9 +16,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wakelock/wakelock.dart';
 import 'utils/schedule_notifications.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:audio_service/audio_service.dart';
-import 'package:just_audio/just_audio.dart';
+// import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class Strings {
   static const String appTitle = 'Wake Up Alarm';

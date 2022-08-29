@@ -1,7 +1,7 @@
 import 'package:wakeup/constants/theme_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+// import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class RoundedButton extends StatelessWidget {
   final Function()? onTap;
@@ -20,30 +20,36 @@ class RoundedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double size = fontSize + (fontSize * 1.2);
-
-    return NeumorphicButton(
-      style: NeumorphicStyle(
-        boxShape: NeumorphicBoxShape.circle(),
-        shape: NeumorphicShape.flat,
-        depth: 4,
-        intensity: 0.7,
-      ),
-      child: Container(
-          width: size,
-          height: size,
-          child: FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Text(
-              this.text,
-              maxLines: 1,
-              style: TextStyle(
-                  fontSize: fontSize,
-                  fontWeight: FontWeight.w700,
-                  color: textColor ?? CustomColors.sdPrimaryColor),
-            ),
-          )),
-      onPressed: onTap,
-    );
+    // TODO: implement build
+    throw UnimplementedError();
   }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   double size = fontSize + (fontSize * 1.2);
+  //
+  //   return NeumorphicButton(
+  //     style: NeumorphicStyle(
+  //       boxShape: NeumorphicBoxShape.circle(),
+  //       shape: NeumorphicShape.flat,
+  //       depth: 4,
+  //       intensity: 0.7,
+  //     ),
+  //     child: Container(
+  //         width: size,
+  //         height: size,
+  //         child: FittedBox(
+  //           fit: BoxFit.scaleDown,
+  //           child: Text(
+  //             this.text,
+  //             maxLines: 1,
+  //             style: TextStyle(
+  //                 fontSize: fontSize,
+  //                 fontWeight: FontWeight.w700,
+  //                 color: textColor ?? CustomColors.sdPrimaryColor),
+  //           ),
+  //         )),
+  //     onPressed: onTap,
+  //   );
+  // }
 }
