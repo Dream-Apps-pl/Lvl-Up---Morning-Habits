@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:wakeup/constants/global.dart';
 import 'package:wakeup/main.dart';
 import 'package:wakeup/stores/song_info/song_info.dart';
@@ -136,7 +134,7 @@ class EditAlarmMusic extends StatelessWidget {
                     key: Key(musicListItem.key.toString()),
                     child: musicListItem,
                     onDismissed: (_) async {
-                      await mediaHandler.stopMusic();
+                      // await pageManager.pause();
                       this.alarm!.removeSong(musicListItem.musicInfo);
                       musicListItems.removeAt(index);
                     },

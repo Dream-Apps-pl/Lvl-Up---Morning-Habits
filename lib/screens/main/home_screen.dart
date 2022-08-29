@@ -5,7 +5,6 @@ import '../../components/alarm_item/alarm_item.dart';
 import '../../components/bottom_add_button/bottom_add_button.dart';
 import '../../components/default_container/default_container.dart';
 import '../edit_alarm/components/edit_alarm_time.dart';
-import '../edit_alarm/edit_alarm.dart';
 import '../../services/alarm_list_manager.dart';
 import '../../services/alarm_scheduler.dart';
 import '../../stores/alarm_list/alarm_list.dart';
@@ -40,8 +39,7 @@ class HomeScreen extends StatelessWidget {
 
                       return Dismissible(
                         key: Key(alarm.id.toString()),
-                        child: AlarmItem(
-                          alarm: alarm, manager: _manager, alarms: alarms,),
+                        child: AlarmItem(alarm: alarm, manager: _manager, alarms: alarms,),
                         onDismissed: (_) {
                           AlarmScheduler().clearAlarm(alarm);
                           alarms.alarms.removeAt(index);

@@ -1,4 +1,3 @@
-import 'package:wakeup/constants/theme_data.dart';
 import 'package:wakeup/enums.dart';
 import 'package:wakeup/models/menu_info.dart';
 import 'package:wakeup/screens/main/alarm_list_screen.dart';
@@ -6,18 +5,15 @@ import 'package:wakeup/stores/alarm_list/alarm_list.dart';
 import 'package:wakeup/screens/main/clock_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
 import '../../main.dart';
 import '../../quiz/start_quiz.dart';
 
-// import '../main.dart';
 List<MenuInfo> menuItems = [
   MenuInfo(MenuType.alarm, title: 'Alarm', icon: Icons.alarm),
   MenuInfo(MenuType.clock, title: 'Clock', icon: Icons.timelapse),
   MenuInfo(MenuType.quiz, title: 'Quiz', icon: Icons.quiz),
-
 ];
 
 class MainScreen extends StatefulWidget {
@@ -52,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
                 else if (value.menuType == MenuType.clock)
                 return ClockScreen();
                 else if (value.menuType == MenuType.quiz)
-                  return StartQuiz(mediaHandler: mediaHandler,);
+                  return StartQuiz(audioHandler: audioHandler,);
                 else
                   return Container(
                     child: RichText(

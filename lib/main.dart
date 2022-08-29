@@ -9,7 +9,7 @@ import 'screens/alarm_screen/alarm_screen.dart';
 import 'services/alarm_polling_worker.dart';
 import 'services/file_proxy.dart';
 import 'services/life_cycle_listener.dart';
-import 'services/media_handler.dart';
+import 'services/audio_handler.dart';
 import 'stores/alarm_list/alarm_list.dart';
 import 'stores/alarm_status/alarm_status.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -23,8 +23,8 @@ class Strings {
 }
 
 AlarmList list = AlarmList();
+MyAudioHandler audioHandler = MyAudioHandler();
 
-MediaHandler mediaHandler = MediaHandler();
 var playingSoundPath = ValueNotifier<String>("");
 
 NotificationAppLaunchDetails? notificationAppLaunchDetails;
@@ -69,23 +69,23 @@ void restartApp() {
 }
 
 
-//
-// class MyApp extends StatefulWidget {
-//   const MyApp({Key? key}) : super(key: key);
-//
-//   @override
-//   MyAppState createState() => MyAppState();
-// }
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
-class MyApp extends StatelessWidget {
-  // late final AlarmList alarms;
+class _MyAppState extends State<MyApp> {
+  @override
 
-  // @override
-  // void initState() {
-  //
-  //   super.initState();
-  //
-  // }
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -106,10 +106,10 @@ class MyApp extends StatelessWidget {
           final alarm = list.alarms.firstWhere((alarm) => alarm.id == id,
               orElse: () => ObservableAlarm());
 
-          mediaHandler.playMusic(alarm);
+          audioHandler.play;
           Wakelock.enable();
 
-          return AlarmScreen(alarm: alarm, mediaHandler: mediaHandler,);
+          return AlarmScreen(alarm: alarm, audioHandler: audioHandler,);
         }
         return HomeScreen(alarms: list);
 

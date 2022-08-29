@@ -5,18 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
-import 'package:just_audio/just_audio.dart';
 import '../constants/theme_data.dart';
 import '../main.dart';
-import '../services/media_handler.dart';
+import '../screens/alarm_screen/alarm_screen.dart';
+import '../services/audio_handler.dart';
 import '../stores/observable_alarm/observable_alarm.dart';
 import 'quiz.dart';
 import 'result.dart';
 
 class StartQuiz extends StatefulWidget {
   final ObservableAlarm? alarm;
-  final MediaHandler mediaHandler;
-  const StartQuiz({Key? key, required this.mediaHandler, this.alarm}) : super(key: key);
+  final MyAudioHandler audioHandler;
+  const StartQuiz({Key? key, this.alarm, required this.audioHandler}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {return StartQuizState();}
@@ -24,7 +24,6 @@ class StartQuiz extends StatefulWidget {
 
 class StartQuizState extends State<StartQuiz> {
   ObservableAlarm alarm = ObservableAlarm();
-  MediaHandler mediaHandler = MediaHandler();
 
   String todayData = "";
   late final List<Map<String, Object>> _dataToday;
@@ -32,12 +31,16 @@ class StartQuizState extends State<StartQuiz> {
   double _totalScore = 0.00;
 
 
-
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
 
   @override
   void initState() {
     super.initState();
+
 
     //Find Today questionText
     var now = new DateTime.now();
@@ -118,8 +121,8 @@ class StartQuizState extends State<StartQuiz> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(
         SystemUiMode.manual, overlays: []); // fullscreen
-    bool playing = true;
-    //mediaHandler = MediaHandler();
+    audioHandler = widget.audioHandler;
+    // playing = true;
 
     return MaterialApp(
       home: Scaffold(
@@ -155,27 +158,21 @@ class StartQuizState extends State<StartQuiz> {
           children: <Widget>[
             ElevatedButton(
               onPressed: () {
+
                 if (playing) {
-                  setState(() {
-                    try {
-                      mediaHandler.stopMusic();
-                    } catch (a) {
-                      print("start_quiz playing: Error code: $a");
-                    }
-                  });
-                  playing = false;
+                  audioHandler.pause();
+                  print('alarm_screen: playing= ${playing}');
                 } else {
-                  setState(() {
-                    try {
-                      mediaHandler.play();
-                    } catch (a) {
-                      print("start_quiz playing2: Error code: $a");
-                    }
-                  });
-                  playing = true;
+                  audioHandler.play();
+                  print('alarm_screen: playing= ${playing}');
                 }
+                setState(() => playing = !playing);
+
               },
-              child: Icon(Icons.play_arrow, size: 30, color: Colors.black),
+              child: Icon(
+                  playing ? Icons.pause : Icons.play_arrow,
+                  size: 30,
+                  color: Colors.black),
               style: ButtonStyle(
                 shape: MaterialStateProperty.all(CircleBorder()),
                 padding: MaterialStateProperty.all(EdgeInsets.all(16)),

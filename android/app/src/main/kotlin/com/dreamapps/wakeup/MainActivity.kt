@@ -6,6 +6,6 @@ import io.flutter.app.FlutterApplication;
 
 import io.flutter.plugins.GeneratedPluginRegistrant;
 
-class MainActivity: FlutterActivity()  {
+class MainActivity: FlutterActivity() {
 
 }

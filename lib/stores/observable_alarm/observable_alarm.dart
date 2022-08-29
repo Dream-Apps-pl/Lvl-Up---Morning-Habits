@@ -173,10 +173,8 @@ abstract class ObservableAlarmBase with Store {
       return;
     }
 
-    final musicPathOffine =
-        musicPaths!.where((element) => !element.startsWith("http"));
-    final musicPathOnline =
-        musicPaths!.where((element) => element.startsWith("http"));
+    final musicPathOffine = musicPaths!.where((element) => !element.startsWith("http"));
+    final musicPathOnline = musicPaths!.where((element) => element.startsWith("http"));
     List<SongInfo> songs = [];
     // Add offline songs to list
     for (var path in musicPathOffine) {

@@ -9,24 +9,43 @@ import 'package:wakelock/wakelock.dart';
 
 import '../../main.dart';
 import '../../quiz/start_quiz.dart';
-import '../../services/media_handler.dart';
+import '../../services/audio_handler.dart';
 
+bool playing = true;
 
-class AlarmScreen extends StatelessWidget {
+class AlarmScreen extends StatefulWidget {
   final ObservableAlarm? alarm;
-  final MediaHandler mediaHandler;
-  const AlarmScreen({Key? key, required this.alarm, required this.mediaHandler}) : super(key: key);
-
-
+  final MyAudioHandler audioHandler;
+  const AlarmScreen({Key? key, required this.alarm, required this.audioHandler}) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() {return AlarmScreenState();}
+}
+
+class AlarmScreenState extends State<AlarmScreen> {
+  ObservableAlarm? alarm;
+
+  @override
+  void initState() {
+
+    audioHandler.play();
+    super.initState();
+
+  }
+
+    @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(
         SystemUiMode.manual, overlays: []); // fullscreen
     final now = DateTime.now();
     final format = DateFormat('Hm');
     final snoozeTimes = [5, 10, 15, 20];
-    bool playing = true;
+
+    // alarm = widget.alarm;
+    audioHandler = widget.audioHandler;
+    // audioHandler.play();
+    //audioHandler.playbackState.isPaused ? Icons.pause : Icons.play_arrow,
+
 
     return Scaffold(
       body: Container(
@@ -62,7 +81,7 @@ class AlarmScreen extends StatelessWidget {
                   Container(
                     width: 250,
                     child: Text(
-                      alarm!.name!,
+                      'Alarm',
                       maxLines: 3,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
@@ -85,7 +104,8 @@ class AlarmScreen extends StatelessWidget {
               print('alarm_screen: status.isAlarm ${status.isAlarm}');
               print('alarm_screen: list.alarms.length ${list.alarms.length}');
               //Navigator.of(context).pop();
-              Navigator.push(context, MaterialPageRoute(builder: (context) => StartQuiz(mediaHandler: mediaHandler, alarm: alarm)),);
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                  StartQuiz(audioHandler: audioHandler, alarm: alarm)),);
 
             },
             child:
@@ -98,15 +118,20 @@ class AlarmScreen extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
+
               if (playing) {
-                mediaHandler.stopMusic();
-                playing = false;
+                audioHandler.pause();
+                print('alarm_screen: playing= ${playing}');
               } else {
-                mediaHandler.playMusic(alarm!);
-                playing = true;
+                audioHandler.play();
+                print('alarm_screen: playing= ${playing}');
               }
+              setState(() => playing = !playing);
+
             },
-            child: Icon(Icons.play_arrow, size: 30, color: Colors.black),
+            child: Icon(playing ? Icons.pause : Icons.play_arrow,
+                size: 30,
+                color: Colors.black),
             style: ButtonStyle(
               shape: MaterialStateProperty.all(CircleBorder()),
               padding: MaterialStateProperty.all(EdgeInsets.all(16)),

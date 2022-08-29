@@ -27,13 +27,15 @@ class MusicListItem extends StatelessWidget {
                     : Icon(Icons.play_arrow,
                       ),
                 onPressed: () async {
+
+
                   // toggle player
-                  if (value == musicInfo.filePath)
-                    await mediaHandler.stopMusic();
-                  else
-                    await mediaHandler.playSingle(alarm, musicInfo.filePath);
-                  //this.alarm.removeItem(musicInfo);
-                });
+                  // if (value == musicInfo.filePath)
+                    // await mediaHandler.pause();
+                //   else
+                //     // await mediaHandler.play();
+                //   //this.alarm.removeItem(musicInfo);
+                 });
           },
         ),
       ],
