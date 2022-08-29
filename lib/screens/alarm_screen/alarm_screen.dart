@@ -97,7 +97,7 @@ class AlarmScreen extends StatelessWidget {
               print('alarm_screen: status.isAlarm ${status.isAlarm}');
               print('alarm_screen: list.alarms.length ${list.alarms.length}');
               //Navigator.of(context).pop();
-              Navigator.push(context, MaterialPageRoute(builder: (context) => StartQuiz(mediaHandler: mediaHandler,)),);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => StartQuiz(mediaHandler: mediaHandler, alarm: alarm)),);
 
             },
             child:

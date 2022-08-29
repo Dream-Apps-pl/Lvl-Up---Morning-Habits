@@ -20,18 +20,21 @@ class StartQuiz extends StatefulWidget {
   const StartQuiz({Key? key, required this.mediaHandler, this.alarm}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {return _StartQuizState();}
+  State<StatefulWidget> createState() {return StartQuizState();}
 }
 
-class _StartQuizState extends State<StartQuiz> {
-  ObservableAlarm? alarm;
-
-
+class StartQuizState extends State<StartQuiz> {
+  ObservableAlarm alarm = ObservableAlarm();
+  MediaHandler mediaHandler = MediaHandler();
 
   String todayData = "";
   late final List<Map<String, Object>> _dataToday;
   var _indexQuestion = 0;
   double _totalScore = 0.00;
+
+
+
+
 
   @override
   void initState() {
@@ -61,10 +64,6 @@ class _StartQuizState extends State<StartQuiz> {
     _dataToday = result; //Question
 
   }
-
-
-
-
 
 
 
@@ -161,7 +160,7 @@ class _StartQuizState extends State<StartQuiz> {
                   mediaHandler.stopMusic();
                   playing = false;
                 } else {
-                  mediaHandler.playMusic(alarm!);
+                  mediaHandler.play();
                   playing = true;
                 }
               },
