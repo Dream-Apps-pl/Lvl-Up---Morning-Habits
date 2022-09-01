@@ -97,10 +97,10 @@ class AlarmScreenState extends State<AlarmScreen> {
             onPressed: () {
 
               Wakelock.disable();
-              AlarmStatus().isAlarm = false;
-              AlarmStatus().alarmId = -1;
+              AlarmStatus2().isAlarm = false;
+              AlarmStatus2().alarmId = -1;
 
-              AlarmStatus status = AlarmStatus();
+              AlarmStatus2 status = AlarmStatus2();
               print('alarm_screen: status.isAlarm ${status.isAlarm}');
               print('alarm_screen: list.alarms.length ${list.alarms.length}');
               //Navigator.of(context).pop();
@@ -183,8 +183,8 @@ class AlarmScreenState extends State<AlarmScreen> {
     //mediaHandler.stopMusic();
     Wakelock.disable();
 
-    AlarmStatus().isAlarm = false;
-    AlarmStatus().alarmId = -1;
+    AlarmStatus2().isAlarm = false;
+    AlarmStatus2().alarmId = -1;
     SystemNavigator.pop();
   }
 

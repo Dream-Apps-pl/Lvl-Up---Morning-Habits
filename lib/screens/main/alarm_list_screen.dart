@@ -120,7 +120,7 @@ class AlarmListScreen extends StatelessWidget {
 
         alarms.alarms.add(newAlarm);
 
-      AlarmStatus status = AlarmStatus();
+      AlarmStatus2 status = AlarmStatus2();
       print('alarm_list_screen: status.isAlarm ${status.isAlarm}');
       print('alarm_list_screen: list.alarms.length ${list.alarms.length}');
 

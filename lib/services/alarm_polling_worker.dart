@@ -27,9 +27,9 @@ class AlarmPollingWorker {
     running = true;
     poller(60).then((alarmId) {
       running = false;
-      if (alarmId != null && AlarmStatus().alarmId == null) {
-        AlarmStatus().isAlarm = true;
-        AlarmStatus().alarmId = int.parse(alarmId);
+      if (alarmId != null && AlarmStatus2().alarmId == null) {
+        AlarmStatus2().isAlarm = true;
+        AlarmStatus2().alarmId = int.parse(alarmId);
         cleanUpAlarmFiles();
       }
     });

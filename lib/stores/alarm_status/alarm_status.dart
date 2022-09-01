@@ -2,17 +2,17 @@ import 'package:mobx/mobx.dart';
 
 part 'alarm_status.g.dart';
 
-class AlarmStatus extends _AlarmStatus with _$AlarmStatus {
-  static final AlarmStatus _instance = AlarmStatus._();
+class AlarmStatus2 extends _AlarmStatus2 with _$AlarmStatus2 {
+  static final AlarmStatus2 _instance = AlarmStatus2._();
 
-  factory AlarmStatus() {
+  factory AlarmStatus2() {
     return _instance;
   }
 
-  AlarmStatus._();
+  AlarmStatus2._();
 }
 
-abstract class _AlarmStatus with Store {
+abstract class _AlarmStatus2 with Store {
   @observable
   bool isAlarm = false;
 

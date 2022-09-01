@@ -4,7 +4,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
 
 import '../../../services/alarm_list_manager.dart';
-import '../../../services/alarm_scheduler.dart';
 
 class EditAlarmTime extends StatelessWidget {
   final ObservableAlarm alarm;
@@ -27,6 +26,17 @@ class EditAlarmTime extends StatelessWidget {
     if (time != null) {
       alarm.hour = time.hour;
       alarm.minute = time.minute;
+
+      // final now = new DateTime.now();
+      // var dt = DateTime(now.year, now.month, now.day, time.hour, time.minute);
+      // var time4 = MyAppState().time4;
+      // time4 = dt;
+      // // time4 = DateTime.parse(dt);
+      // // dt = DateFormat('HH:mm').format(DateTime(now.year, now.month, now.day, time.hour, time.minute)) as DateTime;
+      //
+      // await AlarmService.instance.addAlarm(time4, uid: "Alarm !", payload: {"holy": "Moly"});
+      // MyAppState().reloadAlarms();
+
     }
   }
 

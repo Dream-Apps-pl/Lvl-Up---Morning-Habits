@@ -16,7 +16,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wakelock/wakelock.dart';
 import 'utils/schedule_notifications.dart';
-// import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class Strings {
   static const String appTitle = 'Wake Up Alarm';
@@ -35,13 +34,14 @@ ScheduleNotifications notifications = ScheduleNotifications(
     appIcon: 'notification_logo');
 
 Future<void> main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(Phoenix(
           child: MyApp(),
         ),
     );
 
-
-  WidgetsFlutterBinding.ensureInitialized();
 
   final alarms = await new JsonFileStorage().readList();
 
@@ -71,15 +71,17 @@ void restartApp() {
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  @override
+class MyAppState extends State<MyApp> {
 
+  @override
   void initState() {
     super.initState();
+
   }
+
 
   @override
   void dispose() {
@@ -98,7 +100,7 @@ class _MyAppState extends State<MyApp> {
         scaffoldBackgroundColor: Color.fromRGBO(0, 0, 0, 1),
       ),
       home: Observer(builder: (context) {
-        AlarmStatus status = AlarmStatus();
+        AlarmStatus2 status = AlarmStatus2();
         print('main_screen: status.isAlarm ${status.isAlarm}');
         print('main_screen: list.alarms.length ${list.alarms.length}');
         if (status.isAlarm) {
