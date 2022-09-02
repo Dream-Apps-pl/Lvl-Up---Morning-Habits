@@ -28,6 +28,7 @@ class AlarmScreenState extends State<AlarmScreen> {
   @override
   void initState() {
 
+    print('AlarmScreenState: uruchamiam alarm dźwiękowy i wizualny! ');
     audioHandler.play();
     super.initState();
 
@@ -54,14 +55,14 @@ class AlarmScreenState extends State<AlarmScreen> {
         children: <Widget>[
           Center(
             child: Container(
-              width: 325,
-              height: 325,
+              width: 230,
+              height: 230,
               decoration: ShapeDecoration(
                   shape: CircleBorder(
                       side: BorderSide(
                           color: CustomColors.sdSecondaryColorYellow,
                           style: BorderStyle.solid,
-                          width: 50))),
+                          width: 20))),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -109,11 +110,11 @@ class AlarmScreenState extends State<AlarmScreen> {
 
             },
             child:
-            Text('Start Today', style: TextStyle(fontSize: 25, color: CustomColors.sdTextPrimaryColor)),
+            Text('Start Today', style: TextStyle(fontSize: 15, color: CustomColors.sdTextPrimaryColor)),
             style: ElevatedButton.styleFrom(
               primary: CustomColors.sdAppWhite,
               shape: CircleBorder(),
-              padding: EdgeInsets.all(70),
+              padding: EdgeInsets.all(50),
             ),
           ),
           ElevatedButton(
@@ -165,7 +166,7 @@ class AlarmScreenState extends State<AlarmScreen> {
           //       .toList(),
           // ),
           SizedBox(
-            height: 45,
+            height: 1,
           ),
           // RoundedButton("Stop Music", fontSize: 45, onTap: () async {
           //   mediaHandler.stopMusic();

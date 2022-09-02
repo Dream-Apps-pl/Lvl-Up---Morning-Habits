@@ -232,8 +232,8 @@ int _addedCount = 0;
 
     } catch (e, stackTrace) {
       // Catch load errors: 404, invalid url ...
-      print("main_screen: Error loading playlist: $e");
-      print('main_screen: $stackTrace');
+      print("audio_handler: Error loading playlist: $e");
+      print('audio_handler: $stackTrace');
     }
 
         // _player.play();

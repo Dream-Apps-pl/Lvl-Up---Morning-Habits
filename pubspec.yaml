@@ -24,7 +24,8 @@ environment:
 
 dependencies:
 
-#  flutter_alarm_background_trigger: ^1.0.1
+  flutter_foreground_task: ^3.8.2
+  app_to_foreground: ^0.0.3
   audio_session: ^0.1.10
   audio_service: 0.18.7
   rxdart: ^0.27.5
@@ -44,10 +45,6 @@ dependencies:
   path_provider: ^2.0.11
   # flutter_audio_query: ^0.3.5+6
   android_alarm_manager_plus: ^2.0.6+1
-  bringtoforeground:
-    git:
-      url: https://github.com/GiddyNaya/bring_to_foreground.git
-      ref: master
 
   wakelock: ^0.6.2
   #flutter_neumorphic: ^3.2.0

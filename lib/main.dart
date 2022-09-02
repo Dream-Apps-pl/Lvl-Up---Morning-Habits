@@ -60,7 +60,7 @@ Future<void> main() async {
   AlarmPollingWorker().createPollingWorker();
 
   final externalPath = await getExternalStorageDirectory();
-  print('main_screen: ${externalPath!.path}');
+  print('main: path: ${externalPath!.path}');
   if (!externalPath.existsSync()) externalPath.create(recursive: true);
 }
 
@@ -75,6 +75,7 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+
 
   @override
   void initState() {
@@ -101,8 +102,8 @@ class MyAppState extends State<MyApp> {
       ),
       home: Observer(builder: (context) {
         AlarmStatus2 status = AlarmStatus2();
-        print('main_screen: status.isAlarm ${status.isAlarm}');
-        print('main_screen: list.alarms.length ${list.alarms.length}');
+        print('main: status.isAlarm ${status.isAlarm}');
+        print('main: list.alarms.length ${list.alarms.length}');
         if (status.isAlarm) {
           final id = status.alarmId;
           final alarm = list.alarms.firstWhere((alarm) => alarm.id == id,
@@ -110,6 +111,8 @@ class MyAppState extends State<MyApp> {
 
           audioHandler.play;
           Wakelock.enable();
+
+          print('main: uruchamiam alarm! ');
 
           return AlarmScreen(alarm: alarm, audioHandler: audioHandler,);
         }
