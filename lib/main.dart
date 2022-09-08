@@ -35,13 +35,13 @@ ScheduleNotifications notifications = ScheduleNotifications(
 
 Future<void> main() async {
 
-  WidgetsFlutterBinding.ensureInitialized();
-
-  runApp(Phoenix(
+  runApp(
+    Phoenix(
           child: MyApp(),
         ),
     );
 
+  WidgetsFlutterBinding.ensureInitialized();
 
   final alarms = await new JsonFileStorage().readList();
 

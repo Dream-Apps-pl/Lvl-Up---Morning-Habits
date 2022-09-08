@@ -26,6 +26,7 @@ dependencies:
 
   flutter_foreground_task: ^3.8.2
   app_to_foreground: ^0.0.3
+
   audio_session: ^0.1.10
   audio_service: 0.18.7
   rxdart: ^0.27.5

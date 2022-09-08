@@ -1,6 +1,11 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:app_to_foreground/app_to_foreground.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:mobx/mobx.dart';
 import '../../components/alarm_item/alarm_item.dart';
 import '../../components/bottom_add_button/bottom_add_button.dart';
@@ -83,25 +88,39 @@ class HomeScreenState extends State<HomeScreen> {
     // If you do not use the onNotificationPressed or launchApp function,
     // you do not need to write this code.
     if (!await FlutterForegroundTask.canDrawOverlays) {
+
+      print('SYSTEM_ALERT_WINDOW permission 1');
       final isGranted = await FlutterForegroundTask.openSystemAlertWindowSettings();
-      if (!isGranted) {
-        print('SYSTEM_ALERT_WINDOW permission denied!');
-        isPermission = false;
-        // prefs.setBool(permission, false);
-        return false;
-      }
-      else {
-        hidePermission();
-        isPermission = true;
+      // if (!isPermission) {
+      print('SYSTEM_ALERT_WINDOW permission 2');
+
+        if (!isGranted) {
+          print('SYSTEM_ALERT_WINDOW permission denied!');
+          isPermission = false;
+          // prefs.setBool(permission, false);
+          return false;
+        }
+        else {
+          hidePermission();
+          isPermission = true;
+
+          // Phoenix.rebirth(context);
+          exit(0);
+          Timer(Duration(seconds: 1), () {
+            print('home_screen: Timer!');
+            AppToForeground.appToForeground();
+          });
+          // prefs.setBool(permission, true);
+          print('SYSTEM_ALERT_WINDOW permission true 1');
+          return true;
+        }
+      } else {
         // prefs.setBool(permission, true);
-        print('SYSTEM_ALERT_WINDOW permission true!');
+        print('SYSTEM_ALERT_WINDOW permission true 2');
+        // hidePermission();
       }
-    } else {
-      hidePermission();
-      isPermission = true;
-      // prefs.setBool(permission, true);
-      print('SYSTEM_ALERT_WINDOW permission true!');
-    }
+
+    // }
   }
 
 
@@ -184,7 +203,7 @@ class HomeScreenState extends State<HomeScreen> {
             child:
               Text('Please Allow this app to be over other apps!', style: TextStyle(fontSize: 12, color: CustomColors.sdTextPrimaryColor)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+                backgroundColor: Color.fromRGBO(255, 0, 0, 1),
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               ),
              ),
