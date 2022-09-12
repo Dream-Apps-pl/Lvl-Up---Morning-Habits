@@ -16,8 +16,8 @@ class AlarmItem extends StatelessWidget {
    AlarmItem({Key? key, required this.alarm, required this.manager, required this.alarms})
       : super(key: key);
 
-  late String hours = '10';
-  late String minutes = '10';
+  // late String hours = '10';
+  // late String minutes = '10';
 
   @override
   Widget build(BuildContext context) {

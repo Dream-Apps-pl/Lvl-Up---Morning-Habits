@@ -92,25 +92,3 @@ class EditAlarmTime extends StatelessWidget {
     );
   }
 }
-
-
-
-// Future<void> showTPicker(context) async {
-//   // This is your function
-//   await Future.delayed(Duration(seconds: 1)); //2sec delay
-//   //showPicker(context);
-// }
-
-// showPicker(context) async {
-//   // This is your function
-//   final time = await showTimePicker(
-//             context: context,
-//             initialEntryMode: TimePickerEntryMode.input,
-//             initialTime: TimeOfDay(hour: alarm.hour!, minute: alarm.minute!));
-//         if (time != null) {
-//           alarm.hour = time.hour;
-//           alarm.minute = time.minute;
-//         }
-// }
-
-
