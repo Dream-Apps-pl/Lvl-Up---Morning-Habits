@@ -122,28 +122,28 @@ class AlarmScheduler {
     final hours = alarm.hour.toString().padLeft(2, '0');
     final minutes = alarm.minute.toString().padLeft(2, '0');
 
-    await notifications.init(onSelectNotification: (String? payload) async {
-      // if (payload == null || payload.trim().isEmpty) return null;
-      print('alarm_scheduler: notification payload $payload');
-      throw Exception('alarm_scheduler: New Notification');
-      // return;
-    });
+    // await notifications.init(onSelectNotification: (String? payload) async {
+    //   // if (payload == null || payload.trim().isEmpty) return null;
+    //   print('alarm_scheduler: notification payload $payload');
+    //   throw Exception('alarm_scheduler: New Notification');
+    //   // return;
+    // });
+    //
+    // await notifications.getNotificationAppLaunchDetails().then((details) {
+    //   notificationAppLaunchDetails = details;
+    // });
 
-    await notifications.getNotificationAppLaunchDetails().then((details) {
-      notificationAppLaunchDetails = details;
-    });
-
-    notifications.show(
-      id: id,
-      icon: 'notification_logo',
-      importance: Importance.max,
-      priority: Priority.high,
-      ticker: 'ticker',
-      title: '$hours:$minutes',
-      body: alarm.name,
-      sound: RawResourceAndroidNotificationSound(''),
-      payload: id.toString(),
-    );
+    // notifications.show(
+    //   id: id,
+    //   icon: 'notification_logo',
+    //   importance: Importance.max,
+    //   priority: Priority.high,
+    //   ticker: 'ticker',
+    //   title: '$hours:$minutes',
+    //   body: alarm.name,
+    //   sound: RawResourceAndroidNotificationSound(''),
+    //   payload: id.toString(),
+    // );
   }
 
   Future<void> newShot(DateTime targetDateTime, int id) async {

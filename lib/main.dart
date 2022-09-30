@@ -27,11 +27,11 @@ MyAudioHandler audioHandler = MyAudioHandler();
 var playingSoundPath = ValueNotifier<String>("");
 
 NotificationAppLaunchDetails? notificationAppLaunchDetails;
-ScheduleNotifications notifications = ScheduleNotifications(
-    'wakeup_notification',
-    'Wake-up Alarm Notication',
-    'Alerts on scheduled alarm events',
-    appIcon: 'notification_logo');
+// ScheduleNotifications notifications = ScheduleNotifications(
+//     'wakeup_notification',
+//     'Wake-up Alarm Notication',
+//     'Alerts on scheduled alarm events',
+//     appIcon: 'notification_logo');
 
 Future<void> main() async {
 

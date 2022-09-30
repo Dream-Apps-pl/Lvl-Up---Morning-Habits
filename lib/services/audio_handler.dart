@@ -5,7 +5,7 @@ Future<AudioHandler> initAudioService() async {
   return await AudioService.init(
     builder: () => MyAudioHandler(),
     config: AudioServiceConfig(
-      androidNotificationChannelId: 'com.ryanheise.myapp.channel.audio',
+      androidNotificationChannelId: 'pl.ryanheise.myapp.channel.audio',
       androidNotificationChannelName: 'Audio Service wakeup',
       androidNotificationOngoing: true,
       androidStopForegroundOnPause: true,

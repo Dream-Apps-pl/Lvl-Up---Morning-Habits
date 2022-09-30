@@ -1,4 +1,4 @@
-package com.dreamapps.wakeup
+package pl.dreamapps.wakeup
 
 import io.flutter.embedding.android.FlutterActivity
 

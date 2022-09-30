@@ -24,34 +24,34 @@ environment:
 
 dependencies:
 
-  flutter_foreground_task: ^3.8.2
+  flutter_foreground_task: ^3.10.0
   app_to_foreground: ^0.0.3
 
   audio_session: ^0.1.10
   audio_service: 0.18.7
   rxdart: ^0.27.5
-  just_audio: ^0.9.28
+  just_audio: ^0.9.29
   just_audio_background: ^0.0.1-beta.7
 
   flutter_phoenix: ^1.1.0
   assets_audio_player: ^3.0.5
   hexcolor: ^2.0.7
   change_app_package_name: ^1.1.0
-  flutter_local_notifications: ^9.9.0
+  flutter_local_notifications: ^11.0.1
   provider: ^6.0.3
   intl: ^0.17.0
-  mobx: ^2.0.7+5
-  flutter_mobx: ^2.0.6+1
-  json_annotation: ^4.6.0
+  mobx: ^2.1.0
+  flutter_mobx: ^2.0.6+4
+  json_annotation: ^4.7.0
   path_provider: ^2.0.11
   # flutter_audio_query: ^0.3.5+6
-  android_alarm_manager_plus: ^2.0.6+1
+  android_alarm_manager_plus: ^2.0.7+1
 
   wakelock: ^0.6.2
   #flutter_neumorphic: ^3.2.0
   flutter_ringtone_player: ^3.2.0
 
-  file_picker: ^5.0.1
+  file_picker: ^5.2.0+1
   vibration: ^1.7.6
   flutter:
     sdk: flutter
@@ -62,9 +62,9 @@ dependencies:
   # cupertino_icons: ^1.0.2
 
 dev_dependencies:
-  mobx_codegen: ^2.0.7
-  build_runner: ^2.2.0
-  json_serializable: ^6.3.1
+  mobx_codegen: ^2.0.7+3
+  build_runner: ^2.2.1
+  json_serializable: ^6.4.1
   flutter_test:
     sdk: flutter
 

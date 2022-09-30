@@ -36,7 +36,7 @@ export 'package:flutter_local_notifications/flutter_local_notifications.dart'
         Priority,
         RawResourceAndroidNotificationSound,
         RepeatInterval,
-        SelectNotificationCallback,
+        //SelectNotificationCallback,
         Time;
 
 export 'dart:typed_data' show Int64List;
@@ -86,7 +86,7 @@ class ScheduleNotifications with HandleError {
     NotificationVisibility? visibility,
     int? timeoutAfter,
     String? category,
-    SelectNotificationCallback? onSelectNotification,
+    //SelectNotificationCallback? onSelectNotification,
     bool? requestAlertPermission,
     bool? requestSoundPermission,
     bool? requestBadgePermission,
@@ -99,7 +99,7 @@ class ScheduleNotifications with HandleError {
     bool? presentBadge,
     String? soundFile,
     int? badgeNumber,
-    List<IOSNotificationAttachment>? attachments,
+    //List<IOSNotificationAttachment>? attachments,
   }) {
     if (appIcon == null || appIcon.trim().isEmpty) {
       // Assign the app's icon.
@@ -145,7 +145,7 @@ class ScheduleNotifications with HandleError {
     _visibility = visibility ?? NotificationVisibility.private;
     _timeoutAfter = timeoutAfter;
     _category = category;
-    _selectNotificationCallback = onSelectNotification;
+    //_selectNotificationCallback = onSelectNotification;
     _requestAlertPermission = requestAlertPermission ?? true;
     _requestSoundPermission = requestSoundPermission ?? true;
     _requestBadgePermission = requestBadgePermission ?? true;
@@ -158,7 +158,7 @@ class ScheduleNotifications with HandleError {
     _presentBadge = presentBadge ?? true;
     _soundFile = soundFile;
     _badgeNumber = badgeNumber;
-    _attachments = attachments;
+    //_attachments = attachments;
   }
 
   /// The icon representing the app implementing the notifications.
@@ -212,7 +212,7 @@ class ScheduleNotifications with HandleError {
   NotificationVisibility? _visibility;
   int? _timeoutAfter;
   String? _category;
-  SelectNotificationCallback? _selectNotificationCallback;
+  //SelectNotificationCallback? _selectNotificationCallback;
   bool? _requestAlertPermission;
   bool? _requestSoundPermission;
   bool? _requestBadgePermission;
@@ -225,7 +225,7 @@ class ScheduleNotifications with HandleError {
   bool? _presentBadge;
   String? _soundFile;
   int? _badgeNumber;
-  List<IOSNotificationAttachment>? _attachments;
+  //List<IOSNotificationAttachment>? _attachments;
 
   @mustCallSuper
   Future<bool> init({
@@ -266,7 +266,7 @@ class ScheduleNotifications with HandleError {
     NotificationVisibility? visibility,
     int? timeoutAfter,
     String? category,
-    SelectNotificationCallback? onSelectNotification,
+    //SelectNotificationCallback? onSelectNotification,
     bool? requestAlertPermission,
     bool? requestSoundPermission,
     bool? requestBadgePermission,
@@ -279,7 +279,7 @@ class ScheduleNotifications with HandleError {
     bool? presentBadge,
     String? soundFile,
     int? badgeNumber,
-    List<IOSNotificationAttachment>? attachments,
+    //List<IOSNotificationAttachment>? attachments,
   }) async {
     // No need to continue.
     if (_init) return _init;
@@ -324,7 +324,7 @@ class ScheduleNotifications with HandleError {
     if (visibility != null) _visibility = visibility;
     if (timeoutAfter != null) _timeoutAfter = timeoutAfter;
     if (category != null) _category = category;
-    onSelectNotification ??= _selectNotificationCallback;
+    //onSelectNotification ??= _selectNotificationCallback;
     requestAlertPermission ??= _requestAlertPermission;
     requestSoundPermission ??= _requestSoundPermission;
     requestBadgePermission ??= _requestBadgePermission;
@@ -337,33 +337,33 @@ class ScheduleNotifications with HandleError {
     if (presentBadge != null) _presentBadge = presentBadge;
     if (soundFile != null) _soundFile = soundFile;
     if (badgeNumber != null) _badgeNumber = badgeNumber;
-    if (attachments != null) _attachments = attachments;
+    //if (attachments != null) _attachments = attachments;
 
     //
     try {
       // Note: permissions aren't requested here just to demonstrate that can be done later using the `requestPermissions()` method
       // of the `IOSFlutterLocalNotificationsPlugin` class
-      var initializationSettingsIOS = IOSInitializationSettings(
-        requestAlertPermission: requestAlertPermission ?? true,
-        requestBadgePermission: requestSoundPermission ?? true,
-        requestSoundPermission: requestBadgePermission ?? true,
-        defaultPresentAlert: _defaultPresentAlert ?? true,
-        defaultPresentSound: defaultPresentSound ?? true,
-        defaultPresentBadge: defaultPresentBadge ?? true,
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification ??
-            (int? id, String? title, String? body, String? payload) =>
-                onSelectNotification!(payload),
-      );
+      // var initializationSettingsIOS = IOSInitializationSettings(
+      //   requestAlertPermission: requestAlertPermission ?? true,
+      //   requestBadgePermission: requestSoundPermission ?? true,
+      //   requestSoundPermission: requestBadgePermission ?? true,
+      //   defaultPresentAlert: _defaultPresentAlert ?? true,
+      //   defaultPresentSound: defaultPresentSound ?? true,
+      //   defaultPresentBadge: defaultPresentBadge ?? true,
+      //   onDidReceiveLocalNotification: onDidReceiveLocalNotification ??
+      //       (int? id, String? title, String? body, String? payload) =>
+      //           onSelectNotification!(payload),
+      // );
 
-      var initializationSettings = InitializationSettings(
-          android: AndroidInitializationSettings(_appIcon ?? ""),
-          iOS: initializationSettingsIOS);
+      // var initializationSettings = InitializationSettings(
+      //     android: AndroidInitializationSettings(_appIcon ?? ""),
+      //     iOS: initializationSettingsIOS);
 
       _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-      _init = (await _flutterLocalNotificationsPlugin!.initialize(
-          initializationSettings,
-          onSelectNotification: onSelectNotification))!;
+      // _init = (await _flutterLocalNotificationsPlugin!.initialize(
+      //     initializationSettings,
+      //     onSelectNotification: onSelectNotification))!;
     } catch (ex) {
       getError(ex);
       _init = false;
@@ -454,7 +454,7 @@ class ScheduleNotifications with HandleError {
     bool? presentBadge,
     String? soundFile,
     int? badgeNumber,
-    List<IOSNotificationAttachment>? attachments,
+    //List<IOSNotificationAttachment>? attachments,
   }) {
     //
     var notificationSpecifics = _notificationDetails(
@@ -498,7 +498,7 @@ class ScheduleNotifications with HandleError {
       presentBadge,
       soundFile,
       badgeNumber,
-      attachments,
+      //attachments,
     );
 
     if (notificationSpecifics == null) {
@@ -567,7 +567,7 @@ class ScheduleNotifications with HandleError {
     bool? presentBadge,
     String? soundFile,
     int? badgeNumber,
-    List<IOSNotificationAttachment>? attachments,
+    //List<IOSNotificationAttachment>? attachments,
   }) {
     // Too late!
     if (schedule == null || DateTime.now().isAfter(schedule)) return -1;
@@ -613,7 +613,7 @@ class ScheduleNotifications with HandleError {
       presentBadge,
       soundFile,
       badgeNumber,
-      attachments,
+      //attachments,
     );
 
     if (notificationSpecifics == null) {
@@ -684,7 +684,7 @@ class ScheduleNotifications with HandleError {
     bool? presentBadge,
     String? soundFile,
     int? badgeNumber,
-    List<IOSNotificationAttachment>? attachments,
+    //List<IOSNotificationAttachment>? attachments,
   }) {
     //
     var notificationSpecifics = _notificationDetails(
@@ -728,7 +728,7 @@ class ScheduleNotifications with HandleError {
       presentBadge,
       soundFile,
       badgeNumber,
-      attachments,
+      //attachments,
     );
 
     if (notificationSpecifics == null) {
@@ -798,7 +798,7 @@ class ScheduleNotifications with HandleError {
     bool? presentBadge,
     String? soundFile,
     int? badgeNumber,
-    List<IOSNotificationAttachment>? attachments,
+    //List<IOSNotificationAttachment>? attachments,
   }) {
     //
     var notificationSpecifics = _notificationDetails(
@@ -842,7 +842,7 @@ class ScheduleNotifications with HandleError {
       presentBadge,
       soundFile,
       badgeNumber,
-      attachments,
+      //attachments,
     );
 
     if (notificationSpecifics == null) {
@@ -913,7 +913,7 @@ class ScheduleNotifications with HandleError {
     bool? presentBadge,
     String? soundFile,
     int? badgeNumber,
-    List<IOSNotificationAttachment>? attachments,
+    //List<IOSNotificationAttachment>? attachments,
   }) {
     //
     var notificationSpecifics = _notificationDetails(
@@ -957,7 +957,7 @@ class ScheduleNotifications with HandleError {
       presentBadge,
       soundFile,
       badgeNumber,
-      attachments,
+      //attachments,
     );
 
     if (notificationSpecifics == null) {
@@ -1026,7 +1026,7 @@ class ScheduleNotifications with HandleError {
     bool? presentBadge,
     String? soundFile,
     int? badgeNumber,
-    List<IOSNotificationAttachment>? attachments,
+    //List<IOSNotificationAttachment>? attachments,
   ) {
     //
     NotificationDetails? notificationSpecifics = null;
@@ -1081,7 +1081,7 @@ class ScheduleNotifications with HandleError {
     presentBadge ??= _presentBadge;
     soundFile ??= _soundFile;
     badgeNumber ??= _badgeNumber;
-    attachments ??= _attachments;
+    //attachments ??= _attachments;
 
     // Play the sound if supplied a sound.
     if (playSound == null && sound != null) playSound = true;
@@ -1098,7 +1098,7 @@ class ScheduleNotifications with HandleError {
     }
 
     AndroidNotificationDetails androidSettings;
-    IOSNotificationDetails iOSSettings;
+    //IOSNotificationDetails iOSSettings;
 
     try {
       androidSettings = AndroidNotificationDetails(
@@ -1136,29 +1136,29 @@ class ScheduleNotifications with HandleError {
         ticker: ticker,
         visibility: visibility,
         timeoutAfter: timeoutAfter,
-        category: category,
+        //category: category,
       );
     } catch (ex) {
       getError(ex);
       return notificationSpecifics;
     }
 
-    try {
-      iOSSettings = IOSNotificationDetails(
-        presentAlert: presentAlert,
-        presentSound: presentSound,
-        presentBadge: presentBadge,
-        sound: soundFile,
-        badgeNumber: badgeNumber,
-        attachments: attachments,
-      );
-
-      notificationSpecifics =
-          NotificationDetails(android: androidSettings, iOS: iOSSettings);
-    } catch (ex) {
-      notificationSpecifics = null;
-      getError(ex);
-    }
+    // try {
+    //   iOSSettings = IOSNotificationDetails(
+    //     presentAlert: presentAlert,
+    //     presentSound: presentSound,
+    //     presentBadge: presentBadge,
+    //     sound: soundFile,
+    //     badgeNumber: badgeNumber,
+    //     //attachments: attachments,
+    //   );
+    //
+    //   notificationSpecifics =
+    //       NotificationDetails(android: androidSettings, iOS: iOSSettings);
+    // } catch (ex) {
+    //   notificationSpecifics = null;
+    //   getError(ex);
+    // }
     return notificationSpecifics;
   }
 
