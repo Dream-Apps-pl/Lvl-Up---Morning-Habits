@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
@@ -16,18 +17,24 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '2'
+    flutterVersionCode = '3'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '2.0'
+    flutterVersionName = '3.0'
 }
 
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     compileSdkVersion 33
+    buildToolsVersion "33.0.0"
+
+//    lintOptions {
+//        disable 'InvalidPackage'
+//        checkReleaseBuilds false //<- add this line
+//    }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -38,10 +45,17 @@ android {
         applicationId "com.dreamapps.wakeup"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
-        ndkVersion = "21.3.6528147"
+        versionCode 1
+        versionName "1.0"
+//        targetSdkVersion flutter.targetSdkVersion
+//        versionCode flutterVersionCode.toInteger()
+//        versionName flutterVersionName
+//        ndkVersion = "21.3.6528147"
         multiDexEnabled = true
+    }
+
+    androidExtensions {
+        experimental = true
     }
 
     buildTypes {
