@@ -1,17 +1,12 @@
-# Wake-up Alarm -- Flutter Clock and Alarm application for Apple and Android
+# Lvl-Up - Morning Habits - is a "Wake-up Alarm" - Flutter Clock and Alarm application for Android
 
-A minimalistic flutter clock and alarm app based on an idea from [@NoMad](https://devrant.com/users/NoMad) which can be found [here.](https://devrant.com/rants/3708896/i-have-an-android-app-suggestion-a-different-alarm-clock-wakes-you-up-by-increas)
 
 ### Unique Features
 
-- Play alarm tone from Online Media Stream (supports mp3, wav, aac, hls, dash).
-- Add multiple sounds per alarm which are played on random.
-- Simplistic snooze and dismiss actions
-- Progress volume option (Increments alarm sound slowly to highest volume while playing).
+- Play alarm tone from Online Media Stream or assets (supports mp3, wav...)
+- Simple quiz
 - UI Design
 
-
-[Download APK sample here](sample/)
 
 ## Getting Started
 
