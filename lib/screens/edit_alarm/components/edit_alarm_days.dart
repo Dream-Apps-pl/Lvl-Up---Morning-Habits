@@ -1,4 +1,3 @@
-import 'package:wakeup/constants/theme_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
@@ -69,7 +68,7 @@ class WeekDayToggle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const fontSize = 18.0;
+    // const fontSize = 18.0;
     const size = 25.0;
 
     return GestureDetector(

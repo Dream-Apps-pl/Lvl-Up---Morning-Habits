@@ -9,7 +9,8 @@ class Result extends StatelessWidget {
   final double resultScore;
   final VoidCallback resetHandler;
 
-  const Result(this.resultScore, this.resetHandler, {Key? key}) : super(key: key);
+  const Result(this.resultScore, this.resetHandler, {Key? key})
+      : super(key: key);
 
   String get resultPhrase {
     String resultText;
@@ -17,19 +18,17 @@ class Result extends StatelessWidget {
 
     if (score <= 5.00) {
       resultText =
-      'Next time, you should \n cheat, we wan\'t tell \n \n Have a great day!';
+          'Next time, you should \n cheat, we wan\'t tell \n \n Have a great day!';
     }
     // else if (score > 15.00 && score <= 25.00) {
     //   resultText =
     //   'You did it and scored $score points! \n Want to try again?';
     // }
     else if (score > 5.00 && score <= 2000.00) {
+      resultText = 'You\'r smarter than \n you look. \n \n Have a great day!';
+    } else {
       resultText =
-      'You\'r smarter than \n you look. \n \n Have a great day!';
-    }
-    else {
-      resultText =
-      'You nailed it and scored $score points! \n Want to try again?';
+          'You nailed it and scored $score points! \n Want to try again?';
     }
 
     return resultText;
@@ -51,49 +50,51 @@ class Result extends StatelessWidget {
                         resultPhrase,
                       ),
                     )),
-        ElevatedButton(
-          onPressed: () async {
-            //resetHandler,
-            //SystemNavigator.pop();
-            //Navigator.push(context, MaterialPageRoute(builder: (context) => ClockScreen()),);
-            //Phoenix.rebirth(context);
-            SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-            exit(0);
-            // restartApp();
-            // Timer(Duration(seconds: 1), () {
-            //   Bringtoforeground.bringAppToForeground();
-            // });
-
-          },
-          child: Text(
-            'Close',
-            style: boldTextStyle(
-                size: 16, textColor: CustomColors.sdTextPrimaryColor, letterSpacing: 2),
-          ),
-
-          style: ElevatedButton.styleFrom(primary: Colors.white,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-        ),
-    // ElevatedButton(
-    //   style: ButtonStyle(
-    //       backgroundColor:
-    //       MaterialStateProperty.all(HexColor("#915C53"))),
-    //   onPressed: resetHandler,
-    //   child: SizedBox(
-    //     width: 200,
-    //     child: Text(
-    //       'Try again',
-    //       textAlign: TextAlign.center,
-    //       style: TextStyle(
-    //         fontWeight: FontWeight.w400,
-    //         color: HexColor("#FEFEFE"),
-    //       ),
-    //     ),
-    //   ),
-    // )
-    ],
-    )));
-    }
+                ElevatedButton(
+                  onPressed: () async {
+                    //resetHandler,
+                    //SystemNavigator.pop();
+                    //Navigator.push(context, MaterialPageRoute(builder: (context) => ClockScreen()),);
+                    //Phoenix.rebirth(context);
+                    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                    exit(0);
+                    // restartApp();
+                    // Timer(Duration(seconds: 1), () {
+                    //   Bringtoforeground.bringAppToForeground();
+                    // });
+                  },
+                  child: Text(
+                    'Close',
+                    style: boldTextStyle(
+                        size: 16,
+                        textColor: CustomColors.sdTextPrimaryColor,
+                        letterSpacing: 2),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+                // ElevatedButton(
+                //   style: ButtonStyle(
+                //       backgroundColor:
+                //       MaterialStateProperty.all(HexColor("#915C53"))),
+                //   onPressed: resetHandler,
+                //   child: SizedBox(
+                //     width: 200,
+                //     child: Text(
+                //       'Try again',
+                //       textAlign: TextAlign.center,
+                //       style: TextStyle(
+                //         fontWeight: FontWeight.w400,
+                //         color: HexColor("#FEFEFE"),
+                //       ),
+                //     ),
+                //   ),
+                // )
+              ],
+            )));
+  }
 }

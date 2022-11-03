@@ -21,7 +21,7 @@ packages:
       name: android_alarm_manager_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.7+1"
+    version: "2.1.0"
   app_to_foreground:
     dependency: "direct main"
     description:
@@ -252,7 +252,7 @@ packages:
       name: file_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.2.1"
+    version: "5.2.2"
   fixnum:
     dependency: transitive
     description:
@@ -292,7 +292,7 @@ packages:
       name: flutter_local_notifications
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "12.0.2"
+    version: "12.0.3"
   flutter_local_notifications_linux:
     dependency: transitive
     description:
@@ -435,7 +435,7 @@ packages:
       name: just_audio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.29"
+    version: "0.9.30"
   just_audio_background:
     dependency: "direct main"
     description:
@@ -862,7 +862,7 @@ packages:
     source: hosted
     version: "0.4.16"
   timezone:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: timezone
       url: "https://pub.dartlang.org"

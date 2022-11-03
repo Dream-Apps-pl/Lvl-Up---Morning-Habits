@@ -148,8 +148,8 @@ abstract class ObservableAlarmBase with Store {
     // https://github.com/dart-lang/sdk/issues/42947
     try {
       // To prevent duplicate entries... We check if an item already exist
-      var existingItem =
-          trackInfo.firstWhere((element) => element.filePath == info.filePath);
+      // var existingItem =
+      //     trackInfo.firstWhere((element) => element.filePath == info.filePath);
       //...Fuck yeah it does if it passes through.
     } catch (e) {
       // An exception indicates no item was found matching our condition.
@@ -173,8 +173,10 @@ abstract class ObservableAlarmBase with Store {
       return;
     }
 
-    final musicPathOffine = musicPaths!.where((element) => !element.startsWith("http"));
-    final musicPathOnline = musicPaths!.where((element) => element.startsWith("http"));
+    final musicPathOffine =
+        musicPaths!.where((element) => !element.startsWith("http"));
+    final musicPathOnline =
+        musicPaths!.where((element) => element.startsWith("http"));
     List<SongInfo> songs = [];
     // Add offline songs to list
     for (var path in musicPathOffine) {

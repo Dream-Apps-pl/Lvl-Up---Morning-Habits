@@ -16,30 +16,33 @@ class Answer extends StatelessWidget {
       child: Text(
         answerText,
         style: boldTextStyle(
-            size: 16, textColor: CustomColors.sdTextPrimaryColor, letterSpacing: 2),
+            size: 16,
+            textColor: CustomColors.sdTextPrimaryColor,
+            letterSpacing: 2),
       ),
-
-      style: ElevatedButton.styleFrom(primary: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
         ),
       ),
     );
-      // NeumorphicButton(
-      // //padding with: left, top, right, bottom
-      // padding: EdgeInsets.all(20),
-      // margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
-      // style: NeumorphicStyle(
-      //   shape: NeumorphicShape.flat,
-      //   boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-      //   depth: 3,
-      //   intensity: 0.7,
-      // ),
-      // child: Text(
-      //   answerText,
-      //   style: boldTextStyle(
-      //       size: 16, textColor: CustomColors.sdTextPrimaryColor, letterSpacing: 2),
-      // ),
-      // onPressed: selectHandler,
+    // NeumorphicButton(
+    // //padding with: left, top, right, bottom
+    // padding: EdgeInsets.all(20),
+    // margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
+    // style: NeumorphicStyle(
+    //   shape: NeumorphicShape.flat,
+    //   boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+    //   depth: 3,
+    //   intensity: 0.7,
+    // ),
+    // child: Text(
+    //   answerText,
+    //   style: boldTextStyle(
+    //       size: 16, textColor: CustomColors.sdTextPrimaryColor, letterSpacing: 2),
+    // ),
+    // onPressed: selectHandler,
     // );
 
     //   SimpleButton(
@@ -63,6 +66,5 @@ class Answer extends StatelessWidget {
     //     ),
     //   ),
     // );
-
   }
 }

@@ -30,14 +30,14 @@ dependencies:
   audio_session: ^0.1.10
   audio_service: 0.18.7
   rxdart: ^0.27.5
-  just_audio: ^0.9.29
+  just_audio: ^0.9.30
   just_audio_background: ^0.0.1-beta.7
 
   flutter_phoenix: ^1.1.0
   assets_audio_player: ^3.0.5
   hexcolor: ^3.0.1
   change_app_package_name: ^1.1.0
-  flutter_local_notifications: ^12.0.2
+  flutter_local_notifications: ^12.0.3
   provider: ^6.0.4
   intl: ^0.17.0
   mobx: ^2.1.1
@@ -45,13 +45,14 @@ dependencies:
   json_annotation: ^4.7.0
   path_provider: ^2.0.11
   # flutter_audio_query: ^0.3.5+6
-  android_alarm_manager_plus: ^2.0.7+1
+  android_alarm_manager_plus: ^2.1.0
 
   wakelock: ^0.6.2
   #flutter_neumorphic: ^3.2.0
   flutter_ringtone_player: ^3.2.0
+  timezone: ^0.9.0
 
-  file_picker: ^5.2.1
+  file_picker: ^5.2.2
   vibration: ^1.7.6
   flutter:
     sdk: flutter

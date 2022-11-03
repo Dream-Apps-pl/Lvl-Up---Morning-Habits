@@ -1,13 +1,12 @@
-import 'package:wakeup/constants/global.dart';
-import 'package:wakeup/main.dart';
-import 'package:wakeup/stores/song_info/song_info.dart';
-import 'package:wakeup/widgets/single_input_dialog.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:wakeup/constants/global.dart';
 import 'package:wakeup/screens/edit_alarm/components/music_list_item.dart';
 import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
+import 'package:wakeup/stores/song_info/song_info.dart';
 import 'package:wakeup/utils/widget_helper.dart';
+import 'package:wakeup/widgets/single_input_dialog.dart';
 
 enum SelectionMode { OFFLINE, ONLINE }
 

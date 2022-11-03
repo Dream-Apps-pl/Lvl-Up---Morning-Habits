@@ -1,11 +1,9 @@
 import 'dart:async';
 
-import 'package:wakeup/constants/theme_data.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
-
-import '../../widgets/clockview.dart';
+import 'package:wakeup/constants/theme_data.dart';
 
 class ClockScreen extends StatefulWidget {
   @override

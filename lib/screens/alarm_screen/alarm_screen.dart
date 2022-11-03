@@ -16,10 +16,13 @@ bool playing = true;
 class AlarmScreen extends StatefulWidget {
   final ObservableAlarm? alarm;
   final MyAudioHandler audioHandler;
-  const AlarmScreen({Key? key, required this.alarm, required this.audioHandler}) : super(key: key);
+  const AlarmScreen({Key? key, required this.alarm, required this.audioHandler})
+      : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {return AlarmScreenState();}
+  State<StatefulWidget> createState() {
+    return AlarmScreenState();
+  }
 }
 
 class AlarmScreenState extends State<AlarmScreen> {
@@ -27,158 +30,157 @@ class AlarmScreenState extends State<AlarmScreen> {
 
   @override
   void initState() {
-
     print('AlarmScreenState: uruchamiam alarm dźwiękowy i wizualny! ');
     audioHandler.play();
     super.initState();
-
   }
 
-    @override
+  @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(
-        SystemUiMode.manual, overlays: []); // fullscreen
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: []); // fullscreen
     final now = DateTime.now();
     final format = DateFormat('Hm');
-    final snoozeTimes = [5, 10, 15, 20];
+    // final snoozeTimes = [5, 10, 15, 20];
 
     // alarm = widget.alarm;
     audioHandler = widget.audioHandler;
     // audioHandler.play();
     //audioHandler.playbackState.isPaused ? Icons.pause : Icons.play_arrow,
 
-
     return Scaffold(
       body: Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Center(
-            child: Container(
-              width: 230,
-              height: 230,
-              decoration: ShapeDecoration(
-                  shape: CircleBorder(
-                      side: BorderSide(
-                          color: CustomColors.sdSecondaryColorYellow,
-                          style: BorderStyle.solid,
-                          width: 20))),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Icon(
-                    Icons.alarm,
-                    color: CustomColors.sdAppWhite,
-                    size: 32,
-                  ),
-                  Text(
-                    format.format(now),
-                    style: TextStyle(
-                        fontSize: 52,
-                        fontWeight: FontWeight.w900,
-                        color:  CustomColors.sdAppWhite),
-                  ),
-                  Container(
-                    width: 250,
-                    child: Text(
-                      'Alarm',
-                      maxLines: 3,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: CustomColors.sdAppWhite, fontSize: 16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Center(
+              child: Container(
+                width: 230,
+                height: 230,
+                decoration: ShapeDecoration(
+                    shape: CircleBorder(
+                        side: BorderSide(
+                            color: CustomColors.sdSecondaryColorYellow,
+                            style: BorderStyle.solid,
+                            width: 20))),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      Icons.alarm,
+                      color: CustomColors.sdAppWhite,
+                      size: 32,
                     ),
-                  ),
-                ],
+                    Text(
+                      format.format(now),
+                      style: TextStyle(
+                          fontSize: 52,
+                          fontWeight: FontWeight.w900,
+                          color: CustomColors.sdAppWhite),
+                    ),
+                    Container(
+                      width: 250,
+                      child: Text(
+                        'Alarm',
+                        maxLines: 3,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: CustomColors.sdAppWhite, fontSize: 16),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {
+            ElevatedButton(
+              onPressed: () {
+                Wakelock.disable();
+                AlarmStatus2().isAlarm = false;
+                AlarmStatus2().alarmId = -1;
 
-              Wakelock.disable();
-              AlarmStatus2().isAlarm = false;
-              AlarmStatus2().alarmId = -1;
-
-              AlarmStatus2 status = AlarmStatus2();
-              print('alarm_screen: status.isAlarm ${status.isAlarm}');
-              print('alarm_screen: list.alarms.length ${list.alarms.length}');
-              //Navigator.of(context).pop();
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                  StartQuiz(audioHandler: audioHandler, alarm: alarm)),);
-
-            },
-            child:
-            Text('Start Today', style: TextStyle(fontSize: 15, color: CustomColors.sdTextPrimaryColor)),
-            style: ElevatedButton.styleFrom(
-              primary: CustomColors.sdAppWhite,
-              shape: CircleBorder(),
-              padding: EdgeInsets.all(50),
+                AlarmStatus2 status = AlarmStatus2();
+                print('alarm_screen: status.isAlarm ${status.isAlarm}');
+                print('alarm_screen: list.alarms.length ${list.alarms.length}');
+                //Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          StartQuiz(audioHandler: audioHandler, alarm: alarm)),
+                );
+              },
+              child: Text('Start Today',
+                  style: TextStyle(
+                      fontSize: 15, color: CustomColors.sdTextPrimaryColor)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColors.sdAppWhite,
+                shape: CircleBorder(),
+                padding: EdgeInsets.all(50),
+              ),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-
-              if (playing) {
-                audioHandler.pause();
-                print('alarm_screen: playing= ${playing}');
-              } else {
-                audioHandler.play();
-                print('alarm_screen: playing= ${playing}');
-              }
-              setState(() => playing = !playing);
-
-            },
-            child: Icon(playing ? Icons.pause : Icons.play_arrow,
-                size: 30,
-                color: Colors.black),
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all(CircleBorder()),
-              padding: MaterialStateProperty.all(EdgeInsets.all(16)),
-              backgroundColor: MaterialStateProperty.all(Colors.white), // <-- Button color
-              overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
-                if (states.contains(MaterialState.pressed)) return CustomColors.sdSecondaryColorYellow; // <-- Splash color
-              }),
+            ElevatedButton(
+              onPressed: () {
+                if (playing) {
+                  audioHandler.pause();
+                  print('alarm_screen: playing= $playing');
+                } else {
+                  audioHandler.play();
+                  print('alarm_screen: playing= $playing');
+                }
+                setState(() => playing = !playing);
+              },
+              child: Icon(playing ? Icons.pause : Icons.play_arrow,
+                  size: 30, color: Colors.black),
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(CircleBorder()),
+                padding: MaterialStateProperty.all(EdgeInsets.all(16)),
+                backgroundColor:
+                    MaterialStateProperty.all(Colors.white), // <-- Button color
+                overlayColor:
+                    MaterialStateProperty.resolveWith<Color?>((states) {
+                  if (states.contains(MaterialState.pressed))
+                    return CustomColors.sdSecondaryColorYellow;
+                  return CustomColors.sdAppWhite; // <-- Splash color
+                }),
+              ),
             ),
-          ),
 
-          // SizedBox(
-          //   height: 0,
-          // ),
-          // GestureDetector(
-          //   onTap: () async {
-          //     await rescheduleAlarm(5);
-          //   },
-          //   child: text("Snooze", textColor: CustomColors.sdPrimaryColor),
-          // ),
-          // Row(
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: snoozeTimes
-          //       .map((minutes) => RoundedButton(
-          //             "+$minutes\m",
-          //             fontSize: 24,
-          //             onTap: () async {
-          //               await rescheduleAlarm(minutes);
-          //             },
-          //           ))
-          //       .toList(),
-          // ),
-          SizedBox(
-            height: 1,
-          ),
-          // RoundedButton("Stop Music", fontSize: 45, onTap: () async {
-          //   mediaHandler.stopMusic();
-          //   //await dismissCurrentAlarm();
-          // }),
-        ],
+            // SizedBox(
+            //   height: 0,
+            // ),
+            // GestureDetector(
+            //   onTap: () async {
+            //     await rescheduleAlarm(5);
+            //   },
+            //   child: text("Snooze", textColor: CustomColors.sdPrimaryColor),
+            // ),
+            // Row(
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: snoozeTimes
+            //       .map((minutes) => RoundedButton(
+            //             "+$minutes\m",
+            //             fontSize: 24,
+            //             onTap: () async {
+            //               await rescheduleAlarm(minutes);
+            //             },
+            //           ))
+            //       .toList(),
+            // ),
+            SizedBox(
+              height: 1,
+            ),
+            // RoundedButton("Stop Music", fontSize: 45, onTap: () async {
+            //   mediaHandler.stopMusic();
+            //   //await dismissCurrentAlarm();
+            // }),
+          ],
+        ),
       ),
-    ),
     );
   }
-
-
 
   Future<void> dismissCurrentAlarm() async {
     //mediaHandler.stopMusic();
@@ -188,7 +190,6 @@ class AlarmScreenState extends State<AlarmScreen> {
     AlarmStatus2().alarmId = -1;
     SystemNavigator.pop();
   }
-
 
   Future<void> rescheduleAlarm(int minutes) async {
     // Re-schedule alarm
@@ -200,8 +201,6 @@ class AlarmScreenState extends State<AlarmScreen> {
     dismissCurrentAlarm();
   }
 
-
-
   // @override
   // void initState() {
   //   super.initState();
@@ -210,13 +209,6 @@ class AlarmScreenState extends State<AlarmScreen> {
   //
   //
   // }
-
-
-
-
-
-
-
 
 }
 

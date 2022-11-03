@@ -1,5 +1,3 @@
-import 'package:wakeup/constants/theme_data.dart';
-import 'package:wakeup/utils/widget_helper.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -22,7 +20,7 @@ class SimpleButtonState extends State<SimpleButton> {
     // TODO: implement build
     throw UnimplementedError();
   }
-  
+
   // @override
   // Widget build(BuildContext context) {
   //   return NeumorphicButton(

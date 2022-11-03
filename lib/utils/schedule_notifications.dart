@@ -1,12 +1,16 @@
 import 'dart:async' show Future;
 import 'dart:math' show Random;
 import 'dart:typed_data' show Int64List;
-import 'dart:ui' show Color;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 //
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
+
+export 'dart:typed_data' show Int64List;
+
+export 'package:flutter/material.dart' show Color;
 
 /// Export those classes the user is likely to use and pass in.
 export 'package:flutter_local_notifications/flutter_local_notifications.dart'
@@ -26,8 +30,8 @@ export 'package:flutter_local_notifications/flutter_local_notifications.dart'
         Importance,
         InitializationSettings,
         InboxStyleInformation,
-        IOSNotificationDetails,
-        IOSNotificationAttachment,
+        DarwinNotificationDetails,
+        DarwinNotificationAttachment,
         MediaStyleInformation,
         NotificationAppLaunchDetails,
         NotificationDetails,
@@ -38,10 +42,6 @@ export 'package:flutter_local_notifications/flutter_local_notifications.dart'
         RepeatInterval,
         //SelectNotificationCallback,
         Time;
-
-export 'dart:typed_data' show Int64List;
-
-export 'package:flutter/material.dart' show Color;
 
 class ScheduleNotifications with HandleError {
 //
@@ -623,16 +623,16 @@ class ScheduleNotifications with HandleError {
       if (id == null || id < 0) id = Random().nextInt(999);
 
       try {
-        //
-        _flutterLocalNotificationsPlugin!.schedule(
-          id,
-          title,
-          body,
-          schedule,
-          notificationSpecifics,
-          payload: payload,
-          androidAllowWhileIdle: androidAllowWhileIdle ?? false,
-        );
+        _flutterLocalNotificationsPlugin?.zonedSchedule(
+            id,
+            title,
+            body,
+            tz.TZDateTime.from(_schedule ?? schedule, tz.local),
+            notificationSpecifics,
+            payload: payload,
+            androidAllowWhileIdle: androidAllowWhileIdle ?? false,
+            uiLocalNotificationDateInterpretation:
+                UILocalNotificationDateInterpretation.absoluteTime);
       } catch (ex) {
         id = -1;
         getError(ex);
@@ -852,15 +852,33 @@ class ScheduleNotifications with HandleError {
       try {
         //
         if (id == null || id < 0) id = Random().nextInt(999);
-
-        _flutterLocalNotificationsPlugin!.showDailyAtTime(
+        var dateTime = DateTime(
+            DateTime.now().year,
+            DateTime.now().month,
+            DateTime.now().day,
+            notificationTime.hour,
+            notificationTime.minute,
+            notificationTime.second);
+        _flutterLocalNotificationsPlugin?.zonedSchedule(
           id,
           title,
           body,
-          notificationTime,
+          tz.TZDateTime.from(dateTime, tz.local),
           notificationSpecifics,
           payload: payload,
+          androidAllowWhileIdle: true,
+          uiLocalNotificationDateInterpretation:
+              UILocalNotificationDateInterpretation.absoluteTime,
         );
+
+        // _flutterLocalNotificationsPlugin!.showDailyAtTime(
+        //   id,
+        //   title,
+        //   body,
+        //   notificationTime,
+        //   notificationSpecifics,
+        //   payload: payload,
+        // );
       } catch (ex) {
         id = -1;
         getError(ex);
@@ -967,15 +985,23 @@ class ScheduleNotifications with HandleError {
       try {
         //
         if (id == null || id < 0) id = Random().nextInt(999);
-
-        _flutterLocalNotificationsPlugin!.showWeeklyAtDayAndTime(
+        var dateTimeWeekly = DateTime(
+            DateTime.now().year,
+            DateTime.now().month,
+            day.value,
+            notificationTime.hour,
+            notificationTime.minute,
+            notificationTime.second);
+        _flutterLocalNotificationsPlugin?.zonedSchedule(
           id,
           title,
           body,
-          day,
-          notificationTime,
+          tz.TZDateTime.from(dateTimeWeekly, tz.local),
           notificationSpecifics,
           payload: payload,
+          androidAllowWhileIdle: true,
+          uiLocalNotificationDateInterpretation:
+              UILocalNotificationDateInterpretation.absoluteTime,
         );
       } catch (ex) {
         id = -1;
@@ -1029,7 +1055,7 @@ class ScheduleNotifications with HandleError {
     //List<IOSNotificationAttachment>? attachments,
   ) {
     //
-    NotificationDetails? notificationSpecifics = null;
+    NotificationDetails? notificationSpecifics;
 
     // Failed to initialized.
     if (!_init) {
@@ -1098,7 +1124,7 @@ class ScheduleNotifications with HandleError {
     }
 
     AndroidNotificationDetails androidSettings;
-    //IOSNotificationDetails iOSSettings;
+    DarwinNotificationDetails iOSSettings;
 
     try {
       androidSettings = AndroidNotificationDetails(
@@ -1143,22 +1169,22 @@ class ScheduleNotifications with HandleError {
       return notificationSpecifics;
     }
 
-    // try {
-    //   iOSSettings = IOSNotificationDetails(
-    //     presentAlert: presentAlert,
-    //     presentSound: presentSound,
-    //     presentBadge: presentBadge,
-    //     sound: soundFile,
-    //     badgeNumber: badgeNumber,
-    //     //attachments: attachments,
-    //   );
-    //
-    //   notificationSpecifics =
-    //       NotificationDetails(android: androidSettings, iOS: iOSSettings);
-    // } catch (ex) {
-    //   notificationSpecifics = null;
-    //   getError(ex);
-    // }
+    try {
+      iOSSettings = DarwinNotificationDetails(
+        presentAlert: presentAlert,
+        presentSound: presentSound,
+        presentBadge: presentBadge,
+        sound: soundFile,
+        badgeNumber: badgeNumber,
+        //attachments: attachments,
+      );
+
+      notificationSpecifics =
+          NotificationDetails(android: androidSettings, iOS: iOSSettings);
+    } catch (ex) {
+      notificationSpecifics = null;
+      getError(ex);
+    }
     return notificationSpecifics;
   }
 

@@ -13,7 +13,11 @@ class AlarmItem extends StatelessWidget {
   final ObservableAlarm alarm;
   final AlarmListManager manager;
 
-   AlarmItem({Key? key, required this.alarm, required this.manager, required this.alarms})
+  AlarmItem(
+      {Key? key,
+      required this.alarm,
+      required this.manager,
+      required this.alarms})
       : super(key: key);
 
   // late String hours = '10';
@@ -22,30 +26,29 @@ class AlarmItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-
       onTap: () async {
+        final time = await showTimePicker(
+            context: context,
+            initialEntryMode: TimePickerEntryMode.input,
+            initialTime: TimeOfDay(hour: alarm.hour!, minute: alarm.minute!));
+        if (time == null) {
+          return;
+        }
+        alarm.hour = time.hour;
+        alarm.minute = time.minute;
 
-      final time = await showTimePicker(
-          context: context,
-          initialEntryMode: TimePickerEntryMode.input,
-          initialTime: TimeOfDay(hour: alarm.hour!, minute: alarm.minute!));
-      // if (time == null) {
-      //   return;
-      // }
-      alarm.hour = (time?.hour ?? '10') as int?;
-      alarm.minute = (time?.minute ?? '10') as int?;
-
-      print('edit_alarm_time: $alarm');
-      await manager.saveAlarm(alarm);
-      await AlarmScheduler().scheduleAlarm(alarm);
-      // return true;
-    },
-          // () =>
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => EditAlarmTime(alarm: this.alarm, manager: manager))),
-                  //EditAlarm(alarm: this.alarm, manager: manager))),
-      child: Observer(builder: (context) =>
-          Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        print('edit_alarm_time: $alarm');
+        await manager.saveAlarm(alarm);
+        await AlarmScheduler().scheduleAlarm(alarm);
+        // return true;
+      },
+      // () =>
+      // Navigator.push(context, MaterialPageRoute(builder: (context) => EditAlarmTime(alarm: this.alarm, manager: manager))),
+      //EditAlarm(alarm: this.alarm, manager: manager))),
+      child: Observer(
+        builder: (context) => Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Row(
@@ -58,10 +61,10 @@ class AlarmItem extends StatelessWidget {
                     Text(
                       '${alarm.hour.toString().padLeft(2, '0')}:${alarm.minute.toString().padLeft(2, '0')}',
                       style: TextStyle(
-                        fontSize: 48,
-                        fontWeight: FontWeight.w800, //FontWeight.bold,
+                          fontSize: 48,
+                          fontWeight: FontWeight.w800, //FontWeight.bold,
                           color: CustomColors.sdTextPrimaryColor),
-                      ),
+                    ),
                     //DateRow(alarm: alarm)
                   ],
                 ),

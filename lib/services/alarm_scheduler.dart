@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:app_to_foreground/app_to_foreground.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wakeup/services/file_proxy.dart';
 import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
@@ -99,7 +99,6 @@ class AlarmScheduler {
   /// Creates a flag file that the main isolate can find on life cycle change
   /// For now just abusing the FileProxy class for testing
   static void createAlarmFlag(int id) async {
-
     print('alarm_scheduler: Creating a new alarm flag for ID $id');
     final dir = await getApplicationDocumentsDirectory();
     JsonFileStorage.toFile(File(dir.path + "/$id.alarm")).writeList([]);
@@ -107,9 +106,7 @@ class AlarmScheduler {
     final alarms = await new JsonFileStorage().readList();
     var alarm = alarms.firstWhere((element) => element.id == id);
 
-
     if (alarm.active! && Platform.isAndroid) {
-
       print('alarm_scheduler: Jestem tu 1');
       restartApp();
       Timer(Duration(seconds: 2), () {
@@ -119,8 +116,8 @@ class AlarmScheduler {
       return;
     }
 
-    final hours = alarm.hour.toString().padLeft(2, '0');
-    final minutes = alarm.minute.toString().padLeft(2, '0');
+    // final hours = alarm.hour.toString().padLeft(2, '0');
+    // final minutes = alarm.minute.toString().padLeft(2, '0');
 
     // await notifications.init(onSelectNotification: (String? payload) async {
     //   // if (payload == null || payload.trim().isEmpty) return null;

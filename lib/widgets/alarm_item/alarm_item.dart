@@ -1,9 +1,7 @@
-import 'package:wakeup/constants/theme_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:wakeup/constants/theme_data.dart';
 import 'package:wakeup/screens/edit_alarm/edit_alarm.dart';
 import 'package:wakeup/services/alarm_list_manager.dart';
-import 'package:wakeup/stores/alarm_list/alarm_list.dart';
 import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
 // import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -18,7 +16,7 @@ class AlarmItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    // var size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () => Navigator.push(
           context,
@@ -127,10 +125,6 @@ class AlarmItem extends StatelessWidget {
     );
   }
 }
-
-
-
-
 
 class DateRow extends StatelessWidget {
   final ObservableAlarm alarm;

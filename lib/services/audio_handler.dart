@@ -18,71 +18,78 @@ class MyAudioHandler extends BaseAudioHandler {
 
   static int nextMediaId = 0;
   final _playlist = ConcatenatingAudioSource(children: [
-  AudioSource.uri(
-    Uri.parse("asset:///assets/audios/1.mp3"),
-    tag: MediaItem(
-      id: '${nextMediaId++}',
-      album: "Wake Up Alarm",
-      title: "Monday",
-      artUri: Uri.parse("https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+    AudioSource.uri(
+      Uri.parse("asset:///assets/audios/1.mp3"),
+      tag: MediaItem(
+        id: '${nextMediaId++}',
+        album: "Wake Up Alarm",
+        title: "Monday",
+        artUri: Uri.parse(
+            "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+      ),
     ),
-  ),
-  AudioSource.uri(
-    Uri.parse("asset:///assets/audios/2.mp3"),
-    tag: MediaItem(
-      id: '${nextMediaId++}',
-      album: "Wake Up Alarm",
-      title: "Tuesday",
-      artUri: Uri.parse("https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+    AudioSource.uri(
+      Uri.parse("asset:///assets/audios/2.mp3"),
+      tag: MediaItem(
+        id: '${nextMediaId++}',
+        album: "Wake Up Alarm",
+        title: "Tuesday",
+        artUri: Uri.parse(
+            "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+      ),
     ),
-  ),
-  AudioSource.uri(
-    Uri.parse("asset:///assets/audios/3.mp3"),
-    tag: MediaItem(
-      id: '${nextMediaId++}',
-      album: "Wake Up Alarm",
-      title: "Wednesday",
-      artUri: Uri.parse( "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+    AudioSource.uri(
+      Uri.parse("asset:///assets/audios/3.mp3"),
+      tag: MediaItem(
+        id: '${nextMediaId++}',
+        album: "Wake Up Alarm",
+        title: "Wednesday",
+        artUri: Uri.parse(
+            "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+      ),
     ),
-  ),
-  AudioSource.uri(
-    Uri.parse("asset:///assets/audios/4.mp3"),
-    tag: MediaItem(
-      id: '${nextMediaId++}',
-      album: "Wake Up Alarm",
-      title: "Thursday",
-      artUri: Uri.parse( "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+    AudioSource.uri(
+      Uri.parse("asset:///assets/audios/4.mp3"),
+      tag: MediaItem(
+        id: '${nextMediaId++}',
+        album: "Wake Up Alarm",
+        title: "Thursday",
+        artUri: Uri.parse(
+            "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+      ),
     ),
-  ),
-  AudioSource.uri(
-    Uri.parse("asset:///assets/audios/5.mp3"),
-    tag: MediaItem(
-      id: '${nextMediaId++}',
-      album: "Wake Up Alarm",
-      title: "Friday",
-      artUri: Uri.parse( "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+    AudioSource.uri(
+      Uri.parse("asset:///assets/audios/5.mp3"),
+      tag: MediaItem(
+        id: '${nextMediaId++}',
+        album: "Wake Up Alarm",
+        title: "Friday",
+        artUri: Uri.parse(
+            "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+      ),
     ),
-  ),
-  AudioSource.uri(
-    Uri.parse("asset:///assets/audios/6.mp3"),
-    tag: MediaItem(
-      id: '${nextMediaId++}',
-      album: "Wake Up Alarm",
-      title: "Saturday",
-      artUri: Uri.parse( "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+    AudioSource.uri(
+      Uri.parse("asset:///assets/audios/6.mp3"),
+      tag: MediaItem(
+        id: '${nextMediaId++}',
+        album: "Wake Up Alarm",
+        title: "Saturday",
+        artUri: Uri.parse(
+            "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+      ),
     ),
-  ),
-  AudioSource.uri(
-    Uri.parse("asset:///assets/audios/7.mp3"),
-    tag: MediaItem(
-      id: '${nextMediaId++}',
-      album: "Wake Up Alarm",
-      title: "Sunday",
-      artUri: Uri.parse( "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+    AudioSource.uri(
+      Uri.parse("asset:///assets/audios/7.mp3"),
+      tag: MediaItem(
+        id: '${nextMediaId++}',
+        album: "Wake Up Alarm",
+        title: "Sunday",
+        artUri: Uri.parse(
+            "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+      ),
     ),
-  ),
-]);
-int _addedCount = 0;
+  ]);
+// int _addedCount = 0;
 
   MyAudioHandler() {
     _loadPlaylist();
@@ -215,7 +222,6 @@ int _addedCount = 0;
 
   @override
   Future<void> play() async {
-
     // final session = await AudioSession.instance;
     // await session.configure(const AudioSessionConfiguration.music());
     // Listen to errors during playback.
@@ -224,82 +230,82 @@ int _addedCount = 0;
 
     try {
       int x = DateTime.now().weekday - 1; //song of a week
-      await _player.setAudioSource(_playlist, initialIndex: x, initialPosition: Duration.zero);
+      await _player.setAudioSource(_playlist,
+          initialIndex: x, initialPosition: Duration.zero);
       await _player.setLoopMode(LoopMode.one);
       await _player.setShuffleModeEnabled(false);
 
       await _player.play();
-
     } catch (e, stackTrace) {
       // Catch load errors: 404, invalid url ...
       print("audio_handler: Error loading playlist: $e");
       print('audio_handler: $stackTrace');
     }
 
-        // _player.play();
+    // _player.play();
   }
 
-    @override
-    Future<void> pause() => _player.pause();
+  @override
+  Future<void> pause() => _player.pause();
 
-    @override
-    Future<void> seek(Duration position) => _player.seek(position);
+  @override
+  Future<void> seek(Duration position) => _player.seek(position);
 
-    @override
-    Future<void> skipToQueueItem(int index) async {
-      if (index < 0 || index >= queue.value.length) return;
-      if (_player.shuffleModeEnabled) {
-        index = _player.shuffleIndices![index];
-      }
-      _player.seek(Duration.zero, index: index);
+  @override
+  Future<void> skipToQueueItem(int index) async {
+    if (index < 0 || index >= queue.value.length) return;
+    if (_player.shuffleModeEnabled) {
+      index = _player.shuffleIndices![index];
     }
+    _player.seek(Duration.zero, index: index);
+  }
 
-    @override
-    Future<void> skipToNext() => _player.seekToNext();
+  @override
+  Future<void> skipToNext() => _player.seekToNext();
 
-    @override
-    Future<void> skipToPrevious() => _player.seekToPrevious();
+  @override
+  Future<void> skipToPrevious() => _player.seekToPrevious();
 
-    @override
-    Future<void> setRepeatMode(AudioServiceRepeatMode repeatMode) async {
-      switch (repeatMode) {
-        case AudioServiceRepeatMode.none:
-          _player.setLoopMode(LoopMode.off);
-          break;
-        case AudioServiceRepeatMode.one:
-          _player.setLoopMode(LoopMode.one);
-          break;
-        case AudioServiceRepeatMode.group:
-        case AudioServiceRepeatMode.all:
-          _player.setLoopMode(LoopMode.all);
-          break;
-      }
-    }
-
-    @override
-    Future<void> setShuffleMode(AudioServiceShuffleMode shuffleMode) async {
-      if (shuffleMode == AudioServiceShuffleMode.none) {
-        _player.setShuffleModeEnabled(false);
-      } else {
-        await _player.shuffle();
-        _player.setShuffleModeEnabled(true);
-      }
-    }
-
-    @override
-    Future customAction(String name, [Map<String, dynamic>? extras]) async {
-      if (name == 'dispose') {
-        await _player.dispose();
-        super.stop();
-      }
-    }
-
-    @override
-    Future<void> stop() async {
-      await _player.stop();
-      return super.stop();
+  @override
+  Future<void> setRepeatMode(AudioServiceRepeatMode repeatMode) async {
+    switch (repeatMode) {
+      case AudioServiceRepeatMode.none:
+        _player.setLoopMode(LoopMode.off);
+        break;
+      case AudioServiceRepeatMode.one:
+        _player.setLoopMode(LoopMode.one);
+        break;
+      case AudioServiceRepeatMode.group:
+      case AudioServiceRepeatMode.all:
+        _player.setLoopMode(LoopMode.all);
+        break;
     }
   }
+
+  @override
+  Future<void> setShuffleMode(AudioServiceShuffleMode shuffleMode) async {
+    if (shuffleMode == AudioServiceShuffleMode.none) {
+      _player.setShuffleModeEnabled(false);
+    } else {
+      await _player.shuffle();
+      _player.setShuffleModeEnabled(true);
+    }
+  }
+
+  @override
+  Future customAction(String name, [Map<String, dynamic>? extras]) async {
+    if (name == 'dispose') {
+      await _player.dispose();
+      super.stop();
+    }
+  }
+
+  @override
+  Future<void> stop() async {
+    await _player.stop();
+    return super.stop();
+  }
+}
 
 
 

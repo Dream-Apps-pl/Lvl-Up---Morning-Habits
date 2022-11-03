@@ -1,13 +1,9 @@
-import 'package:wakeup/constants/theme_data.dart';
 import 'package:flutter/material.dart';
-import 'package:wakeup/widgets/dialog_container/dialog_container.dart';
+import 'package:wakeup/constants/theme_data.dart';
 import 'package:wakeup/services/alarm_list_manager.dart';
 import 'package:wakeup/services/alarm_scheduler.dart';
 import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
-// import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-
-import '../../main.dart';
-import '../../stores/alarm_status/alarm_status.dart';
+import 'package:wakeup/widgets/dialog_container/dialog_container.dart';
 
 class EditAlarm extends StatelessWidget {
   final ObservableAlarm? alarm;
@@ -19,7 +15,6 @@ class EditAlarm extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-
         print('edit_alarm: onWillPop $alarm');
         await manager!.saveAlarm(alarm!);
         await AlarmScheduler().scheduleAlarm(alarm!);
