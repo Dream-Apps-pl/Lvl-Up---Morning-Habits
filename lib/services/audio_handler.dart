@@ -1,4 +1,5 @@
 import 'package:audio_service/audio_service.dart';
+import 'package:audio_session/audio_session.dart';
 import 'package:just_audio/just_audio.dart';
 
 Future<AudioHandler> initAudioService() async {
@@ -222,11 +223,13 @@ class MyAudioHandler extends BaseAudioHandler {
 
   @override
   Future<void> play() async {
-    // final session = await AudioSession.instance;
-    // await session.configure(const AudioSessionConfiguration.music());
+    final session = await AudioSession.instance;
+    await session.configure(const AudioSessionConfiguration.speech());
     // Listen to errors during playback.
-    // _playlist.playbackEventStream.listen((event) {}, onError: (Object e, StackTrace stackTrace) {
-    //   print('main_screen: A stream error occurred: $e');});
+    _player.playbackEventStream.listen((event) {},
+        onError: (Object e, StackTrace stackTrace) {
+      print('A stream error occurred: $e');
+    });
 
     try {
       int x = DateTime.now().weekday - 1; //song of a week
@@ -427,10 +430,10 @@ class MyAudioHandler extends BaseAudioHandler {
 //
 //
 //
-//   /// This function initializes the music player with a sound path and
-//   /// starts playing based on the given alarm configuration.
-//   /// @param alarm - An ObservableAlarm object holding ringtone description
-//   /// @param path - File path of sound to be played. This can be a local path or remote url.
+//    This function initializes the music player with a sound path and
+//    starts playing based on the given alarm configuration.
+//    @param alarm - An ObservableAlarm object holding ringtone description
+//    @param path - File path of sound to be played. This can be a local path or remote url.
 //   Future<bool> playSingle(ObservableAlarm alarm, String path) async {
 //
 //     // Prevent duplicate sounds
@@ -494,7 +497,7 @@ class MyAudioHandler extends BaseAudioHandler {
 //     return true;
 //   }
 //
-//   /// This function stops the music player
+//    This function stops the music player
 //   Future<void> stopMusic() async {
 //     // Notifies UI isolate that nothing is currently playing
 //     playingSoundPath.value = "";
@@ -509,9 +512,9 @@ class MyAudioHandler extends BaseAudioHandler {
 //     await Vibration.cancel();
 //   }
 //
-//   /// This function increases the device volume progressively from
-//   /// low to highest pitch.
-//   /// @param volume - The initial volume
+//    This function increases the device volume progressively from
+//    low to highest pitch.
+//    @param volume - The initial volume
 //   Future<void> increaseVolumeProgressively(double volume) async {
 //     print("media_handler: volume aaa: $volume");
 //     volumeTimer = Timer.periodic(Duration(seconds: 2), (timer) async {

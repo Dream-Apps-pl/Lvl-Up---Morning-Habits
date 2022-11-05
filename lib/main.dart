@@ -101,8 +101,9 @@ class MyAppState extends State<MyApp> {
           final id = status.alarmId;
           final alarm = list.alarms.firstWhere((alarm) => alarm.id == id,
               orElse: () => ObservableAlarm());
-
-          audioHandler.play();
+          if (mounted) {
+            audioHandler.play();
+          }
           Wakelock.enable();
 
           print('main: uruchamiam alarm! ');
