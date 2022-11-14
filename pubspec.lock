@@ -428,7 +428,7 @@ packages:
       name: json_serializable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.5.1"
+    version: "6.5.4"
   just_audio:
     dependency: "direct main"
     description:
@@ -659,7 +659,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.27.5"
+    version: "0.27.6"
   shared_preferences:
     dependency: transitive
     description:

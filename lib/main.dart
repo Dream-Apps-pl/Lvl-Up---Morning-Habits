@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:isolate';
+import 'dart:ui';
 
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,12 @@ import 'utils/schedule_notifications.dart';
 class Strings {
   static const String appTitle = 'Wake Up Alarm';
 }
+
+/// The name associated with the UI isolate's [SendPort].
+const String isolateName = 'isolate';
+
+/// A port used to communicate from a background isolate to the UI isolate.
+ReceivePort port = ReceivePort();
 
 AlarmList list = AlarmList();
 MyAudioHandler audioHandler = MyAudioHandler();
@@ -54,6 +62,13 @@ Future<void> main() async {
   T? _ambiguate<T>(T? value) => value;
   _ambiguate(WidgetsBinding.instance)!.addObserver(LifeCycleListener(list));
 
+  // Register the UI isolate's SendPort to allow for communication from the
+  // background isolate.
+  IsolateNameServer.registerPortWithName(
+    port.sendPort,
+    isolateName,
+  );
+
   await AndroidAlarmManager.initialize();
 
   AlarmPollingWorker().createPollingWorker();
@@ -76,11 +91,21 @@ class MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    callback();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  static SendPort? uiSendPort;
+  // The callback for our alarm
+  @pragma('vm:entry-point')
+  static Future<void> callback() async {
+    // This will be null if we're running in the background.
+    uiSendPort ??= IsolateNameServer.lookupPortByName(isolateName);
+    uiSendPort?.send(null);
   }
 
   @override

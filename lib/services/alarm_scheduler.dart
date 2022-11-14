@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:isolate';
+import 'dart:ui';
 
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:app_to_foreground/app_to_foreground.dart';
@@ -82,10 +84,18 @@ class AlarmScheduler {
         alarmHour, alarmMinute);
   }
 
+  static SendPort? uiSendPort;
+
+  // The callback for our alarm
+  @pragma('vm:entry-point')
   static void callback(int id) async {
+    print('callbackvm');
     final alarmId = callbackToAlarmId(id);
 
     createAlarmFlag(alarmId);
+    // This will be null if we're running in the background.
+    uiSendPort ??= IsolateNameServer.lookupPortByName(isolateName);
+    uiSendPort?.send(null);
   }
 
   /// Because each alarm might need to be able to schedule up to 7 android alarms (for each weekday)
@@ -144,7 +154,14 @@ class AlarmScheduler {
   }
 
   Future<void> newShot(DateTime targetDateTime, int id) async {
-    await AndroidAlarmManager.oneShotAt(targetDateTime, id, callback,
-        alarmClock: true, rescheduleOnReboot: true);
+    await AndroidAlarmManager.oneShotAt(
+      targetDateTime,
+      id,
+      callback,
+      exact: true,
+      wakeup: true,
+      alarmClock: true,
+      rescheduleOnReboot: true,
+    );
   }
 }

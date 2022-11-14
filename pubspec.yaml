@@ -29,7 +29,7 @@ dependencies:
 
   audio_session: ^0.1.10
   audio_service: 0.18.7
-  rxdart: ^0.27.5
+  rxdart: ^0.27.6
   just_audio: ^0.9.30
   just_audio_background: ^0.0.1-beta.7
 
