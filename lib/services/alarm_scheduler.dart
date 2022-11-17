@@ -8,6 +8,7 @@ import 'package:app_to_foreground/app_to_foreground.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wakeup/services/file_proxy.dart';
 import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
+import 'package:workmanager/workmanager.dart';
 
 import '../main.dart';
 
@@ -15,7 +16,11 @@ class AlarmScheduler {
   clearAlarm(ObservableAlarm alarm) {
     print("alarm_scheduler: clearAlarm: ${alarm.id}");
     for (var i = 0; i < 7; i++) {
-      AndroidAlarmManager.cancel(alarm.id! * 7 + i);
+      if (Platform.isAndroid) {
+        AndroidAlarmManager.cancel(alarm.id! * 7 + i);
+      } else {
+        Workmanager().cancelAll();
+      }
     }
   }
 
@@ -34,7 +39,11 @@ class AlarmScheduler {
 
     bool repeatAlarm = false;
     for (var i = 0; i < days.length; i++) {
-      await AndroidAlarmManager.cancel(scheduleId + i);
+      if (Platform.isAndroid) {
+        await AndroidAlarmManager.cancel(scheduleId + i);
+      } else {
+        Workmanager().cancelAll();
+      }
 
       print("alarm_scheduler: alarm.active: ${alarm.active}");
       print("alarm_scheduler: days[$i]: ${days[i]}");
@@ -154,14 +163,24 @@ class AlarmScheduler {
   }
 
   Future<void> newShot(DateTime targetDateTime, int id) async {
-    await AndroidAlarmManager.oneShotAt(
-      targetDateTime,
-      id,
-      callback,
-      exact: true,
-      wakeup: true,
-      alarmClock: true,
-      rescheduleOnReboot: true,
-    );
+    if (Platform.isAndroid) {
+      await AndroidAlarmManager.oneShotAt(
+        targetDateTime,
+        id,
+        callback,
+        exact: true,
+        wakeup: true,
+        alarmClock: true,
+        rescheduleOnReboot: true,
+      );
+    } else {
+      Workmanager().registerOneOffTask(
+        'task-identifier',
+        'task-identifier',
+        inputData: <String, dynamic>{
+          'key': targetDateTime.toString(),
+        },
+      );
+    }
   }
 }

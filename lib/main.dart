@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
@@ -10,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:wakeup/screens/main/home_screen.dart';
 import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
+import 'package:workmanager/workmanager.dart';
 
 import 'screens/alarm_screen/alarm_screen.dart';
 import 'services/alarm_polling_worker.dart';
@@ -41,6 +43,13 @@ NotificationAppLaunchDetails? notificationAppLaunchDetails;
 //     'Wake-up Alarm Notication',
 //     'Alerts on scheduled alarm events',
 //     appIcon: 'notification_logo');
+@pragma('vm:entry-point')
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) {
+    print("Native called background task:"); //simpleTask will be emitted here.
+    return Future.value(true);
+  });
+}
 
 Future<void> main() async {
   runApp(
@@ -68,12 +77,17 @@ Future<void> main() async {
     port.sendPort,
     isolateName,
   );
-
-  await AndroidAlarmManager.initialize();
+  if (Platform.isAndroid) {
+    await AndroidAlarmManager.initialize();
+  } else {
+    Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  }
 
   AlarmPollingWorker().createPollingWorker();
 
-  final externalPath = await getExternalStorageDirectory();
+  final externalPath = Platform.isAndroid
+      ? await getExternalStorageDirectory() //FOR ANDROID
+      : await getApplicationSupportDirectory(); //FOR iOS
   print('main: path: ${externalPath!.path}');
   if (!externalPath.existsSync()) externalPath.create(recursive: true);
 }
