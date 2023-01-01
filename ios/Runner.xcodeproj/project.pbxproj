@@ -360,7 +360,7 @@
 				DEVELOPMENT_TEAM = UN66LGSVXM;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Lvl-Up Morning Habits";
+				INFOPLIST_KEY_CFBundleDisplayName = "Lvl-Up - Morning Habits";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -491,7 +491,7 @@
 				DEVELOPMENT_TEAM = UN66LGSVXM;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Lvl-Up Morning Habits";
+				INFOPLIST_KEY_CFBundleDisplayName = "Lvl-Up - Morning Habits";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -517,7 +517,7 @@
 				DEVELOPMENT_TEAM = UN66LGSVXM;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Lvl-Up Morning Habits";
+				INFOPLIST_KEY_CFBundleDisplayName = "Lvl-Up - Morning Habits";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
