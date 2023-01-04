@@ -10,7 +10,7 @@ import workmanager
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
     UNUserNotificationCenter.current().delegate = self
-
+    UIApplication.shared.setMinimumBackgroundFetchInterval(TimeInterval(60*15))
     WorkmanagerPlugin.setPluginRegistrantCallback { registry in
             // Registry in this case is the FlutterEngine that is created in Workmanager's
             // performFetchWithCompletionHandler or BGAppRefreshTask.

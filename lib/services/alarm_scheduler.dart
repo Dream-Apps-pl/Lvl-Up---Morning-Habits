@@ -38,6 +38,7 @@ class AlarmScheduler {
     print("alarm_scheduler: days.length: ${days.length}");
 
     bool repeatAlarm = false;
+
     for (var i = 0; i < days.length; i++) {
       if (Platform.isAndroid) {
         await AndroidAlarmManager.cancel(scheduleId + i);
@@ -177,6 +178,7 @@ class AlarmScheduler {
       Workmanager().registerOneOffTask(
         'task-identifier',
         'task-identifier',
+        initialDelay: Duration(seconds: 2),
         inputData: <String, dynamic>{
           'key': targetDateTime.toString(),
         },
