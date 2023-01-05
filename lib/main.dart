@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
+import 'package:alarm/alarm.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -11,7 +12,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:wakeup/screens/main/home_screen.dart';
 import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
-import 'package:workmanager/workmanager.dart';
 
 import 'screens/alarm_screen/alarm_screen.dart';
 import 'services/alarm_polling_worker.dart';
@@ -38,18 +38,6 @@ MyAudioHandler audioHandler = MyAudioHandler();
 var playingSoundPath = ValueNotifier<String>("");
 
 NotificationAppLaunchDetails? notificationAppLaunchDetails;
-// ScheduleNotifications notifications = ScheduleNotifications(
-//     'wakeup_notification',
-//     'Wake-up Alarm Notication',
-//     'Alerts on scheduled alarm events',
-//     appIcon: 'notification_logo');
-@pragma('vm:entry-point')
-void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) {
-    print("Native called background task:"); //simpleTask will be emitted here.
-    return Future.value(true);
-  });
-}
 
 Future<void> main() async {
   runApp(
@@ -79,8 +67,6 @@ Future<void> main() async {
   );
   if (Platform.isAndroid) {
     await AndroidAlarmManager.initialize();
-  } else {
-    Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
   }
 
   AlarmPollingWorker().createPollingWorker();
@@ -102,9 +88,14 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  bool isRing = false;
   @override
   void initState() {
     super.initState();
+    if (Platform.isIOS) {
+      Alarm.init();
+      // checkIfRing();
+    }
     callback();
   }
 
@@ -120,6 +111,13 @@ class MyAppState extends State<MyApp> {
     // This will be null if we're running in the background.
     uiSendPort ??= IsolateNameServer.lookupPortByName(isolateName);
     uiSendPort?.send(null);
+  }
+
+  Future<void> checkIfRing() async {
+    bool _isRing = await Alarm.isRinging();
+    setState(() {
+      isRing = _isRing;
+    });
   }
 
   @override

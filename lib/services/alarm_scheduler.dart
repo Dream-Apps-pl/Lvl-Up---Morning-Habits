@@ -3,12 +3,13 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
+import 'package:alarm/alarm.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:app_to_foreground/app_to_foreground.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wakeup/services/file_proxy.dart';
+import 'package:wakeup/stores/alarm_status/alarm_status.dart';
 import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
-import 'package:workmanager/workmanager.dart';
 
 import '../main.dart';
 
@@ -18,8 +19,6 @@ class AlarmScheduler {
     for (var i = 0; i < 7; i++) {
       if (Platform.isAndroid) {
         AndroidAlarmManager.cancel(alarm.id! * 7 + i);
-      } else {
-        Workmanager().cancelAll();
       }
     }
   }
@@ -42,8 +41,6 @@ class AlarmScheduler {
     for (var i = 0; i < days.length; i++) {
       if (Platform.isAndroid) {
         await AndroidAlarmManager.cancel(scheduleId + i);
-      } else {
-        Workmanager().cancelAll();
       }
 
       print("alarm_scheduler: alarm.active: ${alarm.active}");
@@ -175,14 +172,14 @@ class AlarmScheduler {
         rescheduleOnReboot: true,
       );
     } else {
-      Workmanager().registerOneOffTask(
-        'task-identifier',
-        'task-identifier',
-        initialDelay: Duration(seconds: 2),
-        inputData: <String, dynamic>{
-          'key': targetDateTime.toString(),
-        },
-      );
+      await Alarm.set(
+          alarmDateTime: targetDateTime,
+          assetAudio: 'assets/audios/1.mp3',
+          notifTitle: 'Lvl-Up',
+          notifBody: 'wake up!',
+          onRing: (() {
+            AlarmStatus2().isAlarm = true;
+          }));
     }
   }
 }

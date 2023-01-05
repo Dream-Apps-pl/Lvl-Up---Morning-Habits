@@ -118,7 +118,6 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final AlarmListManager _manager = AlarmListManager(widget.alarms);
-
     return DefaultContainer(
       child: Column(
         children: <Widget>[

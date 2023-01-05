@@ -1,3 +1,4 @@
+import 'package:alarm/alarm.dart';
 import 'package:wakeup/constants/theme_data.dart';
 import 'package:wakeup/services/alarm_scheduler.dart';
 import 'package:flutter/material.dart';
@@ -96,6 +97,7 @@ class AlarmScreenState extends State<AlarmScreen> {
             ),
             ElevatedButton(
               onPressed: () {
+                Alarm.stop();
                 Wakelock.disable();
                 AlarmStatus2().isAlarm = false;
                 AlarmStatus2().alarmId = -1;
@@ -123,6 +125,7 @@ class AlarmScreenState extends State<AlarmScreen> {
             ElevatedButton(
               onPressed: () {
                 if (playing) {
+                  Alarm.stop();
                   audioHandler.pause();
                   print('alarm_screen: playing= $playing');
                 } else {

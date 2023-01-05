@@ -1,6 +1,5 @@
 import UIKit
 import Flutter
-import workmanager
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -10,16 +9,7 @@ import workmanager
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
     UNUserNotificationCenter.current().delegate = self
-    UIApplication.shared.setMinimumBackgroundFetchInterval(TimeInterval(60*15))
-    WorkmanagerPlugin.setPluginRegistrantCallback { registry in
-            // Registry in this case is the FlutterEngine that is created in Workmanager's
-            // performFetchWithCompletionHandler or BGAppRefreshTask.
-            // This will make other plugins available during a background operation.
-            GeneratedPluginRegistrant.register(with: registry)
-        }
 
-    WorkmanagerPlugin.registerTask(withIdentifier: "task-identifier")
-    
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 
