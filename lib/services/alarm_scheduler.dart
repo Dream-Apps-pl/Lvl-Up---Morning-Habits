@@ -174,7 +174,8 @@ class AlarmScheduler {
     } else {
       await Alarm.set(
           alarmDateTime: targetDateTime,
-          assetAudio: 'assets/audios/1.mp3', //run
+          assetAudio:
+              'assets/audios/1.mp3', //run audioHandler.play(); with current day
           loopAudio: true,
           notifTitle: 'Lvl-Up',
           notifBody: 'wake up!',
