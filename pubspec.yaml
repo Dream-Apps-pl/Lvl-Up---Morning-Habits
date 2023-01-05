@@ -28,7 +28,7 @@ dependencies:
   app_to_foreground: ^0.0.3
 
   audio_session: ^0.1.10
-  audio_service: 0.18.7
+  audio_service: ^0.18.9
   rxdart: ^0.27.6
   just_audio: ^0.9.30
   just_audio_background: ^0.0.1-beta.7
@@ -39,7 +39,7 @@ dependencies:
   change_app_package_name: ^1.1.0
   flutter_local_notifications: ^13.0.0
   provider: ^6.0.4
-  intl: ^0.17.0
+  intl: ^0.18.0
   mobx: ^2.1.1
   flutter_mobx: ^2.0.6+4
   json_annotation: ^4.7.0
@@ -47,7 +47,7 @@ dependencies:
   # flutter_audio_query: ^0.3.5+6
   android_alarm_manager_plus: ^2.1.0
   # workmanager: ^0.5.1
-  alarm: ^0.0.4
+  alarm: ^0.0.5
 
   wakelock: ^0.6.2
   #flutter_neumorphic: ^3.2.0

@@ -174,11 +174,13 @@ class AlarmScheduler {
     } else {
       await Alarm.set(
           alarmDateTime: targetDateTime,
-          assetAudio: 'assets/audios/1.mp3',
+          assetAudio: 'assets/audios/1.mp3', //run
+          loopAudio: true,
           notifTitle: 'Lvl-Up',
           notifBody: 'wake up!',
           onRing: (() {
             AlarmStatus2().isAlarm = true;
+            //run app and alarm screen?
           }));
     }
   }
