@@ -88,15 +88,15 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  bool isRing = false;
+  static SendPort? uiSendPort;
+
   @override
   void initState() {
     super.initState();
+    callback();
     if (Platform.isIOS) {
       Alarm.init();
-      // checkIfRing();
     }
-    callback();
   }
 
   @override
@@ -104,20 +104,12 @@ class MyAppState extends State<MyApp> {
     super.dispose();
   }
 
-  static SendPort? uiSendPort;
   // The callback for our alarm
   @pragma('vm:entry-point')
   static Future<void> callback() async {
     // This will be null if we're running in the background.
     uiSendPort ??= IsolateNameServer.lookupPortByName(isolateName);
     uiSendPort?.send(null);
-  }
-
-  Future<void> checkIfRing() async {
-    bool _isRing = await Alarm.isRinging();
-    setState(() {
-      isRing = _isRing;
-    });
   }
 
   @override
@@ -151,15 +143,6 @@ class MyAppState extends State<MyApp> {
           );
         }
         return HomeScreen(alarms: list);
-
-        //   ChangeNotifierProvider<MenuInfo>(
-        //   create: (context) => MenuInfo(MenuType.alarm, icon: Icons.timelapse), //Default open menu
-        //   child: Material(
-        //     child: NeumorphicBackground(
-        //       child: MainScreen(alarms: list),
-        //     ),
-        //   ),
-        // );
       }),
     );
   }

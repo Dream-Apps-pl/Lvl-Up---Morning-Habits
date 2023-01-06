@@ -8,7 +8,11 @@ import Flutter
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
-    UNUserNotificationCenter.current().delegate = self
+
+    SwiftFlutterForegroundTaskPlugin.setPluginRegistrantCallback(registerPlugins)
+    if #available(iOS 10.0, *) {
+      UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
+    }
 
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
@@ -19,4 +23,9 @@ import Flutter
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
          completionHandler(.alert) // shows banner even if app is in foreground
      }
+}
+
+// here
+func registerPlugins(registry: FlutterPluginRegistry) {
+  GeneratedPluginRegistrant.register(with: registry)
 }
