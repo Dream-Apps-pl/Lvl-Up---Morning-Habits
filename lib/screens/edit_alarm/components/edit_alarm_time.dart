@@ -20,9 +20,16 @@ class EditAlarmTime extends StatelessWidget {
   showPicker(context) async {
     // This is your function
     final time = await showTimePicker(
-        context: context,
-        initialEntryMode: TimePickerEntryMode.input,
-        initialTime: TimeOfDay(hour: alarm.hour!, minute: alarm.minute!));
+      context: context,
+      initialEntryMode: TimePickerEntryMode.dial, //digital input method
+      initialTime: TimeOfDay(hour: alarm.hour!, minute: alarm.minute!),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.dark(),
+          child: child!,
+        );
+      },
+    );
     if (time != null) {
       alarm.hour = time.hour;
       alarm.minute = time.minute;
@@ -43,7 +50,7 @@ class EditAlarmTime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      // Waiting your async function to finish
+        // Waiting your async function to finish
         future: showTPicker(context),
         builder: (context, snapshot) {
           // Async function finished
@@ -87,8 +94,6 @@ class EditAlarmTime extends StatelessWidget {
             // Show loading during the async function finish to process
             return Scaffold();
           }
-        }
-
-    );
+        });
   }
 }
