@@ -30,9 +30,9 @@ class AlarmScreenState extends State<AlarmScreen> {
   ObservableAlarm? alarm;
 
   @override
-  void initState() {
+  void initState() async {
     print('AlarmScreenState: uruchamiam alarm dźwiękowy i wizualny! ');
-    audioHandler.play();
+    await audioHandler.play();
     super.initState();
   }
 

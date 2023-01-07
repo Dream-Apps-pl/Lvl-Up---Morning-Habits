@@ -6,9 +6,7 @@ import 'dart:ui';
 import 'package:alarm/alarm.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:app_to_foreground/app_to_foreground.dart';
-import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:wakelock/wakelock.dart';
 import 'package:wakeup/services/file_proxy.dart';
 import 'package:wakeup/stores/alarm_status/alarm_status.dart';
 import 'package:wakeup/stores/observable_alarm/observable_alarm.dart';
@@ -176,20 +174,14 @@ class AlarmScheduler {
     } else {
       await Alarm.set(
           alarmDateTime: targetDateTime,
-          assetAudio:
-              'assets/audios/1.mp3', //run audioHandler.play(); with current day
+          assetAudio: audioHandler
+              .pathAudioByDay(), //run audioHandler.play(); with current day
           loopAudio: true,
           notifTitle: 'Lvl-Up',
           notifBody: 'wake up!',
           onRing: (() async {
             AlarmStatus2().isAlarm = true;
             //run app and alarm screen?
-            Wakelock.toggle(enable: true);
-            await LaunchApp.openApp(
-              iosUrlScheme: 'lvlupmorninghabits://',
-              // appStoreLink: '', // put link apple store when app already published
-              openStore: true,
-            );
           }));
     }
   }

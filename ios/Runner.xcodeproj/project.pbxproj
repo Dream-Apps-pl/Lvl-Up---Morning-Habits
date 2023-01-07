@@ -11,6 +11,12 @@
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		883FC0BB29667CC9008909AF /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 883FC0BA29667CC9008909AF /* 1.mp3 */; };
+		8897EBBC2969051B001296F6 /* 2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8897EBB62969051A001296F6 /* 2.mp3 */; };
+		8897EBBD2969051B001296F6 /* 6.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8897EBB72969051A001296F6 /* 6.mp3 */; };
+		8897EBBE2969051B001296F6 /* 4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8897EBB82969051A001296F6 /* 4.mp3 */; };
+		8897EBBF2969051B001296F6 /* 3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8897EBB92969051B001296F6 /* 3.mp3 */; };
+		8897EBC02969051B001296F6 /* 5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8897EBBA2969051B001296F6 /* 5.mp3 */; };
+		8897EBC12969051B001296F6 /* 7.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8897EBBB2969051B001296F6 /* 7.mp3 */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
@@ -41,6 +47,12 @@
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		883FC0BA29667CC9008909AF /* 1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = 1.mp3; path = ../../assets/audios/1.mp3; sourceTree = "<group>"; };
+		8897EBB62969051A001296F6 /* 2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = 2.mp3; path = ../../assets/audios/2.mp3; sourceTree = "<group>"; };
+		8897EBB72969051A001296F6 /* 6.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = 6.mp3; path = ../../assets/audios/6.mp3; sourceTree = "<group>"; };
+		8897EBB82969051A001296F6 /* 4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = 4.mp3; path = ../../assets/audios/4.mp3; sourceTree = "<group>"; };
+		8897EBB92969051B001296F6 /* 3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = 3.mp3; path = ../../assets/audios/3.mp3; sourceTree = "<group>"; };
+		8897EBBA2969051B001296F6 /* 5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = 5.mp3; path = ../../assets/audios/5.mp3; sourceTree = "<group>"; };
+		8897EBBB2969051B001296F6 /* 7.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = 7.mp3; path = ../../assets/audios/7.mp3; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +126,12 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				8897EBB62969051A001296F6 /* 2.mp3 */,
+				8897EBB92969051B001296F6 /* 3.mp3 */,
+				8897EBB82969051A001296F6 /* 4.mp3 */,
+				8897EBBA2969051B001296F6 /* 5.mp3 */,
+				8897EBB72969051A001296F6 /* 6.mp3 */,
+				8897EBBB2969051B001296F6 /* 7.mp3 */,
 				883FC0BA29667CC9008909AF /* 1.mp3 */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
@@ -190,11 +208,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8897EBC12969051B001296F6 /* 7.mp3 in Resources */,
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
+				8897EBBF2969051B001296F6 /* 3.mp3 in Resources */,
+				8897EBBD2969051B001296F6 /* 6.mp3 in Resources */,
+				8897EBBC2969051B001296F6 /* 2.mp3 in Resources */,
+				8897EBC02969051B001296F6 /* 5.mp3 in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
 				883FC0BB29667CC9008909AF /* 1.mp3 in Resources */,
+				8897EBBE2969051B001296F6 /* 4.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

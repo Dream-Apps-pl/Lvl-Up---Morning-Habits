@@ -30,7 +30,7 @@ class AlarmItem extends StatelessWidget {
         final time = await showTimePicker(
             context: context,
             // Uncomment when will show default as input
-            // initialEntryMode: TimePickerEntryMode.input, 
+            initialEntryMode: TimePickerEntryMode.input, 
             initialTime: TimeOfDay(hour: alarm.hour!, minute: alarm.minute!));
         if (time == null) {
           return;

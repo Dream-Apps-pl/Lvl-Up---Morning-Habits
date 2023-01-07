@@ -308,6 +308,28 @@ class MyAudioHandler extends BaseAudioHandler {
     await _player.stop();
     return super.stop();
   }
+
+  String pathAudioByDay() {
+    int x = DateTime.now().weekday - 1;
+    switch (x) {
+      case 1:
+        return 'assets/audios/1.mp3';
+      case 2:
+        return 'assets/audios/2.mp3';
+      case 3:
+        return 'assets/audios/3.mp3';
+      case 4:
+        return 'assets/audios/4.mp3';
+      case 5:
+        return 'assets/audios/5.mp3';
+      case 6:
+        return 'assets/audios/6.mp3';
+      case 7:
+        return 'assets/audios/7.mp3';
+      default:
+        return 'assets/audios/1.mp3';
+    }
+  }
 }
 
 
