@@ -130,7 +130,7 @@ class MyAppState extends State<MyApp> {
           final id = status.alarmId;
           final alarm = list.alarms.firstWhere((alarm) => alarm.id == id,
               orElse: () => ObservableAlarm());
-          if (mounted) {
+          if (mounted && Platform.isAndroid) {
             audioHandler.play();
           }
           Wakelock.enable();
