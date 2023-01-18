@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class SimpleButton extends StatefulWidget {
-  var textContent;
-  VoidCallback onPressed;
-  var isStroked = false;
-  var height = 40.0;
+  final String textContent;
+  final VoidCallback onPressed;
+  final bool isStroked;
+  final double height;
 
   SimpleButton(this.textContent,
       {required this.onPressed, this.isStroked = false, this.height = 45.0});
@@ -17,7 +17,6 @@ class SimpleButton extends StatefulWidget {
 class SimpleButtonState extends State<SimpleButton> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     throw UnimplementedError();
   }
 

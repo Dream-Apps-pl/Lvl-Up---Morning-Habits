@@ -133,52 +133,54 @@ class StartQuizState extends State<StartQuiz> {
         //   ),
         //   backgroundColor: HexColor("#6B443D"),
         // ),
-        body: Column(
-          children: <Widget>[
-            Expanded(
-              child: Align(
-                  alignment: Alignment.center,
-                  child: (_indexQuestion == 0) // && _indexQuestion >= 0)
-                      ? Quiz(
-                          answerQuestion: _answerQuestion,
-                          indexQuestion: _indexQuestion,
-                          data: _dataToday)
-                      : Result(_totalScore, _restart)),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
-                    if (playing) {
-                      audioHandler.pause();
-                      print('alarm_screen: playing= $playing');
-                    } else {
-                      audioHandler.play();
-                      print('alarm_screen: playing= $playing');
-                    }
-                    setState(() => playing = !playing);
-                  },
-                  child: Icon(playing ? Icons.pause : Icons.play_arrow,
-                      size: 30, color: Colors.black),
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all(CircleBorder()),
-                    padding: MaterialStateProperty.all(EdgeInsets.all(16)),
-                    backgroundColor: MaterialStateProperty.all(
-                        Colors.white), // <-- Button color
-                    overlayColor:
-                        MaterialStateProperty.resolveWith<Color?>((states) {
-                      if (states.contains(MaterialState.pressed)) {
-                        return CustomColors
-                            .sdSecondaryColorYellow; // <-- Splash color
+        body: SafeArea(
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: (_indexQuestion == 0) // && _indexQuestion >= 0)
+                        ? Quiz(
+                            answerQuestion: _answerQuestion,
+                            indexQuestion: _indexQuestion,
+                            data: _dataToday)
+                        : Result(_totalScore, _restart)),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ElevatedButton(
+                    onPressed: () {
+                      if (playing) {
+                        audioHandler.pause();
+                        print('alarm_screen: playing= $playing');
+                      } else {
+                        audioHandler.play();
+                        print('alarm_screen: playing= $playing');
                       }
-                      return CustomColors.sdAppWhite;
-                    }),
+                      setState(() => playing = !playing);
+                    },
+                    child: Icon(playing ? Icons.pause : Icons.play_arrow,
+                        size: 30, color: Colors.black),
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(CircleBorder()),
+                      padding: MaterialStateProperty.all(EdgeInsets.all(16)),
+                      backgroundColor: MaterialStateProperty.all(
+                          Colors.white), // <-- Button color
+                      overlayColor:
+                          MaterialStateProperty.resolveWith<Color?>((states) {
+                        if (states.contains(MaterialState.pressed)) {
+                          return CustomColors
+                              .sdSecondaryColorYellow; // <-- Splash color
+                        }
+                        return CustomColors.sdAppWhite;
+                      }),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
