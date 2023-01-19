@@ -47,7 +47,10 @@ dependencies:
   # flutter_audio_query: ^0.3.5+6
   android_alarm_manager_plus: ^2.1.0
   # workmanager: ^0.5.1
-  alarm: ^0.0.5
+  alarm:
+    git:
+      url: https://github.com/hifiaz/alarm.git
+      ref: feat/notif-when-kill-app
 
   wakelock: ^0.6.2
   #flutter_neumorphic: ^3.2.0

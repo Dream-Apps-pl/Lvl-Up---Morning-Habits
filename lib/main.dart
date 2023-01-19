@@ -6,8 +6,10 @@ import 'dart:ui';
 import 'package:alarm/alarm.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:wakeup/screens/main/home_screen.dart';
@@ -40,13 +42,18 @@ var playingSoundPath = ValueNotifier<String>("");
 NotificationAppLaunchDetails? notificationAppLaunchDetails;
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await JustAudioBackground.init(
+    androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
+    androidNotificationChannelName: 'Audio playback',
+    androidNotificationOngoing: true,
+  );
   runApp(
     Phoenix(
       child: MyApp(),
     ),
   );
-
-  WidgetsFlutterBinding.ensureInitialized();
 
   final alarms = await new JsonFileStorage().readList();
 
@@ -93,10 +100,10 @@ class MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    // if (Platform.isIOS) {
+    Alarm.init();
+    // }
     callback();
-    if (Platform.isIOS) {
-      Alarm.init();
-    }
   }
 
   @override
